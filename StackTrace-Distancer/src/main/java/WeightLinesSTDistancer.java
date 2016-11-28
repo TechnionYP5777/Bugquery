@@ -9,5 +9,6 @@ public class WeightLinesSTDistancer implements StackTraceDistancer {
      */
     @Override
     public double distance(String o1, String o2) {
+        return 0;
     }
 }
