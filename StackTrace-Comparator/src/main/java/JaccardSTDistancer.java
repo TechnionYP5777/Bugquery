@@ -6,7 +6,7 @@ import java.util.Set;
  * @author yonzarecki
  * @since 28.11.16
  */
-public class JaccardSTComparator implements StackTraceComparator {
+public class JaccardSTDistancer implements StackTraceDistancer {
 
     /**
      * @param s Stack trace string with newlines
@@ -29,7 +29,7 @@ public class JaccardSTComparator implements StackTraceComparator {
      * @return returns the jaccard distance, (union_size - intersection_size)
      */
     @Override
-    public int compare(String o1, String o2) {
+    public double distance(String o1, String o2) {
         Set<String> union = extractLineTuples(o1);
         union.addAll(extractLineTuples(o2));
 
