@@ -11,6 +11,6 @@ import java.util.List;
 public interface StackTraceComparator extends Comparator<String> {
 
     static List<String> splitByNewlines(String s) {
-        return new ArrayList<String>(Arrays.asList(s.split("[\\r\\n]+")));
+        return s != null ? new ArrayList<>(Arrays.asList(s.split("[\\r\\n]+"))) : new ArrayList<>();
     }
 }
