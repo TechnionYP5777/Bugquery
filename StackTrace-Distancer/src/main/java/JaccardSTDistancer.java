@@ -15,8 +15,8 @@ public class JaccardSTDistancer implements StackTraceDistancer {
     private Set<String> extractLineTuples(String s) {
         List<String> lines = StackTraceDistancer.splitByNewlines(s);
         HashSet<String> dbLines = new HashSet<>(); // retval
-        for (int i = 0; i < s.length(); i+=2) { // concat each 2 strings
-            if (i + 1 < s.length())  // indexes in/out_of range
+        for (int i = 0; i < lines.size(); i+=2) { // concat each 2 strings
+            if (i + 1 < lines.size())  // indexes in/out_of range
                 dbLines.add(lines.get(i) + lines.get(i+1));
             else
                 dbLines.add(lines.get(i));
