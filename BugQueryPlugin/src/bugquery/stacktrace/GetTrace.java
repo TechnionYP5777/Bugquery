@@ -2,16 +2,22 @@ package bugquery.stacktrace;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
 import org.eclipse.ui.console.*;
+
 /**
+ * GetTrace is a class for methods that return Strings with stack traces, using
+ * several inputs (e.g. consoles).
+ * 
  * @author Yosef
  * @since Nov 29 2016
  */
 public class GetTrace {
+
 	/**
 	 * @param exception,
 	 *            a Throwable
-	 * @return a String of @exception's stack trace
+	 * @return a String from @exception's stack trace
 	 */
 	public String fromException(Throwable exception) {
 		StringWriter s_writer = new StringWriter();
@@ -19,7 +25,7 @@ public class GetTrace {
 		exception.printStackTrace(writer);
 		return s_writer + "";
 	}
-	
+
 	/**
 	 * @param console_name
 	 * @return a new console, named @console_name.
@@ -42,7 +48,7 @@ public class GetTrace {
 
 	/**
 	 * @param name_str
-	 *            a subtring of the console's name
+	 *            a substring of the console's name
 	 * @return a console with a name that has @name_str as a substring within
 	 *         ConsoleManager. if it doesn't exist, returns the first available
 	 *         console, or an empty new one (if it doesn't exist either)
