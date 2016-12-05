@@ -1,13 +1,25 @@
 package bugquery.stacktrace;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import org.eclipse.ui.console.*;
-
 /**
  * @author Yosef
  * @since Nov 29 2016
  */
 public class GetTrace {
-
+	/**
+	 * @param exception,
+	 *            a Throwable
+	 * @return a String of @exception's stack trace
+	 */
+	public String fromException(Throwable exception) {
+		StringWriter s_writer = new StringWriter();
+		PrintWriter writer = new PrintWriter(s_writer);
+		exception.printStackTrace(writer);
+		return s_writer + "";
+	}
+	
 	/**
 	 * @param console_name
 	 * @return a new console, named @console_name.
