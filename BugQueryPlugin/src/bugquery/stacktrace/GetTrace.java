@@ -1,7 +1,10 @@
 package bugquery.stacktrace;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.awt.Toolkit;
+import java.awt.datatransfer.*;
 
 import org.eclipse.ui.console.*;
 
@@ -68,6 +71,29 @@ public class GetTrace {
 	 */
 	public String fromConsole() {
 		return getConsoleNamed("<terminated>").getDocument().get();
+	}
+
+	/**
+	 * @return system clipboard output
+	 */
+	public String fromClipboard() {
+		Transferable content;
+		String $ = "";
+
+		try {
+			content = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(this);
+		} catch (IllegalStateException e) {
+			return $ + "Illegal State";
+		}
+
+		if (content == null || !content.isDataFlavorSupported(DataFlavor.stringFlavor))
+			return $ + "Fail 2";
+		try {
+			$ += content.getTransferData(DataFlavor.stringFlavor);
+		} catch (UnsupportedFlavorException | IOException e) {
+			return $ + "3: " + e.getMessage();
+		}
+		return $;
 	}
 
 }

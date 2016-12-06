@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ExtractTrace offers extract(), which gets console output and (given that the
+ * ExtractTrace offers extract(), which gets some output and (given that the
  * output contains one) extracts a stack trace from it.
  * 
  * @author Yosef
@@ -17,14 +17,16 @@ public class ExtractTrace {
 	 * @param ¢
 	 *            the output from which trace extraction is needed
 	 * @return @no_trace if @¢ doesn't contain any stack traces. else, returns
-	 *         that trace. [[SuppressWarningsSpartan]] - wants to rename m to ¢,
-	 *         creating a bug.
+	 *         that trace. [[SuppressWarningsSpartan]] - Spartanizer wants to
+	 *         rename m "¢", creating a bug (¢ already exists)
 	 */
 	public String extract(String ¢) {
 		if (¢ == null)
 			return no_trace_en;
 		String $ = "";
-		for (Matcher m = Pattern.compile("Exception(.*)\n(\tat(.*)\n)*\tat(.*)").matcher(¢); m.find();)
+
+		for (Matcher m = Pattern.compile("Exception(.*)(\n|\r\n)(([ \t\n\f\r])*at(.*)(\n|\r\n))*([ \t\n\f\r])*at(.*)")
+				.matcher(¢); m.find();)
 			$ += m.group(0);
 		return $.length() > 0 ? $ : no_trace_en;
 	}

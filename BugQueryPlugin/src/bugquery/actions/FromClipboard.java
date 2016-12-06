@@ -11,11 +11,12 @@ import bugquery.stacktrace.GetTrace;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 
-public class FromConsole extends AbstractHandler {
+public class FromClipboard extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent e) throws ExecutionException {
-		String trace = new GetTrace().fromConsole();
+		String trace = new GetTrace().fromClipboard();
+		System.out.println();
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(e);
 		MessageDialog.openInformation(
 				window.getShell(),
