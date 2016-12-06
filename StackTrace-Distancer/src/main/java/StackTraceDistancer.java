@@ -10,9 +10,12 @@ import java.util.List;
  */
 public interface StackTraceDistancer {
 	
-	public double distance(String o1, String o2);
+	double distance(String o1, String o2);
 	
-    static List<String> splitByNewlines(String s) {
+    /**
+	 * [[SuppressWarningsSpartan]]
+	 */
+	static List<String> splitByNewlines(String s) {
         return s != null ? new ArrayList<>(Arrays.asList(s.split("[\\r\\n]+"))) : new ArrayList<>();
     }
 }
