@@ -1,5 +1,6 @@
+package com.bugquery.serverside.stacktrace;
+
 import junit.framework.TestCase;
-import org.junit.Before;
 
 /**
  * Created by yonatan on 29/11/16.
@@ -7,7 +8,6 @@ import org.junit.Before;
 public class JaccardSTDistancerTest extends TestCase {
     JaccardSTDistancer j;
 
-    @Before
     public void setUp() throws Exception {
         this.j = new JaccardSTDistancer();
     }

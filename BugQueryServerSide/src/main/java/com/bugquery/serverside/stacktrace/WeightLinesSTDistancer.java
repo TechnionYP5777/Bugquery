@@ -1,3 +1,5 @@
+package com.bugquery.serverside.stacktrace;
+
 import java.util.List;
 
 /**

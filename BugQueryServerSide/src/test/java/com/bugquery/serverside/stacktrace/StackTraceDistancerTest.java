@@ -1,3 +1,5 @@
+package com.bugquery.serverside.stacktrace;
+
 import junit.framework.TestCase;
 import org.junit.Test;
 
