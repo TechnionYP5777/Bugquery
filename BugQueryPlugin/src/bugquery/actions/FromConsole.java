@@ -14,12 +14,12 @@ public class FromConsole extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent e) throws ExecutionException {
-		
+		String trace = new GetTrace().fromConsole();
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(e);
 		MessageDialog.openInformation(
 				window.getShell(),
 				"BugQuery",
-				new GetTrace().fromConsole());
+				trace);
 		return null;
 	}
 }
