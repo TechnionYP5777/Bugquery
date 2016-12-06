@@ -56,7 +56,7 @@ public class ExtractTraceTest {
 	/**
 	 * parsing a real trace which uses some new whitespaces (spaces instead of
 	 * tabs, \r\n instead of \n). Example taken from:
-	 * http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors
+	 * http://stackoverflow.com/a/3988794
 	 */
 	@Test
 	public void traceWhitespace() {
@@ -64,6 +64,18 @@ public class ExtractTraceTest {
 				"Exception in thread \"main\" java.lang.NullPointerException\r\n        at com.example.myproject.Book.getTitle(Book.java:16)\r\n        at com.example.myproject.Author.getBookTitles(Author.java:25)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)",
 				et.extract(
 						"Exception in thread \"main\" java.lang.NullPointerException\r\n        at com.example.myproject.Book.getTitle(Book.java:16)\r\n        at com.example.myproject.Author.getBookTitles(Author.java:25)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\n"));
+	}
+
+	/**
+	 * parsing a trace which includes "Caused by:" should include that part as
+	 * well. another example from http://stackoverflow.com/a/3988794
+	 */
+	@Test
+	public void traceWithCausedBy() {
+		assertEquals(
+				"Exception in thread \"main\" java.lang.IllegalStateException: A book has a null property\r\n        at com.example.myproject.Author.getBookIds(Author.java:38)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\nCaused by: java.lang.NullPointerException\r\n        at com.example.myproject.Book.getId(Book.java:22)\r\n        at com.example.myproject.Author.getBookIds(Author.java:35)",
+				et.extract(
+						"Exception in thread \"main\" java.lang.IllegalStateException: A book has a null property\r\n        at com.example.myproject.Author.getBookIds(Author.java:38)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\nCaused by: java.lang.NullPointerException\r\n        at com.example.myproject.Book.getId(Book.java:22)\r\n        at com.example.myproject.Author.getBookIds(Author.java:35)\r\n\r\n"));
 	}
 
 }

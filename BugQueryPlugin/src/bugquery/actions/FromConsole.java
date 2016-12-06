@@ -11,16 +11,18 @@ import bugquery.stacktrace.GetTrace;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 
+/**
+ * a handler class, when a stack trace was printed in an output console
+ * 
+ * @author Yosef
+ */
 public class FromConsole extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent e) throws ExecutionException {
 		String trace = new GetTrace().fromConsole();
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(e);
-		MessageDialog.openInformation(
-				window.getShell(),
-				"BugQuery",
-				new ExtractTrace().extract(trace));
+		MessageDialog.openInformation(window.getShell(), "BugQuery", new ExtractTrace().extract(trace));
 		return null;
 	}
 }

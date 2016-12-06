@@ -11,6 +11,11 @@ import bugquery.stacktrace.GetTrace;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 
+/**
+ * a handler class, when a stack trace was copied to the clipboard
+ * 
+ * @author Yosef
+ */
 public class FromClipboard extends AbstractHandler {
 
 	@Override
@@ -18,10 +23,7 @@ public class FromClipboard extends AbstractHandler {
 		String trace = new GetTrace().fromClipboard();
 		System.out.println();
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(e);
-		MessageDialog.openInformation(
-				window.getShell(),
-				"BugQuery",
-				new ExtractTrace().extract(trace));
+		MessageDialog.openInformation(window.getShell(), "BugQuery", new ExtractTrace().extract(trace));
 		return null;
 	}
 }
