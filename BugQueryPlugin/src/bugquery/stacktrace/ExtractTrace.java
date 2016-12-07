@@ -25,7 +25,7 @@ public class ExtractTrace {
 			return no_trace_en;
 		String $ = "";
 
-		for (Matcher m = Pattern.compile("([ \t\n\f\r])*(Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)")
+		for (Matcher m = Pattern.compile("(([ \t\n\f\r])*Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)")
 				.matcher(¢); m.find();)
 			$ += m.group(0);
 		return $.length() > 0 ? $ : no_trace_en;
