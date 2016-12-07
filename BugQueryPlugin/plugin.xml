@@ -18,7 +18,7 @@
             id="bugquery.commands.fromclipboard">
       </command>
       <command
-            defaultHandler="bugquery.actions.FromClipboard"
+      		defaultHandler="bugquery.actions.FromConsole"
             id="bugquery.commands.dropdownmenu"
             name="BugQuery Toolbar">
       </command>
@@ -49,17 +49,16 @@
             locationURI="menu:bugquery.commands.dropdownmenu">
          <command
                commandId="bugquery.commands.fromclipboard"
-               id="bugquery.commands.dropdownmenu"
-               label="Trace from Clipboard">
+               label="Trace from Clipboard"
+               style="push">
          </command>
          <command
                commandId="bugquery.commands.fromconsole"
-               id="bugquery.commands.dropdownmenu"
-               label="Trace from Console">
+               label="Trace from Console"
+               style="push">
          </command>
       </menuContribution>
       <menuContribution
-            allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
                id="toolbarmenu">

@@ -2,7 +2,6 @@ package bugquery.actions;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
 import bugquery.stacktrace.GetTrace;
 
 /**
@@ -13,8 +12,8 @@ import bugquery.stacktrace.GetTrace;
 public class FromConsole extends AbstractHandler {
 
 	@Override
-	public Object execute(ExecutionEvent ¢) throws ExecutionException {
-		new SendTrace(new GetTrace().fromConsole(), ¢);
+	public Object execute(ExecutionEvent ¢) {
+		new SendTrace(new GetTrace().fromConsole());
 		return null;
 	}
 }
