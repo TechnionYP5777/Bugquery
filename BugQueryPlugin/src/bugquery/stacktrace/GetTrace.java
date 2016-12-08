@@ -1,12 +1,20 @@
 package bugquery.stacktrace;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.awt.Toolkit;
-import java.awt.datatransfer.*;
 
-import org.eclipse.ui.console.*;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.TextConsole;
 
 /**
  * GetTrace is a class for methods that return Strings with stack traces, using
@@ -80,20 +88,41 @@ public class GetTrace {
 		Transferable content;
 		String $ = "";
 
+		DataFlavor[] m = Toolkit.getDefaultToolkit().getSystemClipboard().getAvailableDataFlavors();
+		for (DataFlavor n : m)
+			System.out.println(n.getPrimaryType() + " " + n.getHumanPresentableName());
+
 		try {
-			content = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(this);
+			content = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
 		} catch (IllegalStateException e) {
-			return $ + "Illegal State";
+			return $;
 		}
 
 		if (content == null || !content.isDataFlavorSupported(DataFlavor.stringFlavor))
-			return $ + "Fail 2";
+			return $;
+
 		try {
 			$ += content.getTransferData(DataFlavor.stringFlavor);
 		} catch (UnsupportedFlavorException | IOException e) {
-			return $ + "3: " + e.getMessage();
+			return $;
 		}
+
 		return $;
+	}
+
+	/**
+	 * creates a new input dialog (ExtendedDialog)
+	 * 
+	 * @param s,
+	 *            a shell for our dialog
+	 * 
+	 * @return null if no window was opened, or if the window was closed without
+	 *         the OK button being clicked. otherwise, returns the input from
+	 *         the user.
+	 */
+	public String fromInputDialog(Shell s) {
+		ExtendedDialog dialog = new ExtendedDialog(s, "BugQuery Input", "Please Insert Your Output", null, null);
+		return dialog.open() != Window.OK ? null : dialog.getValue();
 	}
 
 }

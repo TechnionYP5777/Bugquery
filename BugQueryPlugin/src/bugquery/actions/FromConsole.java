@@ -2,6 +2,7 @@ package bugquery.actions;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
+
 import bugquery.stacktrace.GetTrace;
 
 /**

@@ -1,6 +1,7 @@
 package bugquery.actions;
 
-import org.eclipse.swt.program.*;
+import org.eclipse.swt.program.Program;
+
 import bugquery.stacktrace.ExtractTrace;
 
 /**
@@ -17,6 +18,7 @@ public class SendTrace {
 	}
 
 	SendTrace(String trace) {
-		sendBugQuery(new ExtractTrace().extract(trace));
+		if (trace != null && !trace.isEmpty())
+			sendBugQuery(new ExtractTrace().extract(trace));
 	}
 }

@@ -1,8 +1,10 @@
 package test.stacktrace;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import bugquery.stacktrace.ExtractTrace;
-import static org.junit.Assert.*;
-import org.junit.*;
 
 /**
  * Testing stack extraction of bugquery.stacktrace.ExtractTrace's methods
