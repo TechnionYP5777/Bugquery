@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: BugQuery
 Bundle-SymbolicName: BugQueryPlugin;singleton:=true
 Bundle-Version: 0.0.1
+Bundle-ClassPath: BugQueryPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.console,
  org.eclipse.jface.text;bundle-version="3.11.1",
