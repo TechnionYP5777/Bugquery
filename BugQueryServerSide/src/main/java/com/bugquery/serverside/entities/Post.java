@@ -1,6 +1,10 @@
 package com.bugquery.serverside.entities;
 
 public abstract class Post {
-	int Id;
-	String StackTrace;
+	public String Id;
+	public String stackTrace;
+	public Post(String Id, String stackTrace) {
+		this.Id = Id;
+		this.stackTrace = stackTrace;
+	}
 }
