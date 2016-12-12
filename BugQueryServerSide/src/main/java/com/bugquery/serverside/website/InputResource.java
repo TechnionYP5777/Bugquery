@@ -1,4 +1,7 @@
-package org.Website;
+package com.bugquery.serverside.website;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,7 +11,7 @@ import javax.ws.rs.QueryParam;
 @Path("")
 public class InputResource {
 	@GET
-	public String getStackTrace(@QueryParam("trace") String trace) {
+	public String getStackTrace(@QueryParam("q") String trace) {
 		return businessLogicStub(trace);
 	}
 	
@@ -19,5 +22,9 @@ public class InputResource {
 	
 	private String businessLogicStub(String trace) {
 		return trace;
+	}
+	
+	public List<Object> getResults() {
+		return Arrays.asList("one", "two", "three");
 	}
 }
