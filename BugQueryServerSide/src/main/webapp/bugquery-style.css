@@ -132,46 +132,11 @@ form {
 	font-family: inherit;
 }
 
-.button
-
-
-:hover
-
-
-:not
-
- 
-
-(
-.active
-
- 
-
-)
-{
-color
-
-
-:
-
- 
-
-#0070ca
-
-
-;
-border-color
-
-
-:
-
- 
-
-#0070ca
-
-
-;
+.button:hover {
+	color:#0070ca;
+	border-color:#0070ca;
 }
+
 .button:active {
 	background-color: #cfcfcf;
 }

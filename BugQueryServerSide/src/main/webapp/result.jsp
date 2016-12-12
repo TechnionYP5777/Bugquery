@@ -1,8 +1,8 @@
 <html>
 <head>
-<title>BugQuery - Search Results</title>
-<meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="bugquery-style.css">
+	<title>BugQuery - Search Results</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="bugquery-style.css">
 </head>
 <%@ page import="com.bugquery.serverside.website.Controller"%>
 <%@ page import="com.bugquery.serverside.entities.Post"%>
@@ -31,11 +31,7 @@
 			String[] trace = request.getParameterValues("q");
 			List<Post> results = new Controller().getResults(trace[0]);
 		%>
-		<h3>
-			BugQuery Results, explore
-			<%=results.size()%>
-			results found:
-		</h3>
+		<h3>BugQuery has found <%=results.size()%> results:</h3>
 		<div class="code-wrapper">
 			<%
 				if (trace != null && trace.length > 0) {
@@ -63,8 +59,7 @@
 	</div>
 	<div class="bugquery-footer">
 		<div class="wrapper">
-			<p>
-				© 2016 BugQuery.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.jsp">Home</a>&nbsp;-&nbsp;<a
+			<p>© 2016 BugQuery.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.jsp">Home</a>&nbsp;-&nbsp;<a
 					href="guide.html">User Guide</a>&nbsp;-&nbsp;<a href="submit.html">Submit
 					Your Trace</a>&nbsp;-&nbsp;<a
 					href="https://github.com/TechnionYP5777/Bugquery">BugQuery on
