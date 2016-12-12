@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="bugquery-style.css">
 </head>
-<%@ page import="com.bugquery.serverside.website.InputResource"%>
+<%@ page import="com.bugquery.serverside.website.Controller"%>
+<%@ page import="com.bugquery.serverside.entities.Post"%>
 <%@ page import="java.util.Arrays"%>
 <%@ page import="java.util.List"%>
 <body>
@@ -26,91 +27,39 @@
 		</div>
 	</div>
 	<div class="wrapper">
-		<% List<Object> results = new InputResource().getResults(); %>
+		<%
+			String[] trace = request.getParameterValues("q");
+			List<Post> results = new Controller().getResults(trace[0]);
+		%>
 		<h3>
 			BugQuery Results, explore
-			<%=results.size() %>
+			<%=results.size()%>
 			results found:
 		</h3>
-		<ul>
-			<% for (Object obj : results) { %>
-			<li><%=obj%></li>
-			<% } %>
-		</ul>
 		<div class="code-wrapper">
-			<% 
-					String[] trace = request.getParameterValues("q");
-					if (trace != null && trace.length != 0) {
-				%>
-			<code><%=trace[0] %></code>
-			<% } %>
+			<%
+				if (trace != null && trace.length > 0) {
+			%>
+			<code><%=trace[0]%></code>
+			<%
+				}
+			%>
 		</div>
+		<%
+			for (Post result : results) {
+		%>
 		<div class="bugquery-result">
 			<a class="bugquery-result-label"
 				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Matched
 				Trace, Original Post Title</a>
 			<div class="code-wrapper">
-				<code class="matched-trace">
-					Exception in thread "main" java.lang.IllegalStateException: A book
-					has a null property<br>&#9;at
-					com.example.myproject.Author.getBookIds(Author.java:38)<br>&#9;at
-					com.example.myproject.Bootstrap.main(Bootstrap.java:14)<br>Caused
-					by: java.lang.NullPointerException<br>&#9;at
-					com.example.myproject.Book.getId(Book.java:22)<br>&#9;at
-					com.example.myproject.Author.getBookIds(Author.java:36)<br>&#9;...
-					1 more
-				</code>
+				<code><%=result%></code>
 			</div>
-			<p>What's different about this one is the "Caused by". Sometimes
-				exceptions will have multiple "Caused by" sections. For these, you
-				typically want to find the "root cause", which will be one of the
-				lowest "Caused by" sections in the stack trace. In our case, it's.</p>
+			<p>Cool Result!</p>
 		</div>
-		<div class="bugquery-result">
-			<a class="bugquery-result-label"
-				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Replace
-				with the original post title of the Second Matched Trace, which has
-				multiple lines, just for web design testing purposes</a>
-			<div class="code-wrapper">
-				<code class="matched-trace">
-					javax.servlet.ServletException: Something bad happened<br>&#9;at
-					com.example.myproject.OpenSessionInViewFilter.doFilter(OpenSessionInViewFilter.java:60)<br>&#9;at
-					org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)<br>&#9;at
-					com.example.myproject.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:28)<br>&#9;at
-					org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)<br>&#9;at
-					com.example.myproject.OutputBufferFilter.doFilter(OutputBufferFilter.java:33)<br>&#9;at
-					org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)<br>&#9;at
-					org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:388)<br>&#9;at
-					org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216)<br>&#9;at
-					org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182)<br>&#9;at
-					org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:765)<br>&#9;at
-					org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:418)<br>&#9;at
-					org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152)<br>&#9;at
-					org.mortbay.jetty.Server.handle(Server.java:326)<br>&#9;at
-					org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542)<br>&#9;at
-					org.mortbay.jetty.HttpConnection$RequestHandler.content(HttpConnection.java:943)<br>&#9;at
-					org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:756)<br>&#9;at
-					org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:218)<br>&#9;at
-					org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404)<br>&#9;at
-					org.mortbay.jetty.bio.SocketConnector$Connection.run(SocketConnector.java:228)<br>&#9;at
-					org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)<br>Caused
-					by: com.example.myproject.MyProjectServletException<br>&#9;at
-					com.example.myproject.MyServlet.doPost(MyServlet.java:169)<br>&#9;at
-					javax.servlet.http.HttpServlet.service(HttpServlet.java:727)<br>&#9;at
-					javax.servlet.http.HttpServlet.service(HttpServlet.java:820)<br>&#9;at
-					org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511)<br>&#9;at
-					org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1166)<br>&#9;at
-					com.example.myproject.OpenSessionInViewFilter.doFilter(OpenSessionInViewFilter.java:30)<br>&#9;...
-					54 more
-				</code>
-			</div>
-			<p>A stacktrace is a very helpful debugging tool. It shows you
-				the call stack (meaning, the stack of functions that were called up
-				to that point) at the time an uncaught exception was thrown (or the
-				time the stacktrace was generated manually). This is very useful
-				because it doesn't only show you where the error happened, but also
-				how the program ended up in that place of the code.</p>
-		</div>
+		<%
+			}
+		%>
 	</div>
 	<div class="bugquery-footer">
 		<div class="wrapper">

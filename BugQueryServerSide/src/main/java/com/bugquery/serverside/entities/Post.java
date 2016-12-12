@@ -7,4 +7,9 @@ public abstract class Post {
 		this.Id = Id;
 		this.stackTrace = stackTrace;
 	}
+	
+	@Override
+	public String toString() {
+		return stackTrace;
+	}
 }
