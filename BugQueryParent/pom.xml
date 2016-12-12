@@ -8,6 +8,5 @@
   <modules>
   	<module>../BugQueryPlugin</module>
   	<module>../BugQueryServerSide</module>
-    <module>Website</module>
   </modules>
 </project>
