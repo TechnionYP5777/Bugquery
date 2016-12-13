@@ -7,6 +7,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>../BugQueryServerSide</module>
-  	<module>BugQueryPlugin</module>
+  	<module>../BugQueryPlugin</module>
   </modules>
 </project>
