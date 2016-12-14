@@ -8,8 +8,11 @@ public class DBGetter {
 	public void getConnection() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    for (ResultSet ¢ = DriverManager.getConnection("jdbc:mysql://localhost:4500/stackoverflow?user=root&password=root")
-				.createStatement().executeQuery("SELECT * FROM posts"); ¢.next();)
-			System.out.println(¢.getString("Id"));
+				.createStatement().executeQuery("SELECT * FROM posts"); ¢.next();){
+	    	System.out.println("PostId: "+¢.getString("Id"));
+	    	System.out.println("PostBody: " + ¢.getString("Body"));
+	    }
+			
 	    
 	}
 	
