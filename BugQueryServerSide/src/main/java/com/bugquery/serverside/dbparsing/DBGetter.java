@@ -13,9 +13,9 @@ public class DBGetter {
 	    for (ResultSet ¢ = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugquery?user=root&password=root")
 				.createStatement().executeQuery("SELECT * FROM so_posts"); ¢.next();){
 	    	List<String> res = StackTraceExtractor.extract(¢.getString("Body"));
-//	    	System.out.println("PostId: "+¢.getString("Id"));
 	    	if (!res.isEmpty())
-	    		System.out.println("PostBody: " + res.get(0));
+				System.out.println("PostBody: " + res.get(0));
+	    		
 	    }
 			
 	    
