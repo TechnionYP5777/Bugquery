@@ -18,8 +18,12 @@ public class StackTraceExtractor {
 		if(s == null)
 			return $;
 		Pattern p = Pattern.compile(StackTraceExtractor.stackTraceRegularExpression);
-		for (Matcher ¢ = p.matcher(s); ¢.find();)
+		for (Matcher ¢ = p.matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
 			$.add(¢.group(0));
 		return $;
+	}
+	
+	public static String removeHtmlTags(String ¢) {
+		return ¢.replaceAll("<[a-zA-Z0-9/]*>&#xA;&#xA;<[a-zA-Z0-9/]*>","\n").replaceAll("<[a-zA-Z0-9/]*>", "").replaceAll("&#xA;", "\n");
 	}
 }

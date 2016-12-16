@@ -295,4 +295,42 @@ public class StackTraceExtractorTest {
 		l.add(trace4);
 		assertEquals(l, getTrimmedListOfTraces(answer));	
 	}
+	
+	@Test
+	public void htmlTagsAreRemovedCorrectly() {
+		assertEquals(
+				("Sometimes when I run my application it gives me an error that looks like:\n"
+						+ "Exception in thread \"main\" java.lang.NullPointerException\n"
+						+ " at com.example.myproject.Book.getTitle(Book.java:16)\n"
+						+ " at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
+						+ " at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\n\n"
+						+ "People have referred to this as a \"stack trace\". What is a stack trace? What can it tell me about the error that's happening in my program?\n"
+						+ "\n\n"
+						+ "About this question - quite often I see a question come through where a novice programmer is \"getting an error\", and they simply paste their stack trace and some random"
+						+ "block of code without understanding what the stack trace is or how they can use it. This question is intended as a reference for novice programmers who might need help understanding the value of a stack trace.\n"),
+				StackTraceExtractor.removeHtmlTags(
+						("<p>Sometimes when I run my application it gives me an error that looks like:</p>&#xA;&#xA;<pre><code>Exception in thread \"main\" java.lang.NullPointerException&#xA;"
+								+ " at com.example.myproject.Book.getTitle(Book.java:16)&#xA; at com.example.myproject.Author.getBookTitles(Author.java:25)&#xA; at com.example.myproject.Bootstrap.main(Bootstrap.java:14)&#xA;</code></pre>&#xA;&#xA;<p>People have referred to this as a \"stack trace\"."
+								+ " <strong>What is a stack trace?</strong> What can it tell me about the error that's happening in my program?</p>&#xA;&#xA;<hr/>&#xA;&#xA;<p><em>About this question "
+								+ "- quite often I see a question come through where a novice programmer is \"getting an error\", and they simply paste their stack trace and some random"
+								+ "block of code without understanding what the stack trace is or how they can use it. This question is intended as a reference for novice"
+								+ " programmers who might need help understanding the value of a stack trace.</em></p>&#xA;")));
+	}
+	
+	@Test 
+	public void correctStackTraceIsReturnedFromPostWithHtmlTags() {
+		String postWithHtmlTags = "<p>Sometimes when I run my application it gives me an error that looks like:</p>&#xA;&#xA;<pre><code>Exception in thread \"main\" java.lang.NullPointerException&#xA;"
+				+ " at com.example.myproject.Book.getTitle(Book.java:16)&#xA; at com.example.myproject.Author.getBookTitles(Author.java:25)&#xA; at com.example.myproject.Bootstrap.main(Bootstrap.java:14)&#xA;</code></pre>&#xA;&#xA;<p>People have referred to this as a \"stack trace\"."
+				+ " <strong>What is a stack trace?</strong> What can it tell me about the error that's happening in my program?</p>&#xA;&#xA;<hr/>&#xA;&#xA;<p><em>About this question "
+				+ "- quite often I see a question come through where a novice programmer is \"getting an error\", and they simply paste their stack trace and some random "
+				+ "block of code without understanding what the stack trace is or how they can use it. This question is intended as a reference for novice"
+				+ " programmers who might need help understanding the value of a stack trace.</em></p>&#xA;";
+		String trace = "Exception in thread \"main\" java.lang.NullPointerException\n" + 
+				" at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
+				" at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
+				" at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
+		List<String> l = new ArrayList<>();
+		l.add(trace);
+		assertEquals(l, getTrimmedListOfTraces(postWithHtmlTags));
+	}
 }
