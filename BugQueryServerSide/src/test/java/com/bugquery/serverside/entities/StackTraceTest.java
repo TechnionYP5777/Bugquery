@@ -99,5 +99,24 @@ public class StackTraceTest {
 						+ "    at org.hibernate.id.insert.AbstractSelectingDelegate.performInsert(AbstractSelectingDelegate.java:57)\n"
 						+ "    ... 54 more"))).getException());
 	}
+	
+	@Test
+	public void correctExceptionForIssue37_2() {
+		assertEquals("java.lang.UnsatisfiedLinkError",
+				new StackTrace(
+						("Exception in thread \"main\" java.lang.UnsatisfiedLinkError: C:\\Program Files\\Java\\jre1.6.0_05\\bin\\awt.dll: The specified procedure could not be found\n"
+								+ "at java.lang.ClassLoader$NativeLibrary.load(Native Method)\n"
+								+ "    at java.lang.ClassLoader.loadLibrary0(Unknown Source)\n"
+								+ "    at java.lang.ClassLoader.loadLibrary(Unknown Source)\n"
+								+ "    at java.lang.Runtime.loadLibrary0(Unknown Source)\n"
+								+ "    at java.lang.System.loadLibrary(Unknown Source)\n"
+								+ "    at sun.security.action.LoadLibraryAction.run(Unknown Source)\n"
+								+ "    at java.security.AccessController.doPrivileged(Native Method)\n"
+								+ "    at sun.awt.NativeLibLoader.loadLibraries(Unknown Source)\n"
+								+ "    at sun.awt.DebugHelper.<clinit>(Unknown Source)\n"
+								+ "    at java.awt.EventQueue.<clinit>(Unknown Source)\n"
+								+ "    at javax.swing.SwingUtilities.invokeLater(Unknown Source)\n"
+								+ "    at ui.sequencer.test.WindowTest.main(WindowTest.java:136)")).getException());
+	}
 
 }

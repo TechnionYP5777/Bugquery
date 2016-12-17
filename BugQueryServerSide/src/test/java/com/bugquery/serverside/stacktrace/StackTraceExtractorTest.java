@@ -219,9 +219,7 @@ public class StackTraceExtractorTest {
 				"        at com.example.myproject.Book.getId(Book.java:22)\n" + 
 				"        at com.example.myproject.Author.getBookIds(Author.java:35)\n" + 
 				"        ... 1 more";
-		String trace3 = "java.lang.NullPointerException <-- root cause\n" + 
-				"        at com.example.myproject.Book.getId(Book.java:22) <-- important line";
-		String trace4 = "javax.servlet.ServletException: Something bad happened\n" + 
+		String trace3 = "javax.servlet.ServletException: Something bad happened\n" + 
 				"    at com.example.myproject.OpenSessionInViewFilter.doFilter(OpenSessionInViewFilter.java:60)\n" + 
 				"    at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)\n" + 
 				"    at com.example.myproject.ExceptionHandlerFilter.doFilter(ExceptionHandlerFilter.java:28)\n" + 
@@ -287,7 +285,6 @@ public class StackTraceExtractorTest {
 		l.add(new StackTrace(trace1));
 		l.add(new StackTrace(trace2));
 		l.add(new StackTrace(trace3));
-		l.add(new StackTrace(trace4));
 		assertEquals(l, StackTraceExtractor.extract(answer));	
 	}
 	

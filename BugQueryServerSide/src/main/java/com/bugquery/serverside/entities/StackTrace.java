@@ -43,8 +43,10 @@ public class StackTrace {
 	}
 	
 	private String getExceptionNameFromExceptionLine(String exceptionLine) {
-		return !exceptionLine.contains(":") ? exceptionLine.substring(exceptionLine.lastIndexOf(" ") + 1)
-				: exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
+		if(exceptionLine.contains("Caused by:"))
+			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
+		String relevantLine = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
+		return relevantLine.substring(relevantLine.lastIndexOf(" ") + 1);
 	}
 	
 	private String getException(String stackTrace) {
@@ -58,10 +60,9 @@ public class StackTrace {
 			Pattern p = Pattern.compile(this.exceptionRegex);
 			Matcher m = p.matcher(stackTrace);
 			if (!m.find())
-				/*TODO: decide what to do if no exception is found*/
-				assert true;
-			else
-				exceptionLine = m.group(0).trim();
+				throw new RuntimeException("Can't get exception from stack trace: " + stackTrace);
+			exceptionLine = m.group(0).trim();
+			System.out.println(exceptionLine);
 		}
 		return getExceptionNameFromExceptionLine(exceptionLine);
 	}
