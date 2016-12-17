@@ -17,13 +17,6 @@ import com.bugquery.serverside.entities.StackTrace;
  */
 public class StackTraceExtractorTest {
 	
-	private List<StackTrace> getTrimmedListOfTraces(String query) {
-		List<StackTrace> $ = new ArrayList<>();
-		for(StackTrace ¢: StackTraceExtractor.extract(query))
-			$.add(new StackTrace(¢.getStackTrace().trim()));
-		return $;
-	}
-	
 	@Test
 	public void emptyListIsReturnedForNullStringAndEmptyString() {
 		assertEquals(new ArrayList<StackTrace>(), StackTraceExtractor.extract(null));
@@ -91,7 +84,7 @@ public class StackTraceExtractorTest {
 				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
 		List<StackTrace> l = new ArrayList<>();
 		l.add(new StackTrace(trace));
-		assertEquals(l, getTrimmedListOfTraces(question));
+		assertEquals(l, StackTraceExtractor.extract(question));
 	}
 	
 	
@@ -295,7 +288,7 @@ public class StackTraceExtractorTest {
 		l.add(new StackTrace(trace2));
 		l.add(new StackTrace(trace3));
 		l.add(new StackTrace(trace4));
-		assertEquals(l, getTrimmedListOfTraces(answer));	
+		assertEquals(l, StackTraceExtractor.extract(answer));	
 	}
 	
 	@Test
@@ -333,6 +326,6 @@ public class StackTraceExtractorTest {
 				" at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
 		List<StackTrace> l = new ArrayList<>();
 		l.add(new StackTrace(trace));
-		assertEquals(l, getTrimmedListOfTraces(postWithHtmlTags));
+		assertEquals(l, StackTraceExtractor.extract(postWithHtmlTags));
 	}
 }

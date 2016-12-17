@@ -34,7 +34,7 @@ public class StackTraceExtractor {
 			return $;
 		Pattern p = Pattern.compile(StackTraceExtractor.stackTraceRegularExpression);
 		for (Matcher ¢ = p.matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
-			$.add(new StackTrace(¢.group(0)));
+			$.add(new StackTrace(¢.group(0).trim()));
 		return $;
 	}
 	
