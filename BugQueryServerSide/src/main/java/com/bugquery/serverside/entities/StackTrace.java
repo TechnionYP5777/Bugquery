@@ -62,7 +62,6 @@ public class StackTrace {
 			if (!m.find())
 				throw new RuntimeException("Can't get exception from stack trace: " + stackTrace);
 			exceptionLine = m.group(0).trim();
-			System.out.println(exceptionLine);
 		}
 		return getExceptionNameFromExceptionLine(exceptionLine);
 	}
@@ -76,13 +75,7 @@ public class StackTrace {
 	}
 	
 	@Override
-    public boolean equals(Object obj) {
-       if (!(obj instanceof StackTrace))
-            return false;
-        if (obj == this)
-            return true;
-
-        StackTrace rhs = (StackTrace) obj;
-        return this.getStackTrace().equals(rhs.getStackTrace());
-    }
+    public boolean equals(Object ¢) {
+		return ¢ instanceof StackTrace && (¢ == this || this.getStackTrace().equals(((StackTrace) ¢).getStackTrace()));
+	}
 }

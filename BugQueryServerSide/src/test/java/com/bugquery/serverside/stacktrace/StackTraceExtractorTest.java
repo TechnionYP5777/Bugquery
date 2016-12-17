@@ -325,4 +325,41 @@ public class StackTraceExtractorTest {
 		l.add(new StackTrace(trace));
 		assertEquals(l, StackTraceExtractor.extract(postWithHtmlTags));
 	}
+	
+	@Test
+	public void correctStackTraceForIssue37_1() {
+		String post = "<p>I was hoping someone could help me out with a problem I'm having using the java search function in Eclipse on a particular project.</p>&#xA;&#xA;<p>When using the java search on one particular project, I get an error message saying <code>Class file name must end with .class</code> (see stack trace below). This does not seem to be happening on all projects, just one particular one, so perhaps there's something I should try to get rebuilt?</p>&#xA;&#xA;<p>I have already tried <code>Project -&gt;"
+				+ " Clean</code>... and Closing Eclipse, deleting all the built class files and restarting Eclipse to no avail.</p>&#xA;&#xA;<p>The only reference I've been able to find on Google for the problem is at <a href=\"http://www.crazysquirrel.com/computing/java/eclipse/error-during-java-search.jspx\">http://www.crazysquirrel.com/computing/java/eclipse/error-during-java-search.jspx</a>, but unfortunately his solution (closing, deleting class files, restarting) did not work for me.</p>&#xA;&#xA;<p>If anyone can suggest"
+				+ " something to try, or there's any more info I can gather which might help track it's down, I'd greatly appreciate the pointers.</p>&#xA;&#xA;<pre><code>Version: 3.4.0&#xA;Build id: I20080617-2000&#xA;</code></pre>&#xA;&#xA;<p>Also just found this thread - <a href=\"http://www.myeclipseide.com/PNphpBB2-viewtopic-t-20067.html\">http://www.myeclipseide.com/PNphpBB2-viewtopic-t-20067.html</a> - which indicates the same problem may occur when the project name contains a period. Unfortunately, that's not the case in my setup,"
+				+ " so I'm still stuck.</p>&#xA;&#xA;<pre><code>Caused by: java.lang.IllegalArgumentException: Class file name must end with .class&#xA;at org.eclipse.jdt.internal.core.PackageFragment.getClassFile(PackageFragment.java:182)&#xA;at org.eclipse.jdt.internal.core.util.HandleFactory.createOpenable(HandleFactory.java:109)&#xA;at org.eclipse.jdt.internal.core.search.matching.MatchLocator.locateMatches(MatchLocator.java:1177)&#xA;at org.eclipse.jdt.internal.core.search.JavaSearchParticipant.locateMatches(JavaSearchParticipant.java:94)&#xA;"
+				+ "at org.eclipse.jdt.internal.core.search.BasicSearchEngine.findMatches(BasicSearchEngine.java:223)&#xA;at org.eclipse.jdt.internal.core.search.BasicSearchEngine.search(BasicSearchEngine.java:506)&#xA;at org.eclipse.jdt.core.search.SearchEngine.search(SearchEngine.java:551)&#xA;at org.eclipse.jdt.internal.corext.refactoring.RefactoringSearchEngine.internalSearch(RefactoringSearchEngine.java:142)&#xA;at org.eclipse.jdt.internal.corext.refactoring.RefactoringSearchEngine.search(RefactoringSearchEngine.java:129)&#xA;at "
+				+ "org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor.initializeReferences(RenameTypeProcessor.java:594)&#xA;at org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor.doCheckFinalConditions(RenameTypeProcessor.java:522)&#xA;at org.eclipse.jdt.internal.corext.refactoring.rename.JavaRenameProcessor.checkFinalConditions(JavaRenameProcessor.java:45)&#xA;at org.eclipse.ltk.core.refactoring.participants.ProcessorBasedRefactoring.checkFinalConditions(ProcessorBasedRefactoring.java:225)&#xA;at org.eclipse.ltk.core.refactoring.Refactoring.checkAllConditions(Refactoring.java:160)&#xA;"
+				+ "at org.eclipse.jdt.internal.ui.refactoring.RefactoringExecutionHelper$Operation.run(RefactoringExecutionHelper.java:77)&#xA;at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)&#xA;at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:709)&#xA;at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1800)&#xA;at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:4650)&#xA;at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:92)&#xA;at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)"
+				+ "&#xA;</code></pre>&#xA;&#xA;<p>Thanks McDowell, closing and opening the project seems to have fixed it (at least for now).</p>&#xA;";
+		String trace = "Caused by: java.lang.IllegalArgumentException: Class file name must end with .class\n" + 
+			"at org.eclipse.jdt.internal.core.PackageFragment.getClassFile(PackageFragment.java:182)\n" + 
+			"at org.eclipse.jdt.internal.core.util.HandleFactory.createOpenable(HandleFactory.java:109)\n" + 
+			"at org.eclipse.jdt.internal.core.search.matching.MatchLocator.locateMatches(MatchLocator.java:1177)\n" + 
+			"at org.eclipse.jdt.internal.core.search.JavaSearchParticipant.locateMatches(JavaSearchParticipant.java:94)\n" + 
+			"at org.eclipse.jdt.internal.core.search.BasicSearchEngine.findMatches(BasicSearchEngine.java:223)\n" + 
+			"at org.eclipse.jdt.internal.core.search.BasicSearchEngine.search(BasicSearchEngine.java:506)\n" + 
+			"at org.eclipse.jdt.core.search.SearchEngine.search(SearchEngine.java:551)\n" + 
+			"at org.eclipse.jdt.internal.corext.refactoring.RefactoringSearchEngine.internalSearch(RefactoringSearchEngine.java:142)\n" + 
+			"at org.eclipse.jdt.internal.corext.refactoring.RefactoringSearchEngine.search(RefactoringSearchEngine.java:129)\n" + 
+			"at org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor.initializeReferences(RenameTypeProcessor.java:594)\n" + 
+			"at org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor.doCheckFinalConditions(RenameTypeProcessor.java:522)\n" + 
+			"at org.eclipse.jdt.internal.corext.refactoring.rename.JavaRenameProcessor.checkFinalConditions(JavaRenameProcessor.java:45)\n" + 
+			"at org.eclipse.ltk.core.refactoring.participants.ProcessorBasedRefactoring.checkFinalConditions(ProcessorBasedRefactoring.java:225)\n" + 
+			"at org.eclipse.ltk.core.refactoring.Refactoring.checkAllConditions(Refactoring.java:160)\n" + 
+			"at org.eclipse.jdt.internal.ui.refactoring.RefactoringExecutionHelper$Operation.run(RefactoringExecutionHelper.java:77)\n" + 
+			"at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)\n" + 
+			"at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:709)\n" + 
+			"at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1800)\n" + 
+			"at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:4650)\n" + 
+			"at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:92)\n" + 
+			"at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)";
+		List<StackTrace> l = new ArrayList<>();
+		l.add(new StackTrace(trace));
+		assertEquals(l, StackTraceExtractor.extract(post));
+	}
 }

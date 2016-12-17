@@ -118,5 +118,33 @@ public class StackTraceTest {
 								+ "    at javax.swing.SwingUtilities.invokeLater(Unknown Source)\n"
 								+ "    at ui.sequencer.test.WindowTest.main(WindowTest.java:136)")).getException());
 	}
+	
+	@Test
+	public void correctExceptionForIssue37_1() {
+		assertEquals("java.lang.IllegalArgumentException",
+				new StackTrace(("Caused by: java.lang.IllegalArgumentException: Class file name must end with .class\n"
+						+ "at org.eclipse.jdt.internal.core.PackageFragment.getClassFile(PackageFragment.java:182)\n"
+						+ "at org.eclipse.jdt.internal.core.util.HandleFactory.createOpenable(HandleFactory.java:109)\n"
+						+ "at org.eclipse.jdt.internal.core.search.matching.MatchLocator.locateMatches(MatchLocator.java:1177)\n"
+						+ "at org.eclipse.jdt.internal.core.search.JavaSearchParticipant.locateMatches(JavaSearchParticipant.java:94)\n"
+						+ "at org.eclipse.jdt.internal.core.search.BasicSearchEngine.findMatches(BasicSearchEngine.java:223)\n"
+						+ "at org.eclipse.jdt.internal.core.search.BasicSearchEngine.search(BasicSearchEngine.java:506)\n"
+						+ "at org.eclipse.jdt.core.search.SearchEngine.search(SearchEngine.java:551)\n"
+						+ "at org.eclipse.jdt.internal.corext.refactoring.RefactoringSearchEngine.internalSearch(RefactoringSearchEngine.java:142)\n"
+						+ "at org.eclipse.jdt.internal.corext.refactoring.RefactoringSearchEngine.search(RefactoringSearchEngine.java:129)\n"
+						+ "at org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor.initializeReferences(RenameTypeProcessor.java:594)\n"
+						+ "at org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor.doCheckFinalConditions(RenameTypeProcessor.java:522)\n"
+						+ "at org.eclipse.jdt.internal.corext.refactoring.rename.JavaRenameProcessor.checkFinalConditions(JavaRenameProcessor.java:45)\n"
+						+ "at org.eclipse.ltk.core.refactoring.participants.ProcessorBasedRefactoring.checkFinalConditions(ProcessorBasedRefactoring.java:225)\n"
+						+ "at org.eclipse.ltk.core.refactoring.Refactoring.checkAllConditions(Refactoring.java:160)\n"
+						+ "at org.eclipse.jdt.internal.ui.refactoring.RefactoringExecutionHelper$Operation.run(RefactoringExecutionHelper.java:77)\n"
+						+ "at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOperation.java:39)\n"
+						+ "at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:709)\n"
+						+ "at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1800)\n"
+						+ "at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:4650)\n"
+						+ "at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:92)\n"
+						+ "at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)"))
+								.getException());
+	}
 
 }
