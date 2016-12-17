@@ -27,6 +27,6 @@ public class StackOverflowPost extends Post {
 	}
 	//TODO: need to decide which stacktrace to choose, for now, first one.
 	private static String getStackTrace(String body){
-		return StackTraceExtractor.extract(body).get(0).trim();
+		return StackTraceExtractor.extract(body).get(0).getStackTrace().trim();
 	}
 }

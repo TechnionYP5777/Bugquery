@@ -14,17 +14,20 @@ import java.util.regex.Pattern;
 public class StackTrace {
 	private String exception;
 	private List<String> stackOfCalls;
+	private String stackTrace;
 	private final String causedByRegex = "Caused by:.*[: \\n]";
 	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[:  \\n])";
 	private final int indexOfExceptionNameInCausedBy = 1;
-	public StackTrace(String exception, List<String> stackOfCalls) {
+	public StackTrace(String stackTrace, String exception, List<String> stackOfCalls) {
 		this.exception = exception;
 		this.stackOfCalls = stackOfCalls;
+		this.stackTrace = stackTrace;
 	}
 	
 	public StackTrace(String stackTrace) {
 		this.exception = this.getException(stackTrace);
 		this.stackOfCalls = this.getStackOfCalls(stackTrace);
+		this.stackTrace = stackTrace;
 	}
 	
 	public String getException() {
@@ -33,6 +36,10 @@ public class StackTrace {
 	
 	public List<String> getStackOfCalls() {
 		return this.stackOfCalls;
+	}
+	
+	public String getStackTrace() {
+		return this.stackTrace;
 	}
 	
 	private String getExceptionNameFromExceptionLine(String exceptionLine) {
@@ -51,8 +58,10 @@ public class StackTrace {
 			Pattern p = Pattern.compile(this.exceptionRegex);
 			Matcher m = p.matcher(stackTrace);
 			if (!m.find())
-				throw new RuntimeException("Can't get exception from stacktrace: " + stackTrace);
-			exceptionLine = m.group(0).trim();
+				/*TODO: decide what to do if no exception is found*/
+				assert true;
+			else
+				exceptionLine = m.group(0).trim();
 		}
 		return getExceptionNameFromExceptionLine(exceptionLine);
 	}
@@ -64,4 +73,15 @@ public class StackTrace {
 			$.add(¢.trim());
 		return $;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+       if (!(obj instanceof StackTrace))
+            return false;
+        if (obj == this)
+            return true;
+
+        StackTrace rhs = (StackTrace) obj;
+        return this.getStackTrace().equals(rhs.getStackTrace());
+    }
 }

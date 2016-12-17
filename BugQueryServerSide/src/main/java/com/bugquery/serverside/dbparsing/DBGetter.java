@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 public class DBGetter {
@@ -12,9 +13,9 @@ public class DBGetter {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    for (ResultSet ¢ = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugquery?user=root&password=root")
 				.createStatement().executeQuery("SELECT * FROM so_posts"); ¢.next();){
-	    	List<String> res = StackTraceExtractor.extract(¢.getString("Body"));
+	    	List<StackTrace> res = StackTraceExtractor.extract(¢.getString("Body"));
 	    	if (!res.isEmpty())
-				System.out.println("PostBody: " + res.get(0));
+				System.out.println("PostBody: " + res.get(0).getStackTrace());
 	    		
 	    }
 			

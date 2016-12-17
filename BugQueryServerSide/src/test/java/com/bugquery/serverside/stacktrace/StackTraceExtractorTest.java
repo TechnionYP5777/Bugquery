@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.bugquery.serverside.entities.StackTrace;
+
 /**
  * This test class is based on the answers in 
  * http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors
@@ -15,17 +17,17 @@ import org.junit.Test;
  */
 public class StackTraceExtractorTest {
 	
-	private List<String> getTrimmedListOfTraces(String query) {
-		List<String> $ = new ArrayList<>();
-		for(String ¢: StackTraceExtractor.extract(query))
-			$.add(¢.trim());
+	private List<StackTrace> getTrimmedListOfTraces(String query) {
+		List<StackTrace> $ = new ArrayList<>();
+		for(StackTrace ¢: StackTraceExtractor.extract(query))
+			$.add(new StackTrace(¢.getStackTrace().trim()));
 		return $;
 	}
 	
 	@Test
 	public void emptyListIsReturnedForNullStringAndEmptyString() {
-		assertEquals(new ArrayList<String>(), StackTraceExtractor.extract(null));
-		assertEquals(new ArrayList<String>(), StackTraceExtractor.extract(""));
+		assertEquals(new ArrayList<StackTrace>(), StackTraceExtractor.extract(null));
+		assertEquals(new ArrayList<StackTrace>(), StackTraceExtractor.extract(""));
 	}
 	
 	/*
@@ -35,7 +37,7 @@ public class StackTraceExtractorTest {
 	 */
 	@Test
 	public void emptyListIsReturnedForStringWithoutStackTrace() {
-		assertEquals(new ArrayList<String>(), StackTraceExtractor.extract(
+		assertEquals(new ArrayList<StackTrace>(), StackTraceExtractor.extract(
 				("I'm trying to make a program that consists of an array of 10 integers which all has a random value, so far so good.\n"
 						+ "\n"
 						+ "However, now I need to sort them in order from lowest to highest value and then print it onto the screen, how would I go about doing so?\n"
@@ -66,8 +68,8 @@ public class StackTraceExtractorTest {
 				"        at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				"        at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		List<String> l = new ArrayList<>();
-		l.add(trace);
+		List<StackTrace> l = new ArrayList<>();
+		l.add(new StackTrace(trace));
 		assertEquals(l,StackTraceExtractor.extract(trace));
 	}
 	
@@ -87,8 +89,8 @@ public class StackTraceExtractorTest {
 				"        at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				"        at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		List<String> l = new ArrayList<>();
-		l.add(trace);
+		List<StackTrace> l = new ArrayList<>();
+		l.add(new StackTrace(trace));
 		assertEquals(l, getTrimmedListOfTraces(question));
 	}
 	
@@ -288,11 +290,11 @@ public class StackTraceExtractorTest {
 				"    at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeUpdate(NewProxyPreparedStatement.java:105)\n" + 
 				"    at org.hibernate.id.insert.AbstractSelectingDelegate.performInsert(AbstractSelectingDelegate.java:57)\n" + 
 				"    ... 54 more";
-		List<String> l = new ArrayList<>();
-		l.add(trace1);
-		l.add(trace2);
-		l.add(trace3);
-		l.add(trace4);
+		List<StackTrace> l = new ArrayList<>();
+		l.add(new StackTrace(trace1));
+		l.add(new StackTrace(trace2));
+		l.add(new StackTrace(trace3));
+		l.add(new StackTrace(trace4));
 		assertEquals(l, getTrimmedListOfTraces(answer));	
 	}
 	
@@ -329,8 +331,8 @@ public class StackTraceExtractorTest {
 				" at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				" at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				" at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		List<String> l = new ArrayList<>();
-		l.add(trace);
+		List<StackTrace> l = new ArrayList<>();
+		l.add(new StackTrace(trace));
 		assertEquals(l, getTrimmedListOfTraces(postWithHtmlTags));
 	}
 }
