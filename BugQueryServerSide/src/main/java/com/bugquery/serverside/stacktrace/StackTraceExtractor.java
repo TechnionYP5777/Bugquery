@@ -14,19 +14,7 @@ import com.bugquery.serverside.entities.StackTrace;
  *
  */
 public class StackTraceExtractor {
-	private static final String stackTraceRegularExpression = "([ \\t\\n\\f\\r])*(Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)((\n|\r\n)*([ \t\f\r])*(Caused by:)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*(...(.*)(more)(\\n|\\r\\n)))*";
-	/*
-	 * @deprecated, will be removed soon
-	 */
-	public static List<String> extractStringsStackTraces(String s) {
-		List<String> $ = new ArrayList<>();
-		if(s == null)
-			return $;
-		Pattern p = Pattern.compile(StackTraceExtractor.stackTraceRegularExpression);
-		for (Matcher ¢ = p.matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
-			$.add(¢.group(0));
-		return $;
-	}
+	private static final String stackTraceRegularExpression = "([ \\t\\n\\f\\r])*([a-zA-Z0-9\\.]*Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)((\n|\r\n)*([ \t\f\r])*(Caused by:)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*(...(.*)(more)(\\n|\\r\\n)))*";
 	
 	public static List<StackTrace> extract(String s) {
 		List<StackTrace> $ = new ArrayList<>();
