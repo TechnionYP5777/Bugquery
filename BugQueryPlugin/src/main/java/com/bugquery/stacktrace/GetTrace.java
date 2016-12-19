@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
@@ -97,6 +98,9 @@ public class GetTrace {
 			return $;
 		}
 
+		System.out.println("size, " + content.getTransferDataFlavors().length);
+		System.out.println(content);
+
 		if (content == null || !content.isDataFlavorSupported(DataFlavor.stringFlavor))
 			return $;
 
@@ -109,6 +113,12 @@ public class GetTrace {
 		}
 
 		return $;
+	}
+
+	public String fromClipboard2() {
+		ClipboardDialog dialog = new ClipboardDialog(Display.getCurrent().getActiveShell(), "BugQuery Input", "", null,
+				null);
+		return dialog.open() != Window.OK ? null : dialog.getValue();
 	}
 
 	/**
