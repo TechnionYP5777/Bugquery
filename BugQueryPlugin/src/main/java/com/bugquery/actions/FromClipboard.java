@@ -13,7 +13,7 @@ import com.bugquery.stacktrace.GetTrace;
 public class FromClipboard extends AbstractHandler {
 
 	public Object execute(ExecutionEvent ¢) {
-		new SendTrace(new GetTrace().fromClipboard());
+		new SendTrace(new GetTrace().fromClipboard2());
 		return null;
 	}
 }
