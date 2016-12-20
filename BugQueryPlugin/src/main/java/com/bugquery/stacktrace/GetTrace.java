@@ -31,10 +31,9 @@ public class GetTrace {
 	 * @return a String from @exception's stack trace
 	 */
 	public String fromException(Throwable exception) {
-		StringWriter s_writer = new StringWriter();
-		PrintWriter writer = new PrintWriter(s_writer);
-		exception.printStackTrace(writer);
-		return s_writer + "";
+		StringWriter $ = new StringWriter();
+		exception.printStackTrace(new PrintWriter($));
+		return $ + "";
 	}
 
 	/**
@@ -42,9 +41,9 @@ public class GetTrace {
 	 * @return a new console, named @console_name.
 	 */
 	private TextConsole emptyNewConsole(String console_name) {
-		MessageConsole new_console = new MessageConsole(console_name, null);
-		ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { new_console });
-		return (TextConsole) new_console;
+		MessageConsole $ = new MessageConsole(console_name, null);
+		ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { $ });
+		return (TextConsole) $;
 	}
 
 	/**
@@ -65,10 +64,10 @@ public class GetTrace {
 	 *         console, or an empty new one (if it doesn't exist either)
 	 */
 	private TextConsole getConsoleNamed(String name_str) {
-		IConsole[] available = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
-		for (int ¢ = 0; ¢ < available.length; ++¢)
-			if (available[¢].getName().indexOf(name_str) != -1)
-				return (TextConsole) available[¢];
+		IConsole[] $ = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
+		for (int ¢ = 0; ¢ < $.length; ++¢)
+			if ($[¢].getName().indexOf(name_str) != -1)
+				return (TextConsole) $[¢];
 
 		// no console by that name exists yet
 		return getFirstConsole();
@@ -81,8 +80,9 @@ public class GetTrace {
 		return getConsoleNamed("<terminated>").getDocument().get();
 	}
 
-	/**
+	/** 
 	 * @return system clipboard output
+	 * [[SuppressWarningsSpartan]] - causes issue with Maven
 	 */
 	public String fromClipboard() {
 		Transferable content;
@@ -106,9 +106,9 @@ public class GetTrace {
 
 		try {
 			$ += content.getTransferData(DataFlavor.stringFlavor);
-		} catch (IOException e) {
-			return $;
 		} catch (UnsupportedFlavorException e) {
+			return $;
+		} catch (IOException e) {
 			return $;
 		}
 
@@ -116,9 +116,9 @@ public class GetTrace {
 	}
 
 	public String fromClipboard2() {
-		ClipboardDialog dialog = new ClipboardDialog(Display.getCurrent().getActiveShell(), "BugQuery Input", "", null,
+		ClipboardDialog $ = new ClipboardDialog(Display.getCurrent().getActiveShell(), "BugQuery Input", "", null,
 				null);
-		return dialog.open() != Window.OK ? null : dialog.getValue();
+		return $.open() != Window.OK ? null : $.getValue();
 	}
 
 	/**
@@ -131,9 +131,9 @@ public class GetTrace {
 	 *         the OK button being clicked. otherwise, returns the input from
 	 *         the user.
 	 */
-	public String fromInputDialog(Shell s) {
-		ExtendedDialog dialog = new ExtendedDialog(s, "BugQuery Input", "Please Insert Your Output", null, null);
-		return dialog.open() != Window.OK ? null : dialog.getValue();
+	public String fromInputDialog(Shell ¢) {
+		ExtendedDialog $ = new ExtendedDialog(¢, "BugQuery Input", "Please Insert Your Output", null, null);
+		return $.open() != Window.OK ? null : $.getValue();
 	}
 
 }
