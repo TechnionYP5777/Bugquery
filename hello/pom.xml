@@ -3,36 +3,39 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework</groupId>
-    <artifactId>gs-serving-web-content</artifactId>
-    <version>0.1.0</version>
+    <groupId>com.bugquery</groupId>
+    <artifactId>BugQueryServerSide</artifactId>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.2.RELEASE</version>
+        <groupId>com.bugquery</groupId>
+        <artifactId>BugQueryParent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../BugQueryParent</relativePath>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${spring-boot-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <version>${spring-boot-version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <properties>
-        <start-class>hello.Application</start-class>
         <java.version>1.8</java.version>
+        <spring-boot-version>1.4.2.RELEASE</spring-boot-version>
     </properties>
 
 
@@ -41,6 +44,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-version}</version>
+                <configuration>
+        			<mainClass>hello.Application</mainClass>
+    			</configuration>                
             </plugin>
         </plugins>
     </build>
