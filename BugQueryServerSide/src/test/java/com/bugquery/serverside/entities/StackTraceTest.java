@@ -150,7 +150,7 @@ public class StackTraceTest {
 	@Test
 	public void correctExceptionForIssue37_3() {
 		assertEquals("java.sql.BatchUpdateException",
-				new StackTrace(("java.sql.BatchUpdateException: Incorrect string value: '\\xF1a' for column 'body' at row 1\n" + 
+				new StackTrace("java.sql.BatchUpdateException: Incorrect string value: '\\xF1a' for column 'body' at row 1\n" + 
 						"    at com.mysql.jdbc.ServerPreparedStatement.executeBatch(ServerPreparedStatement.java:657)\n" + 
 						"    at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeBatch(NewProxyPreparedStatement.java:1723)\n" + 
 						"    at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:48)\n" + 
@@ -198,7 +198,14 @@ public class StackTraceTest {
 						"    at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:844)\n" + 
 						"    at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:581)\n" + 
 						"    at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:447)\n" + 
-						"    at java.lang.Thread.run(Unknown Source)"))
+						"    at java.lang.Thread.run(Unknown Source)")
+								.getException());
+	}
+	
+	@Test
+	public void checkReturnsNoExceptionFoundForBadlyFormatted_Exception_in() {
+		assertEquals(StackTrace.noExceptionFound,
+				new StackTrace("Exception in sdfsdf")
 								.getException());
 	}
 	

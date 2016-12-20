@@ -12,12 +12,15 @@ import java.util.regex.Pattern;
  *
  */
 public class StackTrace {
-	private String exception; // exception type
-	private List<String> stackOfCalls;
-	private String stackTrace; // the whole stack-trace
+	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
 	private final String causedByRegex = "Caused by:.*[: \\n]";
 	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[:  \\n])";
 	private final int indexOfExceptionNameInCausedBy = 1;
+	
+	private String exception; // exception type
+	private List<String> stackOfCalls;
+	private String stackTrace; // the whole stack-trace
+
 	public StackTrace(String stackTrace, String exception, List<String> stackOfCalls) {
 		this.exception = exception;
 		this.stackOfCalls = stackOfCalls;
@@ -62,7 +65,7 @@ public class StackTrace {
 			Pattern p = Pattern.compile(this.exceptionRegex);
 			Matcher m = p.matcher(stackTrace);
 			if (!m.find())
-				throw new RuntimeException("Can't get exception from stack trace: " + stackTrace);
+				return StackTrace.noExceptionFound;
 			exceptionLine = m.group(0).trim();
 		}
 		return getExceptionNameFromExceptionLine(exceptionLine);
