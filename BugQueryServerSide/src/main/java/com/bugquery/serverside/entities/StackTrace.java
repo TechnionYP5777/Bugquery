@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
  *
  */
 public class StackTrace {
-	private String exception;
+	private String exception; // exception type
 	private List<String> stackOfCalls;
-	private String stackTrace;
+	private String stackTrace; // the whole stack-trace
 	private final String causedByRegex = "Caused by:.*[: \\n]";
 	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[:  \\n])";
 	private final int indexOfExceptionNameInCausedBy = 1;
@@ -56,7 +56,9 @@ public class StackTrace {
 			for (Matcher ¢ = p.matcher(stackTrace); ¢.find();)
 				exceptionLine = ¢.group(0); 
 			exceptionLine = exceptionLine.trim();
-		} else {
+		} else if (!stackTrace.contains("Exception in")) 
+			exceptionLine = stackTrace.split("\n")[0];
+		else {
 			Pattern p = Pattern.compile(this.exceptionRegex);
 			Matcher m = p.matcher(stackTrace);
 			if (!m.find())

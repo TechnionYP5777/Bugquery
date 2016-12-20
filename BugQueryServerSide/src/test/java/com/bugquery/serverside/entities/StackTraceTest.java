@@ -146,5 +146,61 @@ public class StackTraceTest {
 						+ "at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)"))
 								.getException());
 	}
+	
+	@Test
+	public void correctExceptionForIssue37_3() {
+		assertEquals("java.sql.BatchUpdateException",
+				new StackTrace(("java.sql.BatchUpdateException: Incorrect string value: '\\xF1a' for column 'body' at row 1\n" + 
+						"    at com.mysql.jdbc.ServerPreparedStatement.executeBatch(ServerPreparedStatement.java:657)\n" + 
+						"    at com.mchange.v2.c3p0.impl.NewProxyPreparedStatement.executeBatch(NewProxyPreparedStatement.java:1723)\n" + 
+						"    at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:48)\n" + 
+						"    at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:242)\n" + 
+						"    at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:235)\n" + 
+						"    at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:139)\n" + 
+						"    at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:298)\n" + 
+						"    at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:27)\n" + 
+						"    at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1000)\n" + 
+						"    at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:338)\n" + 
+						"    at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:106)\n" + 
+						"    at com.cerebra.cerepedia.item.dao.ItemDAOHibernate.addComment(ItemDAOHibernate.java:505)\n" + 
+						"    at com.cerebra.cerepedia.item.ItemManagerPOJOImpl.addComment(ItemManagerPOJOImpl.java:164)\n" + 
+						"    at com.cerebra.cerepedia.struts.item.ItemAction.addComment(ItemAction.java:126)\n" + 
+						"    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" + 
+						"    at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)\n" + 
+						"    at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)\n" + 
+						"    at java.lang.reflect.Method.invoke(Unknown Source)\n" + 
+						"    at org.apache.struts.actions.DispatchAction.dispatchMethod(DispatchAction.java:269)\n" + 
+						"    at org.apache.struts.actions.DispatchAction.execute(DispatchAction.java:170)\n" + 
+						"    at org.apache.struts.actions.MappingDispatchAction.execute(MappingDispatchAction.java:166)\n" + 
+						"    at org.apache.struts.action.RequestProcessor.processActionPerform(RequestProcessor.java:425)\n" + 
+						"    at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:228)\n" + 
+						"    at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1913)\n" + 
+						"    at org.apache.struts.action.ActionServlet.doPost(ActionServlet.java:462)\n" + 
+						"    at javax.servlet.http.HttpServlet.service(HttpServlet.java:710)\n" + 
+						"    at javax.servlet.http.HttpServlet.service(HttpServlet.java:803)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\n" + 
+						"    at com.cerebra.cerepedia.security.AuthorizationFilter.doFilter(AuthorizationFilter.java:78)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\n" + 
+						"    at com.cerebra.cerepedia.hibernate.HibernateSessionRequestFilter.doFilter(HibernateSessionRequestFilter.java:30)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\n" + 
+						"    at filters.UTF8Filter.doFilter(UTF8Filter.java:14)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\n" + 
+						"    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\n" + 
+						"    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:230)\n" + 
+						"    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:175)\n" + 
+						"    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)\n" + 
+						"    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:104)\n" + 
+						"    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)\n" + 
+						"    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:261)\n" + 
+						"    at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:844)\n" + 
+						"    at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:581)\n" + 
+						"    at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:447)\n" + 
+						"    at java.lang.Thread.run(Unknown Source)"))
+								.getException());
+	}
+	
 
 }
