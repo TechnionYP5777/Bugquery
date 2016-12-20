@@ -1,4 +1,4 @@
-package hello;
+package com.bugquery.serverside.webapp;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 import com.bugquery.serverside.stacktrace.WeightLinesSTDistancer;
 
 @Controller
-public class GreetingController {
+public class SearchController {
 
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model m) {

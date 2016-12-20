@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package hello;
+package com.bugquery.serverside.webapp;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
