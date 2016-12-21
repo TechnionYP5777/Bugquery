@@ -19,7 +19,7 @@ public class StackOverflowPostTest {
 				"        at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				"        at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		StackOverflowPost post = new StackOverflowPost("1", 1, null, null, 0, question, "help", null, 5);
+		StackOverflowPost post = new StackOverflowPost(1, null, null, 0, question, "help", null, 5);
 		assertEquals(trace,post.stackTrace);
 		assertEquals(trace,(post + ""));
 	}
