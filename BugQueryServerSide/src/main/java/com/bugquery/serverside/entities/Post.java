@@ -15,6 +15,6 @@ public abstract class Post {
 	
 	@Override
 	public String toString() {
-		return stackTrace.getStackTrace();
+		return stackTrace.toString();
 	}
 }
