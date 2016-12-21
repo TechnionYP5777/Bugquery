@@ -1,37 +1,65 @@
 package com.bugquery.actions;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.swt.program.Program;
 
 import com.bugquery.stacktrace.ExtractTrace;
 
 /**
- * Handle a task trace: in the future this will forward the trace to the
- * BugQuery website. As of now, it performs extraction and starts a web search
- * in Google.
+ * Handles an input of stack trace: Performs stack extraction and starts a
+ * search in the BugQuery server (opens results in Browser)
  * 
  * @author Yosef
  */
 public class SendTrace {
-
 	/**
-	 * @param trace:
-	 *            a stack trace to be prepared as a http GET Request
-	 * @return a new string, with "%0A" instead of line breaks and "%09" instead
-	 *         of tabs.
+	 * @param trace
+	 *            - an extracted trace
+	 * @return Sends the extracted trace, reformatted as a byte[] UTF-8, to the
+	 *         server in localhost:8080 using a POST request to "/stacks", opens
+	 *         a page with the url it receives as a response in the default web
+	 *         browser.
 	 */
-	public String reformatTrace(String trace) {
-		return trace.replaceAll("(\r\n|\n)+", "%0A").replace("\t", "%09");
+	public void sendBugQuery(String trace) {
+		URL url;
+		try {
+			url = new URL("http://localhost:8080/stacks");
+		} catch (MalformedURLException e) {
+			return; // shouldn't happen
+		}
+
+		byte[] post_bytes;
+		try {
+			post_bytes = trace.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			return;
+		}
+
+		HttpURLConnection conn;
+		try {
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Length", String.valueOf(post_bytes.length));
+			conn.setDoOutput(true);
+			conn.getOutputStream().write(post_bytes);
+		} catch (IOException e) {
+			return;
+		}
+
+		Program.launch(conn.getHeaderField("location"));
 	}
 
 	/**
 	 * @param trace
-	 * @return sends the extracted trace, reformatted for http, to the server in
-	 *         localhost:8080.
+	 * @return if the input isn't null or empty, extracts a trace and passes it
+	 *         on to sendBugQuery, to display online
 	 */
-	public void sendBugQuery(String trace) {
-		Program.launch("http://localhost:8080/BugQueryServerSide/result.jsp?q=" + reformatTrace(trace));
-	}
-
 	SendTrace(String trace) {
 		if (trace != null && !trace.isEmpty())
 			sendBugQuery(new ExtractTrace().extract(trace));

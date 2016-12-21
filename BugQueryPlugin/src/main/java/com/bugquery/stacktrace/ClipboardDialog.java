@@ -42,7 +42,6 @@ public class ClipboardDialog extends InputDialog {
 		// Set text to whatever ctrl+v brings
 		dialog_input.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent __) {
-				return;
 			}
 
 			public void focusGained(FocusEvent __) {

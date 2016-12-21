@@ -1,5 +1,9 @@
 package com.bugquery.serverside.webapp;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +22,10 @@ public class StackSearch {
 	}
 
 	public StackSearch(String trace) {
-		this.trace = trace;
+		try {
+			this.trace = URLDecoder.decode(trace, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+		}
 	}
 
 	@Override
