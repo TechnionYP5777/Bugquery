@@ -13,6 +13,17 @@ import com.bugquery.serverside.entities.Post;
  *
  */
 public class StackTraceRetriever {
+	
+	/**
+	 * This function completes the pipeline between the server and the database.
+	 * @param stackTrace - the stack trace which the user queried about
+	 * @param numOfPosts - number of relevant posts needed
+	 * @return list of most relevant post to the given stack trace
+	 */
+	public static List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) {
+		return new ArrayList<>();
+	}
+	
 	/*
 	 * This function returns the posts with the closest stack traces to the input @stackTrace
 	 * using the @distance distancer to sort the traces.
