@@ -1,20 +1,15 @@
 package com.bugquery.serverside.entities;
 
-/**
- * @author zivizhar
- */
 public abstract class Post {
-	public StackTrace stackTrace;
-	public Post(StackTrace stackTrace) {
+	public String Id;
+	public String stackTrace;
+	public Post(String Id, String stackTrace) {
+		this.Id = Id;
 		this.stackTrace = stackTrace;
-	}
-	
-	public Post(String stString) {
-		this.stackTrace = new StackTrace(stString);
 	}
 	
 	@Override
 	public String toString() {
-		return stackTrace.toString();
+		return stackTrace;
 	}
 }
