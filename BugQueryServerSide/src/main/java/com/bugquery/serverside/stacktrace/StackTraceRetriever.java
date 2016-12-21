@@ -1,5 +1,6 @@
 package com.bugquery.serverside.stacktrace;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -48,8 +49,8 @@ public class StackTraceRetriever {
 			throw new IllegalArgumentException();
 		Collections.sort(allPosts, new Comparator<Post>(){
 			  public int compare(Post p1, Post p2){
-				return d.distance(p1.stackTrace.getStackTrace(), t.getStackTrace()) > d.distance(p2.stackTrace.getStackTrace(), t.getStackTrace()) ? 1
-						: d.distance(p1.stackTrace.getStackTrace(), t.getStackTrace()) < d.distance(p2.stackTrace.getStackTrace(), t.getStackTrace()) ? -1 : 0;
+				return d.distance(p1.stackTrace.getString(), t.getString()) > d.distance(p2.stackTrace.getString(), t.getString()) ? 1
+						: d.distance(p1.stackTrace.getString(), t.getString()) < d.distance(p2.stackTrace.getString(), t.getString()) ? -1 : 0;
 			}
 			});
 		return allPosts.subList(0, numOfPosts);

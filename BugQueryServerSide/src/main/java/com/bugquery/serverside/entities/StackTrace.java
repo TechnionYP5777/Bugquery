@@ -19,18 +19,18 @@ public class StackTrace {
 	
 	private String exception; // exception type
 	private List<String> stackOfCalls;
-	private String stackTrace; // the whole stack-trace
+	private String content; // the whole stack-trace
 
 	public StackTrace(String stackTrace, String exception, List<String> stackOfCalls) {
 		this.exception = exception;
 		this.stackOfCalls = stackOfCalls;
-		this.stackTrace = stackTrace;
+		this.content = stackTrace;
 	}
 	
 	public StackTrace(String stackTrace) {
 		this.exception = this.getException(stackTrace);
 		this.stackOfCalls = this.getStackOfCalls(stackTrace);
-		this.stackTrace = stackTrace;
+		this.content = stackTrace;
 	}
 	
 	public String getException() {
@@ -41,8 +41,8 @@ public class StackTrace {
 		return this.stackOfCalls;
 	}
 	
-	public String getStackTrace() {
-		return this.stackTrace;
+	public String getString() {
+		return this.content;
 	}
 	
 	private String getExceptionNameFromExceptionLine(String exceptionLine) {
@@ -81,6 +81,6 @@ public class StackTrace {
 	
 	@Override
     public boolean equals(Object ¢) {
-		return ¢ instanceof StackTrace && (¢ == this || this.getStackTrace().equals(((StackTrace) ¢).getStackTrace()));
+		return ¢ instanceof StackTrace && (¢ == this || this.getString().equals(((StackTrace) ¢).getString()));
 	}
 }

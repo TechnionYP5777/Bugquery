@@ -59,7 +59,7 @@ public class DBGetter {
 					PreparedStatement ps2 = connection.prepareStatement(string);
 					String ex = ¢1.getException();
 					ps2.setString(1, ex);
-					ps2.setString(2, ¢1.getStackTrace());
+					ps2.setString(2, ¢1.getString());
 					ps2.setString(3, question);
 					ps2.executeUpdate();
 					ps2.close();
