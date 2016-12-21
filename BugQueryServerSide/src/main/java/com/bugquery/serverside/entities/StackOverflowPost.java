@@ -1,7 +1,5 @@
 package com.bugquery.serverside.entities;
 
-import java.util.List;
-
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 /**
