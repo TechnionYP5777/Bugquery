@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
+/**
+ * @author zivizhar
+ */
 public class StackOverflowPost extends Post {
 	public int postTypeId;
 	public String parentId;
@@ -13,9 +16,9 @@ public class StackOverflowPost extends Post {
 	public String title;
 	public String tags;
 	public int answerCount;
-	public StackOverflowPost(String Id, int postTypeId, String parentId,
+	public StackOverflowPost(int postTypeId, String parentId,
 			String acceptedAnswerId, int score ,String body, String title, String tags, int answerCount) {
-		super(Id, getStackTrace(body));
+		super(getStackTrace(body));
 		this.postTypeId = postTypeId;
 		this.parentId = parentId;
 		this.acceptedAnswerId = acceptedAnswerId;
