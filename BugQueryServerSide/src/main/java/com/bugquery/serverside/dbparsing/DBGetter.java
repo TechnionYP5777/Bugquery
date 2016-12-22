@@ -20,7 +20,7 @@ public class DBGetter {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root");
 //	    connection.createStatement().executeUpdate("DROP TABLE bugquery_index");
-	    connection.createStatement().executeUpdate("CREATE TABLE bugquery_index2(Id int,Ex Text,StackTrace Text,Question Text)");
+//	    connection.createStatement().executeUpdate("CREATE TABLE bugquery_index2(Id int,Ex Text,StackTrace Text,Question Text)");
 	    ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id) LIMIT 10000");
 
 
