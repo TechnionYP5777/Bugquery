@@ -15,6 +15,7 @@ import com.bugquery.serverside.entities.StackTrace;
  * @author rodedzats
  *
  */
+@SuppressWarnings("static-method")
 public class StackTraceExtractorTest {
 	
 	@Test

@@ -10,8 +10,9 @@ import com.bugquery.serverside.entities.MinSOPost;
 import com.bugquery.serverside.entities.Post;
 
 public class DBSearch {
-	public static ArrayList<Post> getAllStackTracesWithTheException(String s) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+	public static ArrayList<Post> getAllQuestionsWithTheException(String s) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		ArrayList<Post> $ = new ArrayList<>();
+
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root")){
   		for (ResultSet ¢ = connection
@@ -22,7 +23,7 @@ public class DBSearch {
 	}
 	
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
-		DBSearch.getAllStackTracesWithTheException("java.lang.NullPointerException");
+		DBSearch.getAllQuestionsWithTheException("java.lang.NullPointerException");
 		
 	}
 }

@@ -25,6 +25,7 @@ public class StackSearch {
 		try {
 			this.trace = URLDecoder.decode(trace, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
+		  // TODO : handle this exception
 		}
 	}
 
