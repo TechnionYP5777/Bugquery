@@ -75,7 +75,7 @@ public class DBGetter {
   			String ex = ¢1.getException();
   			ps2.setInt(1, id);
   			ps2.setString(2, ex);
-  			ps2.setString(3, ¢1.getStackTrace());
+  			ps2.setString(3, ¢1.getString());
   			ps2.setString(4, question);
   			ps2.executeUpdate();
 			}	
