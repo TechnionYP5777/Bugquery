@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StackSearchRepository extends CrudRepository<StackSearch, Long> {
+  // Empty, Spring boot automaticly extends this.
 }

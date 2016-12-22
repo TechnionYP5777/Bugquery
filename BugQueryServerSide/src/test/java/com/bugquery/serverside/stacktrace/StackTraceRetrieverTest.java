@@ -10,8 +10,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.bugquery.serverside.entities.Post;
+import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.entities.StackTrace;
 
+@SuppressWarnings("static-method")
 public class StackTraceRetrieverTest {
 
   @Rule public ExpectedException thrown = ExpectedException.none();
@@ -51,12 +53,12 @@ public class StackTraceRetrieverTest {
 				"at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				"at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				"at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		Post p1 = new Post(stackTrace1) {};
+		Post p1 = new PostStub(stackTrace1);
 		String stackTrace2 = "Exception in thread \"submain\" java.lang.NilPointerException\n" + 
 				"at com.example.myproject.Movie.getTitle(Book.java:16)\n" + 
 				"at com.example.myproject.Producer.getBookTitles(Author.java:25)\n" + 
 				"at com.example.myproject.trap.main(Bootstrap.java:14)";
-		Post p2 = new Post(stackTrace2) {};
+		Post p2 = new PostStub(stackTrace2);
 		List<Post> posts = new ArrayList<>();
 		posts.add(p2);
 		posts.add(p1);
@@ -72,17 +74,17 @@ public class StackTraceRetrieverTest {
 				"at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				"at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				"at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		Post p1 = new Post(stackTrace1) {};
+		Post p1 = new PostStub(stackTrace1);
 		String stackTrace2 = "Exception in thread \"main\" java.lang.NullPointerException\n" + 
 				"at com.example.myproject.Movie.getTitle(Book.java:16)\n" + 
 				"at com.example.myproject.Producer.getBookTitles(Author.java:25)\n" + 
 				"at com.example.myproject.trap.main(Bootstrap.java:14)";
-		Post p2 = new Post(stackTrace2) {};
+		Post p2 = new PostStub(stackTrace2);
 		String stackTrace3 = "Exception in thread \"stam\" java.lang.NilPointerException\n" + 
 				"at com.example.myproject.stam.getTitle(Book.java:16)\n" + 
 				"at com.example.myproject.stam.getBookTitles(Author.java:25)\n" + 
 				"at com.example.myproject.stam.main(Bootstrap.java:14)";
-		Post p3 = new Post(stackTrace3) {};
+		Post p3 = new PostStub(stackTrace3);
 		List<Post> posts = new ArrayList<>();
 		posts.add(p2);
 		posts.add(p1);

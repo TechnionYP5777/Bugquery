@@ -30,7 +30,7 @@ public class StackTraceRetriever {
 		StackTrace st = new StackTrace(stackTrace);
 		List<Post> allPosts = new ArrayList<>();
 		try {
-			allPosts = DBSearch.getAllStackTracesWithTheException(st.getException());
+			allPosts = DBSearch.getAllQuestionsWithTheException(st.getException());
 		} catch(Exception e) {
 			System.out.println((e + ""));
 			throw new GeneralDBException("General db error");

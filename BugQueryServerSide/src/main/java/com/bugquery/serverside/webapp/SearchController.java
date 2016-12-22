@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.bugquery.serverside.webapp.StackSearch;
 import com.bugquery.serverside.entities.Post;
+import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceDistancer;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
@@ -45,7 +46,7 @@ public class SearchController {
 				.build();
 	}
 
-	List<Post> databaseStub = Arrays.asList(new Post("This is a post!") {}, new Post("!tsop a si sihT") {});
+	List<Post> databaseStub = Arrays.asList(new PostStub("This is a post!"), new PostStub("!tsop a si sihT"));
 	StackTraceDistancer distancer = new WeightLinesSTDistancer();
 
 	public List<Post> getResults(String trace) {

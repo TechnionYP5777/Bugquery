@@ -9,6 +9,7 @@ import org.junit.Test;
  * @author rodedzats
  *
  */
+@SuppressWarnings("static-method")
 public class StackTraceTest {
 
 	

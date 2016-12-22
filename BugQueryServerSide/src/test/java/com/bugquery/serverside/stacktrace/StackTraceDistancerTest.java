@@ -9,6 +9,7 @@ import java.util.List;
  * @author yonzarecki
  * @since 28.11.16
  */
+@SuppressWarnings("static-method")
 public class StackTraceDistancerTest extends TestCase{
     @Test
     public void testSplitByNewlines_doesntReturnNull() {
