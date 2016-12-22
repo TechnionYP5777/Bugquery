@@ -24,15 +24,15 @@
          <toolbar id="toolbarmenu">
             <command commandId="com.bugquery.commands.dropdownmenu" icon="icons/bugquery_main.gif" label="BugQuery Toolbar" style="pulldown" />
             <command
-                  commandId="com.bugquery.commands.fromclipboard"
-                  icon="icons/bugquery_clipboard.gif"
-                  label="Trace from Clipboard"
-                  style="push">
-            </command>
-            <command
                   commandId="com.bugquery.commands.fromconsole"
                   icon="icons/bugquery_console.gif"
                   label="Trace from Console"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.bugquery.commands.fromclipboard"
+                  icon="icons/bugquery_clipboard.gif"
+                  label="Trace from Clipboard"
                   style="push">
             </command>
             <command commandId="com.bugquery.commands.frominputdialog" icon="icons/bugquery_dialog.gif" label="Trace from User Dialog" style="push" />

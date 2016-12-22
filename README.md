@@ -1,4 +1,4 @@
-![BugQuery Logo](https://s12.postimg.org/6why9u6h9/logo.png)
+![BugQuery Logo](https://s23.postimg.org/h32ml8bxn/small_logo_final_svg.png)
 # BugQuery
 BugQuery is a search engine for stack traces. It helps programmers solve bugs in their code in a quick and efficient way, using an index of questions and answers extracted from dedicated web services (like StackOverflow). BugQuery includes, along with the Q/A index, a website and a plug-in for Eclipse.
 

@@ -1,18 +1,17 @@
 <html>
 <head>
-	<title>BugQuery Essentials</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
+<title>BugQuery Essentials</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div class="bugquery-header">
 		<div class="wrapper">
 			<ul>
-				<li><a id="bugquery-icon" href="index.html"> <svg
-							xmlns="http://www.w3.org/2000/svg" width="50" height="31.002">
-							  <path
-								d="M25 .12c-4.873 0-8.824 3.95-8.824 8.824 0 4.37 3.182 7.993 7.353 8.694v1.6c-2.942 0-7.354-2.942-14.706-4.412-7.353-1.47-8.824 0-8.824 1.47s2.94 2.942 5.882 4.412c2.942 1.47 4.412 0 4.412 0 2.94 1.47 3.677-1.47 12.5-.735-5.147 2.206-2.206-1.47-12.5 2.206 0 1.47 2.94 2.94 5.882 1.47 2.942 0 2.942-1.47 7.353-2.942v8.824c0 .812.658 1.47 1.47 1.47.812 0 1.47-.658 1.47-1.47v-8.824c4.412 1.47 4.412 2.94 7.354 2.94 2.94 1.472 5.882 0 5.882-1.47-10.294-3.676-7.353 0-12.5-2.205 8.823-.735 9.56 2.206 12.5.735 0 0 1.47 1.47 4.412 0 2.94-1.47 5.882-2.94 5.882-4.412 0-1.47-1.47-2.94-8.824-1.47-7.352 1.47-11.764 4.412-14.705 4.412v-1.6c4.172-.7 7.354-4.324 7.354-8.694C33.824 4.07 29.874.12 25 .12zm0 2.206c3.655 0 6.618 2.963 6.618 6.618 0 3.654-2.963 6.617-6.618 6.617-3.655 0-6.618-2.962-6.618-6.616 0-3.655 2.963-6.618 6.618-6.618z" />
-							</svg>
+				<li><a id="bugquery-icon" href="index.html"> 
+					<svg xmlns="http://www.w3.org/2000/svg" width="44" height="30">
+					  <path	d="M22 0a9 9 0 0 0-9 9 9 9 0 0 0 7.5 8.873V19.5c-4.5 0-8.5-3-14.5-5-.75-.25-2.25-.625-3.563-.563C1.125 14 0 14.5 0 16c0 3 5.5 6 8 4.5 3.5 1.5 4-1 12 0-3 2-3.5-1.5-12 2 0 2 4.5 3.5 6 1.5 3.5.5 2-1.5 6.5-2.5V28c0 2 3 2 3 0v-6.5c4.5 1 3 3 6.5 2.5 1.5 2 6 .5 6-1.5-8.5-3.5-9 0-12-2 8-1 8.5 1.5 12 0 2.5 1.5 8-1.5 8-4.5s-4.5-2-6-1.5c-6 2-10 5-14.5 5v-1.637A9 9 0 0 0 31 9a9 9 0 0 0-9-9zm0 2c3.866 0 7 3.134 7 7s-3.134 7-7 7-7-3.134-7-7 3.134-7 7-7z" />
+					</svg>
 				</a></li>
 				<li><a class="button" href="guide.html">User Guide</a></li>
 				<li><a class="button" href="submit.html">Submit Your Trace</a></li>
@@ -55,19 +54,20 @@
 		</p>
 		<h3>Quickly Solve Bugs</h3>
 		<p>
-			First, find BugQuery's icon (<img src="./img/guide/icon.png"></img>)
-			in the Eclipse toolbar. Click the arrow next to it to open the
-			drop-down menu, which details the several stack trace extraction
-			methods supported by the plug-in.
+			First, locate BugQuery's toolbar in the Eclipse toolbar. Click the
+			arrow next to the main icon (<img src="./img/guide/bugquery_main.gif"></img>)
+			to open the drop-down menu, which lists several stack trace
+			extraction methods supported by the plug-in.
 		</p>
 		<p>
 			<img src="./img/guide/bugquery_window_select.png"></img>
 		</p>
 		<p>To debug your program with BugQuery, select the method you
-			prefer from the drop-down menu. The plug-in will then use that method
-			to retrive the stack trace (which has the details of your issue), and
-			search our database for a solution. The results will be presented in
-			your default browser.</p>
+			prefer from the drop-down menu, or click the matching button in the
+			toolbar. The plug-in will then use that method to retrive the stack
+			trace (which includes the details of your execution), and search our
+			database for a solution. The results will be presented in your
+			default browser.</p>
 		<p>With the BugQuery plug-in installed, you can choose from this
 			selection of stack extraction methods:</p>
 		<ul>
@@ -81,7 +81,8 @@
 					<code>ctrl+6</code>
 					(or
 					<code>&#8984;+6</code>
-					in macOS).
+					in macOS). You can also click on the command's icon (<img
+						src="./img/guide/bugquery_console.gif"></img>) in the toolbar.
 				</p></li>
 			<li><p>
 					<b>Input the trace yourself.</b> If other methods fail, you can
@@ -89,12 +90,14 @@
 					query (your stack trace) to the system clipboard using your default
 					copy or cut, and select
 					<code>Trace from Clipboard</code>
-					in the drop-down menu. Alternatively, pick
+					(<img src="./img/guide/bugquery_clipboard.gif"></img>) from the
+					BugQuery toolbar. Alternatively, pick
 					<code>Trace from User Dialog</code>
-					, and insert your query in the window that opens up. Click OK and
-					you are set. You don't have to worry about formatting or adding
-					unnecessary information - the plug-in faithfully extracts the
-					important parts of your input.
+					(<img src="./img/guide/bugquery_dialog.gif"></img>) , and insert
+					your query in the window that opens up. Click OK and you are set.
+					You don't have to worry about formatting or adding unnecessary
+					information - the plug-in faithfully extracts the important parts
+					of your input.
 				</p></li>
 		</ul>
 	</div>
