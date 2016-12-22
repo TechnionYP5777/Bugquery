@@ -28,7 +28,7 @@ public class StackTrace {
 	
 	public StackTrace(String stackTrace) {
 		this.exception = this.getException(stackTrace);
-		this.stackOfCalls = this.getStackOfCalls(stackTrace);
+		this.stackOfCalls = StackTrace.getStackOfCalls(stackTrace);
 		this.content = stackTrace;
 	}
 	
@@ -70,7 +70,7 @@ public class StackTrace {
 		return getExceptionNameFromExceptionLine(exceptionLine);
 	}
 	
-	private List<String> getStackOfCalls(String stackTrace) {
+	private static List<String> getStackOfCalls(String stackTrace) {
 		String[] calls = stackTrace.split("(\\t )*(\n)+");
 		List<String> $ = new ArrayList<>();
 		for(String ¢: calls)
@@ -82,4 +82,8 @@ public class StackTrace {
     public boolean equals(Object ¢) {
 		return ¢ instanceof StackTrace && (¢ == this || this.getString().equals(((StackTrace) ¢).getString()));
 	}
+
+  @Override public int hashCode() {
+    return super.hashCode();
+  }
 }

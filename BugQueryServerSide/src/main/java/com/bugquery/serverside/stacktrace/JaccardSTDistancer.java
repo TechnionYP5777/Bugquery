@@ -14,7 +14,7 @@ public class JaccardSTDistancer implements StackTraceDistancer {
      * @param s Stack trace string with newlines
      * @return List<String> with each String containing 2 lines
      */
-    private Set<String> extractLineTuples(String s) {
+    private static Set<String> extractLineTuples(String s) {
         List<String> lines = StackTraceDistancer.splitByNewlines(s);
         HashSet<String> $ = new HashSet<>(); // retval
         for (int ¢ = 0; ¢ < lines.size(); ¢+=2)

@@ -23,7 +23,7 @@ public class StackSearch {
 	public StackSearch(String trace) {
 		try {
 			this.trace = URLDecoder.decode(trace, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		} catch (@SuppressWarnings("unused") UnsupportedEncodingException e) {
 		  // TODO : handle this exception
 		}
 	}

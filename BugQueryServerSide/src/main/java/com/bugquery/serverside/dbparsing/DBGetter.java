@@ -31,7 +31,7 @@ public class DBGetter {
 	      e1.printStackTrace();
 	    }
 	    PrintWriter printer = new PrintWriter( write );
-	      Integer numOfRows = !r.next() ? 0 : r.getInt("maxId");
+	      int numOfRows = !r.next() ? 0 : r.getInt("maxId");
 	      r.close();
 	      for  (int i = 6948892; i <numOfRows;i+=10000){
 	        System.out.println(i+1);
