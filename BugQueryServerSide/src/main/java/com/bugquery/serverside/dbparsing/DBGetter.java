@@ -70,6 +70,7 @@ public class DBGetter {
 		for (StackTrace ¢1 : extract) {
 			String string = "INSERT INTO bugquery_index2(Id,Ex,StackTrace,Question) VALUES(?,?,?,?)";
 			System.out.println("The id is: "+id);
+
 			try(PreparedStatement ps2 = c.prepareStatement(string)){
   			String ex = ¢1.getException();
   			ps2.setInt(1, id);
