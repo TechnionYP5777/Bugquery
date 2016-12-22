@@ -22,9 +22,11 @@ public class DBInitializer {
 			
 			st.executeUpdate("CREATE TABLE so_posts(Id int, PostTypeId int, ParentID int,AcceptedAnswerId int, Score int, Body Text,Title Text, Tags varchar(500), AnswerCount int)");
 			st.executeUpdate("LOAD XML LOCAL INFILE 'D:\\BugQuery Project\\StackOverflow data\\Posts.xml' INTO TABLE so_posts(Id, PostTypeId,ParentID,AcceptedAnswerId,Score,Body,Title,Tags,AnswerCount)");
+			
 		} catch (SQLException e) {
 			System.out.println("Table already exists");
 		}
+		st.close();
 		
 		
 		

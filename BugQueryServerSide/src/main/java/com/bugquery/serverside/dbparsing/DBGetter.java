@@ -18,42 +18,47 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 public class DBGetter {
 	public static void getConnection() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-	    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root");
-//	    connection.createStatement().executeUpdate("DROP TABLE bugquery_index");
-//	    connection.createStatement().executeUpdate("CREATE TABLE bugquery_index2(Id int,Ex Text,StackTrace Text,Question Text)");
-	    ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id) LIMIT 10000");
+	    try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root")){
+	      ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id) LIMIT 10000");
+//	     connection.createStatement().executeUpdate("DROP TABLE bugquery_index2");
+//      connection.createStatement().executeUpdate("CREATE TABLE bugquery_index2(Id int,Ex Text,StackTrace Text,Question Text)");
 
+	      String path = "log.txt";
+	      FileWriter write = null;
+	    try {
+	      write = new FileWriter( path , true);
+	    } catch (IOException e1) {
+	      // TODO Auto-generated catch block
+	      e1.printStackTrace();
+	    }
+	    PrintWriter printer = new PrintWriter( write );
+	      Integer numOfRows = !r.next() ? 0 : r.getInt("maxId");
+	      r.close();
+	      for  (int i = 6948892; i <numOfRows;i+=10000){
+	        System.out.println(i+1);
+	        ResultSet rs;
+	      for (rs = connection.createStatement()
+	          .executeQuery("SELECT * FROM so_posts WHERE Id < " + (i + 10000)+" AND Id > "+i); rs.next();) {
+	        String question = rs.getString("Body");
+	        String tags = rs.getString("Tags");
+	        int id = rs.getInt("Id");
+	        if (tags == null || !tags.toLowerCase().contains("java"))
+	          continue;
+	        insertQusetionToDB(connection, printer, question, id);
+	      }
+	      rs.close();
+	      }
+	      printer.close();
+	      connection.close();
+	    }
 
-	    String path = "log.txt";
-	    FileWriter write = null;
-		try {
-			write = new FileWriter( path , true);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		PrintWriter printer = new PrintWriter( write );
-	    Integer numOfRows = !r.next() ? 0 : r.getInt("maxId");
-	    for  (int i = 0; i <numOfRows;i+=10000){
-	    	System.out.println(i+1);
-	    	ResultSet rs;
-			for (rs = connection.createStatement()
-					.executeQuery("SELECT * FROM so_posts WHERE Id < " + (i + 10000)+" AND Id > "+i); rs.next();) {
-				String question = rs.getString("Body");
-				String tags = rs.getString("Tags");
-				int id = rs.getInt("Id");
-				if (tags == null || !tags.toLowerCase().contains("java"))
-					continue;
-				insertQusetionToDB(connection, printer, question, id);
-			}
-			rs.close();
-	    }	
+	    
 	    
 	}
 
 	private static void insertQusetionToDB(Connection connection, PrintWriter printer, String question,
 			int id) throws SQLException {
-		List<StackTrace> extract = new ArrayList<StackTrace>();
+		List<StackTrace> extract = new ArrayList<>();
 		try {
 			extract.addAll(StackTraceExtractor.extract(question));
 		} catch (Exception e) {
@@ -93,9 +98,11 @@ public class DBGetter {
 			e1.printStackTrace();
 		}
 		try {
-			insertQusetionToDB(
+			PrintWriter printWriter = new PrintWriter(new FileWriter(logFile));
+      insertQusetionToDB(
 					DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root"),
-					logFile == "" ? null : new PrintWriter(new FileWriter(logFile)), question, 0);
+					logFile == "" ? null : printWriter, question, 0);
+      printWriter.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
