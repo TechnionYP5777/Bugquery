@@ -209,5 +209,85 @@ public class StackTraceTest {
 								.getException());
 	}
 	
+	
+	@Test
+	public void correctExceptionForIssue37_4() {
+		assertEquals("java.lang.UnsupportedOperationException",
+				new StackTrace("[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R <openjpa-1.2.1-SNAPSHOT-r422266:686069 fatal general error> org.apache.openjpa.persistence.PersistenceException: null\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.BrokerImpl.flush(BrokerImpl.java:1688)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.StateManagerImpl.assignObjectId(StateManagerImpl.java:523)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.StateManagerImpl.assignField(StateManagerImpl.java:608)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.StateManagerImpl.beforeAccessField(StateManagerImpl.java:1494)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.StateManagerImpl.accessingField(StateManagerImpl.java:1477)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at entities.Job.pcGetid(Job.java)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at entities.Job.hashCode(Job.java:402)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at java.util.HashMap.putImpl(Unknown Source)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at java.util.HashMap.put(Unknown Source)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at java.util.HashSet.add(Unknown Source)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.util.java$util$HashSet$proxy.add(Unknown Source)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at entities.controller.JobManager.copyJob(JobManager.java:140)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at entities.controller.JobManagerTest.testCopyJob(JobManagerTest.java:55)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:45)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:37)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at java.lang.reflect.Method.invoke(Method.java:599)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestCase.runTest(TestCase.java:154)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestCase.runBare(TestCase.java:127)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestResult$1.protect(TestResult.java:106)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestResult.runProtected(TestResult.java:124)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestResult.run(TestResult.java:109)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestCase.run(TestCase.java:118)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestSuite.runTest(TestSuite.java:208)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at junit.framework.TestSuite.run(TestSuite.java:203)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.cactus.server.runner.ServletTestRunner.run(ServletTestRunner.java:309)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.cactus.server.runner.ServletTestRunner.doGet_aroundBody0(ServletTestRunner.java:187)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.cactus.server.runner.ServletTestRunner.doGet_aroundBody1$advice(ServletTestRunner.java:225)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.cactus.server.runner.ServletTestRunner.doGet(ServletTestRunner.java:1)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at javax.servlet.http.HttpServlet.service(HttpServlet.java:718)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at javax.servlet.http.HttpServlet.service(HttpServlet.java:831)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.servlet.ServletWrapper.service(ServletWrapper.java:1449)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest(ServletWrapper.java:790)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.servlet.ServletWrapper.handleRequest(ServletWrapper.java:443)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.servlet.ServletWrapperImpl.handleRequest(ServletWrapperImpl.java:175)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.webapp.WebApp.handleRequest(WebApp.java:3610)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.webapp.WebGroup.handleRequest(WebGroup.java:274)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.WebContainer.handleRequest(WebContainer.java:926)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.WSWebContainer.handleRequest(WSWebContainer.java:1557)\n" + 
+						"[11/25/z08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.webcontainer.channel.WCChannelLink.ready(WCChannelLink.java:173)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.handleDiscrimination(HttpInboundLink.java:455)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.handleNewInformation(HttpInboundLink.java:384)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.http.channel.inbound.impl.HttpInboundLink.ready(HttpInboundLink.java:272)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback.sendToDiscriminators(NewConnectionInitialReadCallback.java:214)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.tcp.channel.impl.NewConnectionInitialReadCallback.complete(NewConnectionInitialReadCallback.java:113)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.tcp.channel.impl.AioReadCompletionListener.futureCompleted(AioReadCompletionListener.java:165)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.io.async.AbstractAsyncFuture.invokeCallback(AbstractAsyncFuture.java:217)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.io.async.AsyncChannelFuture.fireCompletionActions(AsyncChannelFuture.java:161)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.io.async.AsyncFuture.completed(AsyncFuture.java:138)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.io.async.ResultHandler.complete(ResultHandler.java:202)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.io.async.ResultHandler.runEventProcessingLoop(ResultHandler.java:766)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.io.async.ResultHandler$2.run(ResultHandler.java:896)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:1527)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R Caused by: java.lang.UnsupportedOperationException\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.DetachedStateManager.getMetaData(DetachedStateManager.java:696)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.meta.strats.UntypedPCValueHandler.toRelationDataStoreValue(UntypedPCValueHandler.java:121)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.sql.RowImpl.setRelationId(RowImpl.java:327)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.sql.SecondaryRow.setRelationId(SecondaryRow.java:106)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.meta.strats.HandlerStrategies.set(HandlerStrategies.java:150)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.meta.strats.HandlerStrategies.set(HandlerStrategies.java:104)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.meta.strats.HandlerCollectionTableFieldStrategy.insert(HandlerCollectionTableFieldStrategy.java:154)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.meta.strats.HandlerCollectionTableFieldStrategy.insert(HandlerCollectionTableFieldStrategy.java:130)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.meta.FieldMapping.insert(FieldMapping.java:579)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.kernel.AbstractUpdateManager.insert(AbstractUpdateManager.java:197)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.kernel.AbstractUpdateManager.populateRowManager(AbstractUpdateManager.java:139)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.persistence.jdbc.kernel.ConstraintUpdateManager.flush(ConstraintUpdateManager.java:73)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at com.ibm.ws.persistence.jdbc.kernel.ConstraintUpdateManager.flush(ConstraintUpdateManager.java:60)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.jdbc.kernel.JDBCStoreManager.flush(JDBCStoreManager.java:655)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.DelegatingStoreManager.flush(DelegatingStoreManager.java:130)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.BrokerImpl.flush(BrokerImpl.java:2010)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.BrokerImpl.flushSafe(BrokerImpl.java:1908)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.BrokerImpl.flush(BrokerImpl.java:1679)\n" + 
+						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     ... 52 more")
+								.getException());
+	}
 
 }

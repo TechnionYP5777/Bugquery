@@ -56,16 +56,15 @@ public class DBGetter {
 	    
 	}
 
-	private static void insertQusetionToDB(Connection connection, PrintWriter printer, String question,
+	private static void insertQusetionToDB(Connection c, PrintWriter printer, String question,
 			int id) throws SQLException {
 		List<StackTrace> extract = new ArrayList<>();
 		try {
 			extract.addAll(StackTraceExtractor.extract(question));
 		} catch (Exception e) {
-			if (printer == null){
-				System.out.println("Failed with:\n"+ e.getStackTrace());
-			}
-			else{
+			if (printer == null)
+        System.out.println("Failed with:\n" + e.getStackTrace());
+      else{
 				printer.println("The id is: "+id+"\n\n\n\n");
 				printer.println(question+"\n\n\n\n");
 			}
@@ -76,11 +75,11 @@ public class DBGetter {
 		for (StackTrace ¢1 : extract) {
 			String string = "INSERT INTO bugquery_index2(Id,Ex,StackTrace,Question) VALUES(?,?,?,?)";
 			System.out.println("The id is: "+id);
-			PreparedStatement ps2 = connection.prepareStatement(string);
+			PreparedStatement ps2 = c.prepareStatement(string);
 			String ex = ¢1.getException();
 			ps2.setInt(1, id);
 			ps2.setString(2, ex);
-			ps2.setString(3, ¢1.getStackTrace());
+			ps2.setString(3, ¢1.getString());
 			ps2.setString(4, question);
 			ps2.executeUpdate();
 			ps2.close();
