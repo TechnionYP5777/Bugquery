@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@SuppressWarnings("resource")
 public class DBInitializer {
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.jdbc.Driver").newInstance();

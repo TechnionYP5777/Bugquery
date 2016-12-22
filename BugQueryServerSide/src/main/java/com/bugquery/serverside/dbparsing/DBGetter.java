@@ -14,12 +14,13 @@ import java.util.List;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
+@SuppressWarnings("resource")
 public class DBGetter {
 	public static void getConnection() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root")){
 	      ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id) LIMIT 10000");
-//	     connection.createStatement().executeUpdate("DROP TABLE bugquery_index2");
+//	    connection.createStatement().executeUpdate("DROP TABLE bugquery_index2");
 //      connection.createStatement().executeUpdate("CREATE TABLE bugquery_index2(Id int,Ex Text,StackTrace Text,Question Text)");
 
 	      String path = "log.txt";
