@@ -12,7 +12,7 @@ public class DBInitializer {
   		try {
   			st.executeUpdate("CREATE DATABASE bugquery");
   		} catch (SQLException e) {
-  			System.out.println("db already exists");
+  			System.out.println("db already exists " + e.getMessage());
   		}
   		
   		st.executeQuery("USE bugquery");
@@ -24,7 +24,7 @@ public class DBInitializer {
   			st.executeUpdate("LOAD XML LOCAL INFILE 'D:\\BugQuery Project\\StackOverflow data\\Posts.xml' INTO TABLE so_posts(Id, PostTypeId,ParentID,AcceptedAnswerId,Score,Body,Title,Tags,AnswerCount)");
   			
   		} catch (SQLException e) {
-  			System.out.println("Table already exists");
+  			System.out.println("Table already exists " + e.getMessage());
   		}
 		}
 		
