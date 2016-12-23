@@ -1,47 +1,24 @@
-package com.bugquery.serverside.webapp;
+package com.bugquery.serverside.controllers;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import com.bugquery.serverside.webapp.StackSearch;
 import com.bugquery.serverside.entities.Post;
+import com.bugquery.serverside.entities.StackSearch;
 import com.bugquery.serverside.exceptions.GeneralDBException;
+import com.bugquery.serverside.exceptions.InternalServerException;
+import com.bugquery.serverside.exceptions.ResourceNotFoundException;
+import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 @Controller
 public class SearchController {
-
-	// 404 exception
-	// TODO: move elsewhere
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public class ResourceNotFoundException extends RuntimeException {
-		private static final long serialVersionUID = -3652773574082676217L;
-
-		public ResourceNotFoundException(String message) {
-			super(message);
-		}
-	}
-
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public class InternalServerError extends RuntimeException {
-		private static final long serialVersionUID = 2560023147133737591L;
-
-		public InternalServerError(String message) {
-			super(message);
-		}
-
-		public InternalServerError(Exception e) {
-			super(e.getMessage());
-		}
-	}
 
 	@Autowired
 	private StackSearchRepository repository;
@@ -56,7 +33,7 @@ public class SearchController {
 		try {
 			$ = getResults(trace);
 		} catch (GeneralDBException e) {
-			throw new InternalServerError(e);
+			throw new InternalServerException(e);
 		}
 		m.addAttribute("trace", trace);
 		m.addAttribute("results", $);

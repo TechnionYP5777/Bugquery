@@ -73,7 +73,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.bugquery.serverside.webapp.Application</mainClass>
+					<mainClass>com.bugquery.serverside.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

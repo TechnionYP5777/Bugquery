@@ -1,4 +1,4 @@
-package com.bugquery.serverside.webapp;
+package com.bugquery.serverside.entities;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
