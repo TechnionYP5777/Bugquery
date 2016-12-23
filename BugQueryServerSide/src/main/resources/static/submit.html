@@ -23,7 +23,7 @@
 	</div>
 	<div class="wrapper">
 		<h1>BugQuery Search</h1>
-		<form name="Search BugQuery" method="get" action="/result.html">
+		<form name="Search BugQuery" method="post" action="/stacks" enctype="application/x-www-form-urlencoded">
 			<p>Please insert your stack trace below:</p>
 			<textarea name="trace" class="bugquery-search" required></textarea>
 			<input class="button" type="submit" value="Submit Trace" />

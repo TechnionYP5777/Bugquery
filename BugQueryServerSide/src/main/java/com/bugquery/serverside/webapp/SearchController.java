@@ -37,12 +37,13 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
-	public ResponseEntity<?> addStackSearch(@RequestBody String trace) {
+	public String addStackSearch(@RequestBody String input) {
+		String traceFormKey = "trace="; //TODO: Amit & Yosef, decide on a  
+		                                //uniform representation for website form and plugin
+		String trace = !input.startsWith(traceFormKey) ? input : input.substring(traceFormKey.length());
 		StackSearch $ = new StackSearch(trace);
 		repository.save($);
-		return ResponseEntity.created(
-				ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand($.getId()).toUri())
-				.build();
+		return "redirect:stacks/" + $.getId();
 	}
 
 	List<Post> databaseStub = Arrays.asList(new PostStub("This is a post!"), new PostStub("!tsop a si sihT"));
