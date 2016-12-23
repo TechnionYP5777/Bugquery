@@ -1,6 +1,5 @@
 package com.bugquery.serverside.webapp;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +13,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import com.bugquery.serverside.webapp.StackSearch;
 import com.bugquery.serverside.entities.Post;
-import com.bugquery.serverside.entities.PostStub;
-import com.bugquery.serverside.entities.StackTrace;
-import com.bugquery.serverside.stacktrace.StackTraceDistancer;
+import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
-import com.bugquery.serverside.stacktrace.WeightLinesSTDistancer;
 
 @Controller
 public class SearchController {
 
-	//404 exception
-	//TODO: move elsewhere
+	// 404 exception
+	// TODO: move elsewhere
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public class ResourceNotFoundException extends RuntimeException { 
+	public class ResourceNotFoundException extends RuntimeException {
 		private static final long serialVersionUID = -3652773574082676217L;
 
 		public ResourceNotFoundException(String message) {
 			super(message);
+		}
+	}
+
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public class InternalServerError extends RuntimeException {
+		private static final long serialVersionUID = 2560023147133737591L;
+
+		public InternalServerError(String message) {
+			super(message);
+		}
+
+		public InternalServerError(Exception e) {
+			super(e.getMessage());
 		}
 	}
 
@@ -43,7 +52,12 @@ public class SearchController {
 		if (ss == null)
 			throw new ResourceNotFoundException("Couldn't find search id " + id);
 		String trace = ss.getTrace();
-		List<Post> $ = getResults(trace);
+		List<Post> $;
+		try {
+			$ = getResults(trace);
+		} catch (GeneralDBException e) {
+			throw new InternalServerError(e);
+		}
 		m.addAttribute("trace", trace);
 		m.addAttribute("results", $);
 		return "result";
@@ -51,19 +65,17 @@ public class SearchController {
 
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
 	public String addStackSearch(@RequestBody String input) {
-		String traceFormKey = "trace="; //TODO: Amit & Yosef, decide on a  
-		                                //uniform representation for website form and plugin
+		String traceFormKey = "trace="; // TODO: Amit & Yosef, decide on a
+										// uniform representation for website
+										// form and plugin
 		String trace = !input.startsWith(traceFormKey) ? input : input.substring(traceFormKey.length());
 		StackSearch $ = new StackSearch(trace);
 		repository.save($);
 		return "redirect:stacks/" + $.getId();
 	}
 
-	List<Post> databaseStub = Arrays.asList(new PostStub("This is a post!"), new PostStub("!tsop a si sihT"));
-	StackTraceDistancer distancer = new WeightLinesSTDistancer();
-
-	public List<Post> getResults(String trace) {
-		return StackTraceRetriever.getMostRelevantStackTraces(databaseStub, new StackTrace(trace), distancer, 2);
+	public static List<Post> getResults(String trace) throws GeneralDBException {
+		return StackTraceRetriever.getMostRelevantPosts(trace, 10);
 	}
 
 	public void setRepository(StackSearchRepository ¢) {
