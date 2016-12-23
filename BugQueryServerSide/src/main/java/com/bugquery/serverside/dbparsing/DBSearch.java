@@ -5,13 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bugquery.serverside.entities.MinSOPost;
 import com.bugquery.serverside.entities.Post;
 
 public class DBSearch {
-	public static ArrayList<Post> getAllQuestionsWithTheException(String s) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
-		ArrayList<Post> $ = new ArrayList<>();
+	public static List<Post> getAllQuestionsWithTheException(String s) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+		List<Post> $ = new ArrayList<>();
 
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root")){

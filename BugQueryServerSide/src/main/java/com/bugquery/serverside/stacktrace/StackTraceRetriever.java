@@ -33,7 +33,7 @@ public class StackTraceRetriever {
 			allPosts = DBSearch.getAllQuestionsWithTheException(st.getException());
 		} catch(Exception e) {
 			System.out.println((e + ""));
-			throw new GeneralDBException("General db error");
+			throw new GeneralDBException("General db error: " + e.getMessage());
 		}
 		return StackTraceRetriever.getMostRelevantStackTraces(allPosts, st, (new JaccardSTDistancer()), numOfPosts);
 	}

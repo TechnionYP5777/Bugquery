@@ -16,13 +16,13 @@ public class JaccardSTDistancerTest extends TestCase {
     @Test
     public void testDistanceZeroForSameStrings() {
         String s = "aaaa\nbbbb\ncccc\n\n";
-        assertEquals(new Double(0.0), new Double(this.j.distance(s, s)));
-        assertEquals(new Double(0.0), new Double(this.j.distance("", "")));
+        assertEquals(Double.valueOf(0.0), Double.valueOf(this.j.distance(s, s)));
+        assertEquals(Double.valueOf(0.0), Double.valueOf(this.j.distance("", "")));
     }
     @Test
     public void testReturnNonZeroForDifferentStrings() {
-        assertNotSame(new Double(0.0), new Double(this.j.distance("aaaa", "bbbb")));
-        assertNotSame(new Double(0.0), new Double(this.j.distance("aaaa\nbbbb", "cccc\nbbbb")));
+        assertNotSame(Double.valueOf(0.0), Double.valueOf(this.j.distance("aaaa", "bbbb")));
+        assertNotSame(Double.valueOf(0.0), Double.valueOf(this.j.distance("aaaa\nbbbb", "cccc\nbbbb")));
     }
     @Test
     public void testReturnsHigherDistanceForMoreDifferent() {
