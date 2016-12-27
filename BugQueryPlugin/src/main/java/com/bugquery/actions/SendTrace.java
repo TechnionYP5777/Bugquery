@@ -47,6 +47,7 @@ public class SendTrace {
 			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			conn.setRequestProperty("Content-Length", String.valueOf(post_bytes.length));
 			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
 			conn.getOutputStream().write(post_bytes);
 		} catch (IOException e) {
 			return;
