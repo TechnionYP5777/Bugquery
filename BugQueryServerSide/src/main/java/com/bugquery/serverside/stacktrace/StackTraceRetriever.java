@@ -49,8 +49,8 @@ public class StackTraceRetriever {
 			throw new IllegalArgumentException();
 		Collections.sort(allPosts, new Comparator<Post>(){
 			  @Override public int compare(Post p1, Post p2){
-				return d.distance(p1.stackTrace.getString(), t.getString()) > d.distance(p2.stackTrace.getString(), t.getString()) ? 1
-						: d.distance(p1.stackTrace.getString(), t.getString()) < d.distance(p2.stackTrace.getString(), t.getString()) ? -1 : 0;
+				return d.distance(p1.stackTrace, t) > d.distance(p2.stackTrace, t) ? 1
+						: d.distance(p1.stackTrace, t) < d.distance(p2.stackTrace, t) ? -1 : 0;
 			}
 			});
 		return allPosts.subList(0, numOfPosts);
