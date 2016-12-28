@@ -58,23 +58,23 @@ code {
 
 .bugquery-footer {
 	font-size: 0.9em;
-	margin-top: 35px;
+	margin: 35px 0;
 	padding: 10px 0;
 	border-top: 1px solid #cfcfcf;
 }
 
-#bugquery-icon {
+.svg-icon {
 	display: block;
-	padding: 0 6px 0 0;
+
 }
 
-#bugquery-icon svg {
+.svg-icon svg {
 	fill: #2f2f2f;
 	transition-duration: 0.4s;
 	-webkit-transition-duration: 0.4s;
 }
 
-#bugquery-icon svg:hover {
+.svg-icon svg:hover {
 	fill: #0070ca;
 }
 
@@ -123,7 +123,9 @@ form {
 .button {
 	font-size: 0.9em;
 	display: inline-block;
+	line-height: 1.5;
 	color: #2f2f2f;
+	cursor: pointer;
 	text-align: center;
 	padding: 2px 9px;
 	border-radius: 4px;
@@ -149,4 +151,18 @@ form {
 	border: 1px solid #cfcfcf;
 	padding: 2px 15px;
 	margin: -6px 0 0;
+}
+
+
+.bugquery-footer ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.bugquery-footer li {
+	float: left;
+	margin-right: 14px;
+	position: relative;
 }
