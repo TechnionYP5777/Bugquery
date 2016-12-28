@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>Welcome to BugQuery</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div th:replace="../templates/fragments/header"></div>
+	<div class="wrapper">
+		<div th:replace="this :: content"></div>
+	</div>
+<div th:replace="fragments/footer"></div>
+
+</body>
+</html>

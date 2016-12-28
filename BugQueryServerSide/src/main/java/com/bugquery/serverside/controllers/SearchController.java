@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackSearch;
 import com.bugquery.serverside.exceptions.GeneralDBException;
@@ -32,8 +33,8 @@ public class SearchController {
 		List<Post> $;
 		try {
 			$ = getResults(trace);
-		} catch (GeneralDBException e) {
-			throw new InternalServerException(e);
+		} catch (GeneralDBException ¢) {
+			throw new InternalServerException(¢);
 		}
 		m.addAttribute("trace", trace);
 		m.addAttribute("results", $);
@@ -42,10 +43,7 @@ public class SearchController {
 
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
 	public String addStackSearch(@RequestBody String input) {
-		String traceFormKey = "trace="; // TODO: Amit & Yosef, decide on a
-										// uniform representation for website
-										// form and plugin
-		String trace = !input.startsWith(traceFormKey) ? input : input.substring(traceFormKey.length());
+		String trace = input.substring("trace=".length());
 		StackSearch $ = new StackSearch(trace);
 		repository.save($);
 		return "redirect:stacks/" + $.getId();

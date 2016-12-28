@@ -35,6 +35,7 @@ public class SendTrace {
 
 		byte[] post_bytes;
 		try {
+			trace = "trace=" + trace;
 			post_bytes = trace.getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			return;
