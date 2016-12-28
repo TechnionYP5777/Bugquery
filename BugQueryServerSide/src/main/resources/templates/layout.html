@@ -1,15 +1,14 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Welcome to BugQuery</title>
-<meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
+<title th:text="${title}"></title>
+<meta charset="utf-8"></meta>
+<link rel="stylesheet" th:href="@{/style.css}" type="text/css"></link>
 </head>
 <body>
-<div th:replace="../templates/fragments/header"></div>
+	<div th:replace="fragments/header"></div>
 	<div class="wrapper">
-		<div th:replace="this :: content"></div>
+		<div th:replace="${view} :: content"></div>
 	</div>
-<div th:replace="fragments/footer"></div>
-
+	<div th:replace="fragments/footer"></div>
 </body>
 </html>
