@@ -5,7 +5,7 @@ body {
 	color: #2f2f2f;
 	line-height: 1.5;
 	font-family: 'Libre Franklin', sans-serif;
-	font-size: 17px;
+	font-size: 18px;
 }
 
 h1 {
@@ -41,6 +41,7 @@ ul {
 
 code {
 	white-space: pre-wrap;
+	word-wrap: break-word;
 	padding: 0 3px;
 	font-family: Consolas, monospace;
 }
@@ -65,7 +66,6 @@ code {
 
 .svg-icon {
 	display: block;
-
 }
 
 .svg-icon svg {
@@ -135,8 +135,8 @@ form {
 }
 
 .button:hover {
-	color:#0070ca;
-	border-color:#0070ca;
+	color: #0070ca;
+	border-color: #0070ca;
 }
 
 .button:active {
@@ -153,7 +153,6 @@ form {
 	margin: -6px 0 0;
 }
 
-
 .bugquery-footer ul {
 	list-style-type: none;
 	margin: 0;
@@ -163,6 +162,6 @@ form {
 
 .bugquery-footer li {
 	float: left;
-	margin-right: 14px;
+	margin-right: 17px;
 	position: relative;
 }

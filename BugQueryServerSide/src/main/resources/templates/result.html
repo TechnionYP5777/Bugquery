@@ -14,12 +14,12 @@
 		</div>
 		<div class="bugquery-result" th:each="result : ${results}">
 			<a class="bugquery-result-label"
-				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Matched
-				Trace, Original Post Title</a>
+				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Result</a>
 			<div class="code-wrapper">
 				<code th:text="${result}"></code>
 			</div>
-			<p>Cool Result!</p>
+			<h3>Original Question</h3>
+			<p th:utext="${result.questionString}">Cool Result!</p>
 		</div>
 	</div>
 <div th:replace="fragments/footer"></div>

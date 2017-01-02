@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="${url}"></title>
+<meta charset="utf-8"></meta>
+<link rel="stylesheet" th:href="@{/style.css}" type="text/css"></link>
+</head>
+<body>
+	<div th:replace="fragments/header"></div>
+	<div class="wrapper">
+		<div class="bugquery-result">
+			<code th:text="${exception.getMessage()}"></code>
+		</div>
+	</div>
+	<div th:replace="fragments/footer"></div>
+</body>
+</html>

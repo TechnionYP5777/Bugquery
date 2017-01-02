@@ -30,12 +30,14 @@ public class SearchController {
 		if (ss == null)
 			throw new ResourceNotFoundException("Couldn't find search id " + id);
 		String trace = ss.getTrace();
+
 		List<Post> $;
 		try {
 			$ = getResults(trace);
 		} catch (GeneralDBException ¢) {
 			throw new InternalServerException(¢);
 		}
+
 		m.addAttribute("trace", trace);
 		m.addAttribute("results", $);
 		return "result";
