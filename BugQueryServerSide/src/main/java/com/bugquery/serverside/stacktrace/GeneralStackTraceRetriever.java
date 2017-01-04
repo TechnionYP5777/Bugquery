@@ -1,10 +1,12 @@
 package com.bugquery.serverside.stacktrace;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.bugquery.serverside.dbparsing.DBConnector;
 import com.bugquery.serverside.dbparsing.DBSearch;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
@@ -16,6 +18,23 @@ import com.bugquery.serverside.exceptions.GeneralDBException;
  *
  */
 public class GeneralStackTraceRetriever implements StackTraceRetriever{
+	
+	private StackTraceDistancer d;
+	private DBConnector connector;
+	
+	public GeneralStackTraceRetriever() {
+		this(new JaccardSTDistancer(), new DBConnector(){
+
+			@Override
+			public List<Post> getAllQuestionsWithTheException(@SuppressWarnings("unused") String __) {
+				return null;
+			}});
+	}
+	
+	public GeneralStackTraceRetriever(StackTraceDistancer d, DBConnector connector) {
+		this.d = d;
+		this.connector = connector;
+	}
 	
 	/**
 	 * This function completes the pipeline between the server and the database.
@@ -56,10 +75,19 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 		return allPosts.subList(0, numOfPosts);
 	}
 
-	@SuppressWarnings("unused")
 	@Override
-	public List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) throws GeneralDBException {
+		if(stackTrace == null || numOfPosts <= 0)
+			throw new IllegalArgumentException();
+		StackTrace st = new StackTrace(stackTrace);
+		List<Post> allPosts = new ArrayList<>();
+		try {
+			allPosts = connector.getAllQuestionsWithTheException(st.getException());
+		} catch(Exception e) {
+			System.out.println((e + ""));
+			throw new GeneralDBException("General db error: " + e.getMessage());
+		}
+		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, st, d, numOfPosts);
+	
 	}
 }
