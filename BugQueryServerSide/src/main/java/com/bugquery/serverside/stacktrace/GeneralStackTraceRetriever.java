@@ -1,6 +1,5 @@
 package com.bugquery.serverside.stacktrace;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +7,7 @@ import java.util.List;
 
 import com.bugquery.serverside.dbparsing.DBConnector;
 import com.bugquery.serverside.dbparsing.DBSearch;
+import com.bugquery.serverside.dbparsing.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.exceptions.GeneralDBException;
@@ -23,12 +23,7 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 	private DBConnector connector;
 	
 	public GeneralStackTraceRetriever() {
-		this(new JaccardSTDistancer(), new DBConnector(){
-
-			@Override
-			public List<Post> getAllQuestionsWithTheException(@SuppressWarnings("unused") String __) {
-				return null;
-			}});
+		this(new JaccardSTDistancer(), new SQLDBConnector());
 	}
 	
 	public GeneralStackTraceRetriever(StackTraceDistancer d, DBConnector connector) {
