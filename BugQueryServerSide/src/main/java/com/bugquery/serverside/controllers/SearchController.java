@@ -52,7 +52,7 @@ public class SearchController {
 	}
 
 	public static List<Post> getResults(String trace) throws GeneralDBException {
-		return GeneralStackTraceRetriever.getMostRelevantPosts_static(trace, 10);
+		return new GeneralStackTraceRetriever().getMostRelevantPosts(trace, 10);
 	}
 
 	public void setRepository(StackSearchRepository ¢) {

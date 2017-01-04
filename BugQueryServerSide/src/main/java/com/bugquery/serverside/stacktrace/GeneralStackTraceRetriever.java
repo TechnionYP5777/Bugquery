@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.bugquery.serverside.dbparsing.DBConnector;
-import com.bugquery.serverside.dbparsing.DBSearch;
 import com.bugquery.serverside.dbparsing.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
@@ -31,34 +30,13 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 		this.connector = connector;
 	}
 	
-	/**
-	 * This function completes the pipeline between the server and the database.
-	 * @param stackTrace - the stack trace which the user queried about
-	 * @param numOfPosts - number of relevant posts needed
-	 * @return list of most relevant post to the given stack trace
-	 * @throws GeneralDBException 
-	 */
-	public static List<Post> getMostRelevantPosts_static(String stackTrace, int numOfPosts) throws GeneralDBException {
-		if(stackTrace == null || numOfPosts <= 0)
-			throw new IllegalArgumentException();
-		StackTrace st = new StackTrace(stackTrace);
-		List<Post> allPosts = new ArrayList<>();
-		try {
-			allPosts = DBSearch.getAllQuestionsWithTheException(st.getException());
-		} catch(Exception e) {
-			System.out.println((e + ""));
-			throw new GeneralDBException("General db error: " + e.getMessage());
-		}
-		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, st, (new JaccardSTDistancer()), numOfPosts);
-	}
-	
 	/*
 	 * This function returns the posts with the closest stack traces to the input @stackTrace
 	 * using the @distance distancer to sort the traces.
 	 * This function assumes that the database which contains posts with stack traces was
 	 * extracted to a in memory list.
 	 */
-	public static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d, int numOfPosts) {
+	private static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d, int numOfPosts) {
 		if(allPosts == null || d == null || numOfPosts <= 0 || t == null)
 			throw new IllegalArgumentException();
 		Collections.sort(allPosts, new Comparator<Post>(){
@@ -69,7 +47,15 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 			});
 		return allPosts.subList(0, numOfPosts);
 	}
+	
 
+	/**
+	 * This function completes the pipeline between the server and the database.
+	 * @param stackTrace - the stack trace which the user queried about
+	 * @param numOfPosts - number of relevant posts needed
+	 * @return list of most relevant post to the given stack trace
+	 * @throws GeneralDBException 
+	 */
 	@Override
 	public List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) throws GeneralDBException {
 		if(stackTrace == null || numOfPosts <= 0)
@@ -83,6 +69,5 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 			throw new GeneralDBException("General db error: " + e.getMessage());
 		}
 		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, st, d, numOfPosts);
-	
 	}
 }
