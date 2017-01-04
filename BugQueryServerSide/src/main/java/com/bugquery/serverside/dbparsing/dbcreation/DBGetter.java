@@ -1,4 +1,4 @@
-package com.bugquery.serverside.dbparsing;
+package com.bugquery.serverside.dbparsing.dbcreation;
 
 import java.io.FileWriter;
 import java.io.IOException;

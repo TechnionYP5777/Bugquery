@@ -1,4 +1,4 @@
-package com.bugquery.serverside.dbparsing;
+package com.bugquery.serverside.dbparsing.dbretrieval;
 
 import java.sql.SQLException;
 import java.util.List;

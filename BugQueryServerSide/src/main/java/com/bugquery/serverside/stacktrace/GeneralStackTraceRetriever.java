@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.bugquery.serverside.dbparsing.DBConnector;
-import com.bugquery.serverside.dbparsing.SQLDBConnector;
+import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
+import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.exceptions.GeneralDBException;

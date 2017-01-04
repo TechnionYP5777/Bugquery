@@ -1,4 +1,4 @@
-package com.bugquery.serverside.dbparsing;
+package com.bugquery.serverside.dbparsing.dbcreation;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;

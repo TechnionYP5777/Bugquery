@@ -1,4 +1,4 @@
-package com.bugquery.serverside.dbparsing;
+package com.bugquery.serverside.dbparsing.dbretrieval;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

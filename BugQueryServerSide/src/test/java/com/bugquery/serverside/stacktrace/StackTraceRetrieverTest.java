@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.bugquery.serverside.dbparsing.DBConnector;
+import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.exceptions.GeneralDBException;
