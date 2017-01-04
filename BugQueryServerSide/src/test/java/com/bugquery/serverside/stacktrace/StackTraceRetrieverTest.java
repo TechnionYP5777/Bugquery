@@ -26,25 +26,25 @@ public class StackTraceRetrieverTest {
   @Test
 	public void retrieverThrowsExceptionForIllegalParameters1() {
 	  thrown.expect(IllegalArgumentException.class);
-		StackTraceRetriever.getMostRelevantStackTraces(null, new StackTrace(stackTrace), new JaccardSTDistancer(), 1);
+		GeneralStackTraceRetriever.getMostRelevantStackTraces(null, new StackTrace(stackTrace), new JaccardSTDistancer(), 1);
 	}
 	
   @Test
   public void retrieverThrowsExceptionForIllegalParameters2() {
     thrown.expect(IllegalArgumentException.class);
-    StackTraceRetriever.getMostRelevantStackTraces(new ArrayList<Post>(), null, new JaccardSTDistancer(), 1);
+    GeneralStackTraceRetriever.getMostRelevantStackTraces(new ArrayList<Post>(), null, new JaccardSTDistancer(), 1);
  }
 
   @Test
   public void retrieverThrowsExceptionForIllegalParameters3() {
     thrown.expect(IllegalArgumentException.class);
-    StackTraceRetriever.getMostRelevantStackTraces(new ArrayList<Post>(), new StackTrace(stackTrace),  null, 1);
+    GeneralStackTraceRetriever.getMostRelevantStackTraces(new ArrayList<Post>(), new StackTrace(stackTrace),  null, 1);
  }
 
   @Test
   public void retrieverThrowsExceptionForIllegalParameters4() {
     thrown.expect(IllegalArgumentException.class);
-    StackTraceRetriever.getMostRelevantStackTraces(new ArrayList<Post>(), new StackTrace(stackTrace), new JaccardSTDistancer(), 0);
+    GeneralStackTraceRetriever.getMostRelevantStackTraces(new ArrayList<Post>(), new StackTrace(stackTrace), new JaccardSTDistancer(), 0);
  }
 
 	@Test 
@@ -64,8 +64,8 @@ public class StackTraceRetrieverTest {
 		posts.add(p1);
 		List<Post> result = new ArrayList<>();
 		result.add(p1);
-		assertEquals(result,StackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new JaccardSTDistancer(), 1));
-		assertEquals(result,StackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new WeightLinesSTDistancer(), 1));
+		assertEquals(result,GeneralStackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new JaccardSTDistancer(), 1));
+		assertEquals(result,GeneralStackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new WeightLinesSTDistancer(), 1));
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class StackTraceRetrieverTest {
 		List<Post> result = new ArrayList<>();
 		result.add(p1);
 		result.add(p2);
-		assertEquals(result,StackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new JaccardSTDistancer(), 2));
-		assertEquals(result,StackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new WeightLinesSTDistancer(), 2));
+		assertEquals(result,GeneralStackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new JaccardSTDistancer(), 2));
+		assertEquals(result,GeneralStackTraceRetriever.getMostRelevantStackTraces(posts, new StackTrace(stackTrace1), new WeightLinesSTDistancer(), 2));
 	}
 }

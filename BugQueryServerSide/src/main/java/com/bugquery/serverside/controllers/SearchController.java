@@ -16,7 +16,7 @@ import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 import com.bugquery.serverside.repositories.StackSearchRepository;
-import com.bugquery.serverside.stacktrace.StackTraceRetriever;
+import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
 
 @Controller
 public class SearchController {
@@ -52,7 +52,7 @@ public class SearchController {
 	}
 
 	public static List<Post> getResults(String trace) throws GeneralDBException {
-		return StackTraceRetriever.getMostRelevantPosts(trace, 10);
+		return GeneralStackTraceRetriever.getMostRelevantPosts_static(trace, 10);
 	}
 
 	public void setRepository(StackSearchRepository ¢) {
