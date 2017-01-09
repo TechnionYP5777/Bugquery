@@ -47,27 +47,26 @@ public class StackTrace {
 	private String getExceptionNameFromExceptionLine(String exceptionLine) {
 		if(exceptionLine.contains("Caused by:"))
 			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
-		String relevantLine = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
-		return relevantLine.substring(relevantLine.lastIndexOf(" ") + 1);
+		String $ = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
+		return $.substring($.lastIndexOf(" ") + 1);
 	}
 	
 	private String getException(String stackTrace) {
-		String exceptionLine = "";
+		String $ = "";
 		if(stackTrace.contains("Caused by:")) {
 			Pattern p = Pattern.compile(this.causedByRegex);
 			for (Matcher ¢ = p.matcher(stackTrace); ¢.find();)
-				exceptionLine = ¢.group(0); 
-			exceptionLine = exceptionLine.trim();
+				$ = ¢.group(0); 
+			$ = $.trim();
 		} else if (!stackTrace.contains("Exception in")) 
-			exceptionLine = stackTrace.split("\n")[0];
+			$ = stackTrace.split("\n")[0];
 		else {
-			Pattern p = Pattern.compile(this.exceptionRegex);
-			Matcher m = p.matcher(stackTrace);
+			Matcher m = Pattern.compile(this.exceptionRegex).matcher(stackTrace);
 			if (!m.find())
 				return StackTrace.noExceptionFound;
-			exceptionLine = m.group(0).trim();
+			$ = m.group(0).trim();
 		}
-		return getExceptionNameFromExceptionLine(exceptionLine);
+		return getExceptionNameFromExceptionLine($);
 	}
 	
 	private static List<String> getStackOfCalls(String stackTrace) {

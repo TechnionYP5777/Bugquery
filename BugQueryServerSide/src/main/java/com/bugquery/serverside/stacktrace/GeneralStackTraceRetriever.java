@@ -44,9 +44,9 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 		Comparator<Post> postC = new Comparator<Post>() {
 			@Override
 			public int compare(Post p1, Post p2) {
-				double d_p1 = d.distance(p1.stackTrace, t); // saves time
+				double $ = d.distance(p1.stackTrace, t); // saves time
 				double d_p2 = d.distance(p2.stackTrace, t); // computing
-				return d_p1 > d_p2 ? 1 : d_p1 < d_p2 ? -1 : 0; // distance twice
+				return $ > d_p2 ? 1 : $ < d_p2 ? -1 : 0; // distance twice
 			}
 		};
 			
@@ -71,14 +71,14 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 	public List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) throws GeneralDBException {
 		if(stackTrace == null || numOfPosts <= 0)
 			throw new IllegalArgumentException();
-		StackTrace st = new StackTrace(stackTrace);
+		StackTrace $ = new StackTrace(stackTrace);
 		List<Post> allPosts = new ArrayList<>();
 		try {
-			allPosts = connector.getAllQuestionsWithTheException(st.getException());
-		} catch(Exception e) {
-			System.out.println((e + ""));
-			throw new GeneralDBException("General db error: " + e.getMessage());
+			allPosts = connector.getAllQuestionsWithTheException($.getException());
+		} catch(Exception ¢) {
+			System.out.println((¢ + ""));
+			throw new GeneralDBException("General db error: " + ¢.getMessage());
 		}
-		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, st, d, numOfPosts);
+		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, $, d, numOfPosts);
 	}
 }

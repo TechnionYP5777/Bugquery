@@ -18,7 +18,7 @@ public class JaccardSTDistancer implements StackTraceDistancer {
         List<String> lines = StackTraceDistancer.splitByNewlines(s);
         HashSet<String> $ = new HashSet<>(); // retval
         for (int ¢ = 0; ¢ < lines.size(); ¢+=2)
-			$.add(¢ + 1 >= lines.size() ? lines.get(¢) : lines.get(¢) + lines.get(¢ + 1));
+			$.add(¢ >= lines.size() - 1 ? lines.get(¢) : lines.get(¢) + lines.get(¢ + 1));
         return $;
     }
 
@@ -28,12 +28,12 @@ public class JaccardSTDistancer implements StackTraceDistancer {
      */
     @Override
     public double distance(String o1, String o2) {
-        Set<String> union = extractLineTuples(o1);
-        union.addAll(extractLineTuples(o2));
+        Set<String> $ = extractLineTuples(o1); // acctually this is union, great work spartanizer
+        $.addAll(extractLineTuples(o2));
 
         Set<String> intersection = extractLineTuples(o1);
         intersection.retainAll(extractLineTuples(o2)); // keeps only the intersection of the two
 
-        return union.size() - intersection.size(); // union_size - (size of intersection)
+        return $.size() - intersection.size(); // union_size - (size of intersection)
     }
 }

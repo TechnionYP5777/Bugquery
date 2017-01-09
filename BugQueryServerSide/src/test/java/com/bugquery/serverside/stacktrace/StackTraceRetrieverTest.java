@@ -38,7 +38,7 @@ public class StackTraceRetrieverTest {
 		thrown.expect(IllegalArgumentException.class);
 		try {
 			new GeneralStackTraceRetriever().getMostRelevantPosts(null, 1);
-		} catch (GeneralDBException e) {e.printStackTrace();}
+		} catch (GeneralDBException ¢) {¢.printStackTrace();}
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class StackTraceRetrieverTest {
 		thrown.expect(IllegalArgumentException.class);
 		try {
 			new GeneralStackTraceRetriever().getMostRelevantPosts(stackTrace, 0);
-		} catch (GeneralDBException e) {e.printStackTrace();}
+		} catch (GeneralDBException ¢) {¢.printStackTrace();}
 	}
 
 	@Test 
@@ -69,8 +69,8 @@ public class StackTraceRetrieverTest {
 		try {
 			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 1));
 			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 1));
-		} catch (GeneralDBException e) {
-			e.printStackTrace();
+		} catch (GeneralDBException ¢) {
+			¢.printStackTrace();
 		}
 	}
 	
@@ -101,8 +101,8 @@ public class StackTraceRetrieverTest {
 		try {
 			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 2));
 			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 2));
-		} catch (GeneralDBException e) {
-			e.printStackTrace();
+		} catch (GeneralDBException ¢) {
+			¢.printStackTrace();
 		}
 	}
 }

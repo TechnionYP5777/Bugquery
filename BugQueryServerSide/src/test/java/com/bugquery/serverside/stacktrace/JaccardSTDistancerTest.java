@@ -26,8 +26,8 @@ public class JaccardSTDistancerTest extends TestCase {
     }
     @Test
     public void testReturnsHigherDistanceForMoreDifferent() {
-        // another 2-line with different values here
-        assertTrue(this.j.distance("aaaa\nbbbb", "cccc\nbbbb") < this.j.distance("aaaa\nbbbb\n33", "cccc\nbbbb\n44"));
+        assert this.j.distance("aaaa\nbbbb", "cccc\nbbbb") < this.j.distance("aaaa\nbbbb\n33",
+				"cccc\nbbbb\n44") : "2-line with different values here";
     }
 
 }
