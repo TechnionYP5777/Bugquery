@@ -49,7 +49,7 @@ public class XMLDiffer {
 			fw.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<posts>\n");
 			for (String prevLine = null, line; (line = br.readLine()) != null;) {
 				if (prevLine != null && diffSet.contains(getIDValue(prevLine)))
-					fw.write(prevLine + "\n");
+					fw.write(prevLine + "a\n");
 				prevLine = line;
 			}
 			fw.write("</posts>");
