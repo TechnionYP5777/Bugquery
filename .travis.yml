@@ -7,5 +7,7 @@ addons:
     packages:
       - oracle-java8-installer
 
+before_script:
+  - cd BugQueryServerSide/
 script:
-  - cd BugQueryServerSide/ ; sudo mvn test ; cd ..
+  - mvn test
