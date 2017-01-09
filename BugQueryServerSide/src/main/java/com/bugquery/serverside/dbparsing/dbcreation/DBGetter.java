@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bugquery.serverside.entities.StackOverflowPost;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
@@ -19,14 +20,12 @@ public class DBGetter {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root")){
 	      int numOfRows = 0;
-	      try(ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id) LIMIT 10000")){
+	      try(ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id)")){
 	        if (r.next())
 	          numOfRows = r.getInt("maxId");
 	      }
-	     connection.createStatement().executeUpdate("DROP TABLE bugquery_index2");
-      connection.createStatement().executeUpdate("CREATE TABLE bugquery_index2(Id int,Ex Text,StackTrace Text,Question Text)");
-	     
-	      
+//	     connection.createStatement().executeUpdate("DROP TABLE bugquery_index2");
+      connection.createStatement().executeUpdate("CREATE TABLE bugquery_index3(Id int,Ex Text,StackTrace Text,Question Text,PostTypeId int, ParentID int,AcceptedAnswerId int, Score int,Title Text, Tags varchar(500), AnswerCount int)");	      
 	      FileWriter write = null;
   	    try {
   	      write = new FileWriter( logFile , true);
@@ -39,12 +38,19 @@ public class DBGetter {
             try(ResultSet rs = connection.createStatement()
                 .executeQuery("SELECT * FROM so_posts WHERE Id < " + (i + 10000)+" AND Id > "+i)){
               for (ResultSet i_rs = rs; i_rs.next();) {
-                String question = rs.getString("Body");
+                String body = rs.getString("Body");
                 String tags = rs.getString("Tags");
                 int id = rs.getInt("Id");
+                int postTypeId = rs.getInt("PostTypeId");
+                String parentId = rs.getString("ParentId");
+                String acceptedAnswerId = rs.getString("AcceptedAnswerId");
+                int score = rs.getInt("Score");
+                String title = rs.getString("Title");
+                int answerCount = rs.getInt("AnswerCount");
+				StackOverflowPost sop = new StackOverflowPost(Integer.toString(id),postTypeId,parentId, acceptedAnswerId, score,body, title, tags, answerCount);
                 if (tags == null || !tags.toLowerCase().contains("java"))
                   continue;
-                insertQusetionToDB(connection, printer, question, id);
+                insertQusetionToDB(connection, printer, sop);
               }
             }
             
@@ -53,30 +59,29 @@ public class DBGetter {
 	    }    
 	}
 
-	private static void insertQusetionToDB(Connection c, PrintWriter printer, String question,
-			int id) throws SQLException {
+	private static void insertQusetionToDB(Connection c, PrintWriter printer, StackOverflowPost p) throws SQLException {
 		List<StackTrace> extract = new ArrayList<>();
 		try {
-			extract.addAll(StackTraceExtractor.extract(question));
+			extract.addAll(StackTraceExtractor.extract(p.body));
 		} catch (Exception e) {
 			if (printer == null)
         System.out.println("Failed with:\n" + e.getStackTrace());
       else{
-				printer.println("The id is: "+id+"\n\n\n\n");
-				printer.println(question+"\n\n\n\n");
+				printer.println("The id is: "+p.id+"\n\n\n\n");
+				printer.println(p.body+"\n\n\n\n");
 			}
 		}
 		
 		for (StackTrace ¢1 : extract) {
-			String string = "INSERT INTO bugquery_index2(Id,Ex,StackTrace,Question) VALUES(?,?,?,?)";
-			System.out.println("The id is: "+id);
+			String string = "INSERT INTO bugquery_index3(Id,Ex,StackTrace,Question) VALUES(?,?,?,?)";
+			System.out.println("The id is: "+p.id);
 
 			try(PreparedStatement ps2 = c.prepareStatement(string)){
   			String ex = ¢1.getException();
-  			ps2.setInt(1, id);
+  			ps2.setInt(1, Integer.parseInt(p.id));
   			ps2.setString(2, ex);
   			ps2.setString(3, ¢1.getString());
-  			ps2.setString(4, question);
+  			ps2.setString(4, p.body);
   			ps2.executeUpdate();
 			}	
 		}
@@ -88,7 +93,7 @@ public class DBGetter {
 	 * @param question The question to be inserted to the db.
 	 * @param logFile If you want to print  to standard input put empty string 
 	 */
-	public static void insertNewExceptionToDB(String question, String logFile) {
+	public static void insertNewExceptionToDB(StackOverflowPost p, String logFile) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
@@ -98,7 +103,7 @@ public class DBGetter {
 			try(PrintWriter printWriter = new PrintWriter(new FileWriter(logFile))){
       insertQusetionToDB(
 					DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root"),
-					logFile == "" ? null : printWriter, question, 0);
+					logFile == "" ? null : printWriter, p);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
