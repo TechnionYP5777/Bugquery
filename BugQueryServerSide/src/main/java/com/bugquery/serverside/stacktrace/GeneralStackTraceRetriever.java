@@ -1,9 +1,9 @@
 package com.bugquery.serverside.stacktrace;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
 import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
@@ -39,13 +39,24 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 	private static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d, int numOfPosts) {
 		if(allPosts == null || d == null || numOfPosts <= 0 || t == null)
 			throw new IllegalArgumentException();
-		Collections.sort(allPosts, new Comparator<Post>(){
-			  @Override public int compare(Post p1, Post p2){
-				return d.distance(p1.stackTrace, t) > d.distance(p2.stackTrace, t) ? 1
-						: d.distance(p1.stackTrace, t) < d.distance(p2.stackTrace, t) ? -1 : 0;
+		assert(allPosts.size() > numOfPosts);  // sufficient size
+		
+		Comparator<Post> postC = new Comparator<Post>() {
+			@Override
+			public int compare(Post p1, Post p2) {
+				double d_p1 = d.distance(p1.stackTrace, t); // saves time
+				double d_p2 = d.distance(p2.stackTrace, t); // computing
+				return d_p1 > d_p2 ? 1 : d_p1 < d_p2 ? -1 : 0; // distance twice
 			}
-			});
-		return allPosts.subList(0, numOfPosts);
+		};
+			
+		PriorityQueue<Post> pq = new PriorityQueue<>(allPosts.size(), postC); 
+		pq.addAll(allPosts); // build PQ with the same init size
+		ArrayList<Post> $ = new ArrayList<>();
+		for (int ¢=0;¢<numOfPosts; ++¢)
+			$.add($.size(), pq.poll());
+		
+		return $;
 	}
 	
 

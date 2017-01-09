@@ -82,7 +82,7 @@ public class StackTraceRetrieverTest {
 				"at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
 		Post p1 = new PostStub(stackTrace1);
 		String stackTrace2 = "Exception in thread \"main\" java.lang.NullPointerException\n" + 
-				"at com.example.myproject.Movie.getTitle(Book.java:16)\n" + 
+				"at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
 				"at com.example.myproject.Producer.getBookTitles(Author.java:25)\n" + 
 				"at com.example.myproject.trap.main(Bootstrap.java:14)";
 		Post p2 = new PostStub(stackTrace2);
