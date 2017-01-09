@@ -3,6 +3,7 @@ package com.bugquery.serverside.entities;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,8 @@ public class StackSearch {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Column(columnDefinition="Text")
 	private String trace;
 
 	// empty c'tor for the sake of JPA
