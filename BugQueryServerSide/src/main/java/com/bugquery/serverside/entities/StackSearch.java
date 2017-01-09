@@ -12,8 +12,8 @@ import javax.persistence.Id;
 @Entity
 public class StackSearch {
 
-	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
 	private Long id;
 	
 	@Column(columnDefinition="Text")
