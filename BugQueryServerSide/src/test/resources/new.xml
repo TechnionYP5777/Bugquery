@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<posts>
+  <row Id="1" PostTypeId="1" AcceptedAnswerId="51" />
+  <row Id="2" PostTypeId="1" AcceptedAnswerId="12" />
+  <row Id="3" PostTypeId="1" AcceptedAnswerId="152" />
+  <row Id="4" PostTypeId="1" AcceptedAnswerId="1289" />
+  <row Id="5" PostTypeId="1" AcceptedAnswerId="77" />
+  <row Id="6" PostTypeId="1" AcceptedAnswerId="27" />
+  <row Id="7" PostTypeId="5" />
+  <row Id="8" PostTypeId="4" />
+</posts>
