@@ -8,4 +8,4 @@ addons:
       - oracle-java8-installer
 
 script:
-  - mvn test -f ./BugQueryServerSide/pom.xml
+  - cd BugQueryServerSide/ ; sudo mvn test ; cd ..
