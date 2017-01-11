@@ -17,12 +17,13 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 public class DBGetter {
 	static int uniqueId;
-	
+	static String address = "localhost:4488";
 	public static void importFromSOToBugQuery(String logFile) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-	    try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root")){
+	    try(Connection connection = DriverManager.getConnection("jdbc:mysql://"+address+"/bugquery?user=root&password=root")){
 	      int numOfRows = 0;
-	      try(ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts USE INDEX(Id)")){
+	      connection.createStatement().executeUpdate("CREATE INDEX so_index ON so_posts10(Id)");
+	      try(ResultSet r = connection.createStatement().executeQuery("SELECT MAX(Id) as maxId FROM so_posts10 USE INDEX(Id)")){
 	        if (r.next())
 	          numOfRows = r.getInt("maxId");
 	      }
@@ -38,7 +39,7 @@ public class DBGetter {
           for  (int i = 0; i <numOfRows;i+=10000){
             System.out.println(i+1);
             try(ResultSet rs = connection.createStatement()
-                .executeQuery("SELECT * FROM so_posts USE INDEX(Id) WHERE Id < " + (i + 10000)+" AND Id > "+i)){
+                .executeQuery("SELECT * FROM so_posts10 USE INDEX(Id) WHERE Id < " + (i + 10000)+" AND Id > "+i)){
               for (ResultSet i_rs = rs; i_rs.next();) {
             	  String tags = rs.getString("Tags");
             	  if (tags == null || !tags.toLowerCase().contains("java"))
@@ -128,5 +129,21 @@ public class DBGetter {
 	
 	public static void main(String[] args) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
 		DBGetter.importFromSOToBugQuery("log.txt");
+		DBGetter.importAnswersFromSO();
+	}
+
+	private static void importAnswersFromSO() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+			try(Connection connection = DriverManager.getConnection("jdbc:mysql://gpu7.cs.technion.ac.il:3306/bugquery?user=root&password=root")){
+				connection.createStatement().executeUpdate("CREATE TABLE bugquery_answers(BugQueryId int,SOId int,Answer Text,PostTypeId int, ParentID int,AcceptedAnswerId int, Score int,Title Text, Tags varchar(500), AnswerCount int)");
+				try(ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM bugquery_index3")){
+					for (ResultSet i_rs = rs; i_rs.next();) {
+						int soId = rs.getInt("SOId");
+						connection.createStatement().executeUpdate("INSERT INTO bugquery_answers(SOId,Answer,PostTypeId,ParentID,AcceptedAnswerId,Score,Title,Tags,AnswerCount) SELECT (so_posts10.Id,)");
+						
+					}
+			}
+		}
+		
 	}
 }
