@@ -28,7 +28,7 @@ public class SearchController {
 	public String getSearchResults(@PathVariable Long id, Model m) {
 		StackSearch ss = repository.findOne(id);
 		if (ss == null)
-			throw new ResourceNotFoundException("Couldn't find search id " + id);
+			throw new ResourceNotFoundException("Search id \"" + id + "\" could not be found.");
 		String trace = ss.getTrace();
 
 		List<Post> $;

@@ -1,14 +1,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="${url}"></title>
+<title th:text="${title}"></title>
 <meta charset="utf-8"></meta>
 <link rel="stylesheet" th:href="@{/style.css}" type="text/css"></link>
+<script th:if="${trace}">
+	function traceToggle() {
+		document.getElementById("errortrace").style.display = (document
+				.getElementById("errortrace").style.display == "block") ? "none"
+				: "block";
+	}
+</script>
 </head>
+
 <body>
 	<div th:replace="fragments/header"></div>
 	<div class="wrapper">
-		<div class="bugquery-result">
-			<code th:text="${exception.getMessage()}"></code>
+		<div class="error">
+			<p>
+				<img src="/img/error.png"></img>
+			</p>
+			<h3>BugQuery ran into an issue.</h3>
+			<p th:text="${exception}"></p>
+			<a class="button" href="/guide.html">Return to Homepage</a>
+			<input
+				th:if="${trace}" style="margin-left: 8px" class="button"
+				type="submit" onclick="traceToggle()" value="Show Trace" />
+		</div>
+		<div th:if="${trace}" class="bugquery-result" style="display: none;"
+			id="errortrace">
+			<div class="code-wrapper">
+				<code th:text="${trace}"></code>
+			</div>
 		</div>
 	</div>
 	<div th:replace="fragments/footer"></div>
