@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bugquery.serverside.entities.StackOverflowPost;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
@@ -138,6 +137,7 @@ public class DBGetter {
 				connection.createStatement().executeUpdate("CREATE TABLE bugquery_answers(BugQueryId int,SOId int,Answer Text,PostTypeId int, ParentID int,AcceptedAnswerId int, Score int,Title Text, Tags varchar(500), AnswerCount int)");
 				try(ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM bugquery_index3")){
 					for (ResultSet i_rs = rs; i_rs.next();) {
+						@SuppressWarnings("unused")
 						int soId = rs.getInt("SOId");
 						connection.createStatement().executeUpdate("INSERT INTO bugquery_answers(SOId,Answer,PostTypeId,ParentID,AcceptedAnswerId,Score,Title,Tags,AnswerCount) SELECT (so_posts10.Id,)");
 						
