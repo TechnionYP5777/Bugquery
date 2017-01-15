@@ -39,4 +39,12 @@
          </toolbar>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            id="com.bugquery.launchQuery"
+            modes="run, debug"
+            name="BugQuery Launch">
+      </launchConfigurationType>
+   </extension>
 </plugin>

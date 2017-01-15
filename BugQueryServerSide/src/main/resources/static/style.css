@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Libre+Franklin');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Libre+Franklin:400,600');
+
 html {
-     overflow: -moz-scrollbars-vertical;
-     overflow-y: scroll;
+	overflow: -moz-scrollbars-vertical;
+	overflow-y: scroll;
 }
 
 body {
@@ -47,7 +48,7 @@ code {
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	padding: 0 3px;
-	font-family: Consolas, monospace;
+	font-family: 'Inconsolata', 'Space Mono', Consolas, monospace;
 }
 
 .wrapper {
@@ -138,12 +139,14 @@ form {
 	font-family: inherit;
 }
 
-.button:hover {
+.button:hover, .button:focus {
+	outline: none;
 	color: #0070ca;
 	border-color: #0070ca;
 }
 
 .button:active {
+	outline: none;
 	background-color: #cfcfcf;
 }
 
