@@ -10,6 +10,7 @@ import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.exceptions.GeneralDBException;
+import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 
 /**
  * Utility class for getting relevant stack traces from the database
@@ -66,12 +67,15 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 	 * @param numOfPosts - number of relevant posts needed
 	 * @return list of most relevant post to the given stack trace
 	 * @throws GeneralDBException 
+	 * @throws InvalidStackTraceException 
 	 */
 	@Override
-	public List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) throws GeneralDBException {
+	public List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) throws GeneralDBException, InvalidStackTraceException {
 		if(stackTrace == null || numOfPosts <= 0)
 			throw new IllegalArgumentException();
 		StackTrace $ = new StackTrace(stackTrace);
+		if($.getException() == StackTrace.noExceptionFound)
+			throw new InvalidStackTraceException("Illegal stack trace ");
 		List<Post> allPosts = new ArrayList<>();
 		try {
 			allPosts = connector.getAllQuestionsWithTheException($.getException());

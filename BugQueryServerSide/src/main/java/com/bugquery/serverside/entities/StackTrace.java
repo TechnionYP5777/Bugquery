@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bugquery.serverside.stacktrace.StackTraceExtractor;
+
 /**
  * 
  * @author rodedzats
@@ -27,8 +29,13 @@ public class StackTrace {
 	}
 	
 	public StackTrace(String stackTrace) {
-		this.exception = this.getException(stackTrace);
-		this.stackOfCalls = StackTrace.getStackOfCalls(stackTrace);
+		if (!StackTraceExtractor.isStackTrace(stackTrace)) {
+			this.exception = StackTrace.noExceptionFound;
+			this.stackOfCalls = null;
+		} else {
+			this.exception = this.getException(stackTrace);
+			this.stackOfCalls = StackTrace.getStackOfCalls(stackTrace);
+		}
 		this.content = stackTrace;
 	}
 	

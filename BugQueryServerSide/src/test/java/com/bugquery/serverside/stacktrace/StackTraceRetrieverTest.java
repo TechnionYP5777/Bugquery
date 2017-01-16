@@ -12,6 +12,7 @@ import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.exceptions.GeneralDBException;
+import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 
 @SuppressWarnings("static-method")
 public class StackTraceRetrieverTest {
@@ -38,7 +39,7 @@ public class StackTraceRetrieverTest {
 		thrown.expect(IllegalArgumentException.class);
 		try {
 			new GeneralStackTraceRetriever().getMostRelevantPosts(null, 1);
-		} catch (GeneralDBException ¢) {¢.printStackTrace();}
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {¢.printStackTrace();}
 	}
 
 	@Test
@@ -46,7 +47,7 @@ public class StackTraceRetrieverTest {
 		thrown.expect(IllegalArgumentException.class);
 		try {
 			new GeneralStackTraceRetriever().getMostRelevantPosts(stackTrace, 0);
-		} catch (GeneralDBException ¢) {¢.printStackTrace();}
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {¢.printStackTrace();}
 	}
 
 	@Test 
@@ -69,7 +70,7 @@ public class StackTraceRetrieverTest {
 		try {
 			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 1));
 			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 1));
-		} catch (GeneralDBException ¢) {
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}
 	}
@@ -101,7 +102,7 @@ public class StackTraceRetrieverTest {
 		try {
 			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 2));
 			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts)).getMostRelevantPosts(stackTrace1, 2));
-		} catch (GeneralDBException ¢) {
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}
 	}

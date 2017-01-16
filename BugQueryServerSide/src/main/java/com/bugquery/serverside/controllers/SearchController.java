@@ -14,6 +14,7 @@ import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackSearch;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InternalServerException;
+import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
@@ -34,7 +35,7 @@ public class SearchController {
 		List<Post> $;
 		try {
 			$ = getResults(trace);
-		} catch (GeneralDBException ¢) {
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			throw new InternalServerException(¢);
 		}
 
@@ -51,7 +52,7 @@ public class SearchController {
 		return "redirect:stacks/" + $.getId();
 	}
 
-	public static List<Post> getResults(String trace) throws GeneralDBException {
+	public static List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
 		return new GeneralStackTraceRetriever().getMostRelevantPosts(trace, 10);
 	}
 

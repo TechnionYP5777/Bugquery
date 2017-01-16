@@ -53,6 +53,11 @@ public class StackTraceExtractorTest {
 						+ "    + array[8]+\" \" + array[9] );        \n" + "\n" + "}")));
 	}
 	
+	@Test
+	public void emptyListIsReturnedForCatchyNonStackTraceInput() {
+		assertEquals(new ArrayList<StackTrace>(), StackTraceExtractor.extract(":::"));
+	}
+	
 	/*
 	 * The string in this test case contains only the stack trace without the whole question
 	 */

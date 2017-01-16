@@ -26,9 +26,20 @@ public class StackTraceExtractor {
 		return $;
 	}
 	
+	public static boolean isStackTrace(String ¢) {
+		return ¢ != null && (StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.stackTraceRegularExpression, ¢)
+				|| StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.semiStackTraceRegularExpression, ¢));
+	}
+	
 	private static void addToListAllMatchingRegex(List<StackTrace> $, String regex, String s) {
 		for (Matcher ¢ = Pattern.compile(regex).matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
 			$.add(new StackTrace(¢.group(0).trim()));
+	}
+	
+	private static boolean doesExistMatchingRegex(String regex, String s) {
+		for (Matcher ¢ = Pattern.compile(regex).matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
+			return true;
+		return false;
 	}
 	
 	public static String removeHtmlTags(String ¢) {
