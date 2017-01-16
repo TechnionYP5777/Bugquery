@@ -49,6 +49,17 @@ public class StackTraceRetrieverTest {
 			new GeneralStackTraceRetriever().getMostRelevantPosts(stackTrace, 0);
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {¢.printStackTrace();}
 	}
+	
+	/*
+	 * This test was created after discussion on whatsapp group
+	 */
+	@Test
+	public void retrieverThrowsExceptionForIllegalStackTrace() throws InvalidStackTraceException {
+		thrown.expect(InvalidStackTraceException.class);
+		try {
+			new GeneralStackTraceRetriever().getMostRelevantPosts(":::", 10);
+		} catch (GeneralDBException ¢) {¢.printStackTrace();}
+	}
 
 	@Test 
 	public void returnsExactStackTraceIfExists() {
