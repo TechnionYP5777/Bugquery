@@ -13,11 +13,10 @@ import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 @ControllerAdvice
 public class ExceptionHandlingController {
 	
-	private static String traceToString(StackTraceElement[] elements){
+	private static String traceToString(StackTraceElement[] es){
 		String $ = "";
-		for(StackTraceElement elm : elements){
-			$ += elm.toString() + "\n";
-		}
+		for(StackTraceElement elm : es)
+			$ += elm + "\n";
 		return $;
 	}
 

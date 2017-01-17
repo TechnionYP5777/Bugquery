@@ -369,6 +369,9 @@ public class StackTraceExtractorTest {
 		assertEquals(l, StackTraceExtractor.extract(post));
 	}
 	
+	/**
+	 * [[SuppressWarningsSpartan]]
+	 */
 	@Test
 	public void isStackTraceReturnsTrueForStackTrace() {
 		assertTrue(StackTraceExtractor.isStackTrace(("Exception in thread \"main\" java.lang.NullPointerException\n"
@@ -377,6 +380,9 @@ public class StackTraceExtractorTest {
 				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)")));
 	}
 	
+	/**
+	 * [[SuppressWarningsSpartan]]
+	 */
 	@Test
 	public void isStackTraceReturnsFalseForNonStackTrace() {
 		assertFalse(StackTraceExtractor.isStackTrace(":::"));

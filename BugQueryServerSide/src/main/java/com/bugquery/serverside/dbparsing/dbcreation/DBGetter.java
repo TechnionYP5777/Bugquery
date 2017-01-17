@@ -52,23 +52,23 @@ public class DBGetter {
 	    }    
 	}
 
-	private static void insertQusetionToDB(Connection c, PrintWriter printer, ResultSet rs) throws SQLException {
+	private static void insertQusetionToDB(Connection c, PrintWriter printer, ResultSet s) throws SQLException {
 		List<StackTrace> extract = new ArrayList<>();
-		String body = rs.getString("Body");
-  	  	int id = rs.getInt("Id");
-  	  	int postTypeId = rs.getInt("PostTypeId");
-  	  	int parentId = rs.getInt("ParentId");
-  	  	int acceptedAnswerId = rs.getInt("AcceptedAnswerId");
-  	  	int score = rs.getInt("Score");
-  	  	String title = rs.getString("Title");
-  	  	int answerCount = rs.getInt("AnswerCount");
-  	  	String tags = rs.getString("Tags");
+		String body = s.getString("Body");
+  	  	int id = s.getInt("Id");
+  	  	int postTypeId = s.getInt("PostTypeId");
+  	  	int parentId = s.getInt("ParentId");
+  	  	int acceptedAnswerId = s.getInt("AcceptedAnswerId");
+  	  	int score = s.getInt("Score");
+  	  	String title = s.getString("Title");
+  	  	int answerCount = s.getInt("AnswerCount");
+  	  	String tags = s.getString("Tags");
   	  	
 		try {
 			extract.addAll(StackTraceExtractor.extract(body));
-		} catch (Exception e) {
+		} catch (Exception ¢) {
 			if (printer == null)
-				System.out.println("Failed with:\n" + e.getStackTrace());
+				System.out.println("Failed with:\n" + ¢.getStackTrace());
 			else{
 				printer.println("The id is: "+id+"\n\n\n\n");
 				printer.println(body+"\n\n\n\n");
