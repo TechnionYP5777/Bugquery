@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author zivizhar
+ */
 @SuppressWarnings("static-method")
 public class StackOverflowPostTest {
 

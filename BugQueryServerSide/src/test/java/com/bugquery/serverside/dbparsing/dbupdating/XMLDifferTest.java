@@ -7,6 +7,9 @@ import java.io.FileReader;
 
 import org.junit.Test;
 
+/**
+ * @author zivizhar
+ */
 public class XMLDifferTest {
 
 	@Test
