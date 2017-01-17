@@ -210,7 +210,6 @@ public class StackTraceTest {
 								.getException());
 	}
 	
-	
 	@Test
 	public void correctExceptionForIssue37_4() {
 		assertEquals("java.lang.UnsupportedOperationException",
@@ -289,6 +288,18 @@ public class StackTraceTest {
 						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     at org.apache.openjpa.kernel.BrokerImpl.flush(BrokerImpl.java:1679)\n" + 
 						"[11/25/08 8:46:56:546 EST] 00000018 SystemErr     R     ... 52 more")
 								.getException());
+	}
+	
+	@Test
+	public void noExceptionFoundIsSetForIllegalStackTrace() {
+		StackTrace st = new StackTrace("::");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception:");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception: Exception:\n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception:\n :\n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
 	}
 
 }

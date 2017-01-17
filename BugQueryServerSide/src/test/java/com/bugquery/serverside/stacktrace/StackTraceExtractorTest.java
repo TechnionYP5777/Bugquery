@@ -368,4 +368,37 @@ public class StackTraceExtractorTest {
 		l.add(new StackTrace(trace));
 		assertEquals(l, StackTraceExtractor.extract(post));
 	}
+	
+	@Test
+	public void isStackTraceReturnsTrueForStackTrace() {
+		assertTrue(StackTraceExtractor.isStackTrace(("Exception in thread \"main\" java.lang.NullPointerException\n"
+				+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
+				+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
+				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)")));
+	}
+	
+	@Test
+	public void isStackTraceReturnsFalseForNonStackTrace() {
+		assertFalse(StackTraceExtractor.isStackTrace(":::"));
+		assertFalse(StackTraceExtractor.isStackTrace("I'm trying to make a program that consists of an array of 10 integers which all has a random value, so far so good.\n"
+						+ "\n"
+						+ "However, now I need to sort them in order from lowest to highest value and then print it onto the screen, how would I go about doing so?\n"
+						+ "\n"
+						+ "(Sorry for having so much code for a program that small, I ain't that good with loops, just started working with Java)\n"
+						+ "\n" + "public static void main(String args[])\n" + "{\n"
+						+ "    int [] array = new int[10];\n" + "\n" + "    array[0] = ((int)(Math.random()*100+1));\n"
+						+ "    array[1] = ((int)(Math.random()*100+1));\n"
+						+ "    array[2] = ((int)(Math.random()*100+1));\n"
+						+ "    array[3] = ((int)(Math.random()*100+1));\n"
+						+ "    array[4] = ((int)(Math.random()*100+1));\n"
+						+ "    array[5] = ((int)(Math.random()*100+1));\n"
+						+ "    array[6] = ((int)(Math.random()*100+1));\n"
+						+ "    array[7] = ((int)(Math.random()*100+1));\n"
+						+ "    array[8] = ((int)(Math.random()*100+1));\n"
+						+ "    array[9] = ((int)(Math.random()*100+1));\n" + "\n"
+						+ "    System.out.println(array[0] +\" \" + array[1] +\" \" + array[2] +\" \" + array[3]\n"
+						+ "    +\" \" + array[4] +\" \" + array[5]+\" \" + array[6]+\" \" + array[7]+\" \" \n"
+						+ "    + array[8]+\" \" + array[9] );        \n" + "\n" + "}"));
+		assertFalse(StackTraceExtractor.isStackTrace("Exception"));
+	}
 }
