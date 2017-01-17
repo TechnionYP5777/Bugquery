@@ -37,9 +37,8 @@ public class StackTraceExtractor {
 	}
 	
 	private static boolean doesExistMatchingRegex(String regex, String s) {
-		for (Matcher ¢ = Pattern.compile(regex).matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
-			return true;
-		return false;
+		return s != null && regex != null
+				&& (Pattern.compile(regex).matcher(StackTraceExtractor.removeHtmlTags(s)).find());
 	}
 	
 	public static String removeHtmlTags(String ¢) {
