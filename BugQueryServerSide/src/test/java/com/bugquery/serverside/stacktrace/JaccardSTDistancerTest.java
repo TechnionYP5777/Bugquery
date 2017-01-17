@@ -5,7 +5,8 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 /**
- * Created by yonatan on 29/11/16.
+ * @author yonzarecki
+ * @since 29.11.16
  */
 public class JaccardSTDistancerTest extends TestCase {
     JaccardSTDistancer j;

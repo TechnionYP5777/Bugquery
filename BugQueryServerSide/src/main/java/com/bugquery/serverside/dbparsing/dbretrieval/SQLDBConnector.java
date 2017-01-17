@@ -10,6 +10,9 @@ import java.util.List;
 import com.bugquery.serverside.entities.MinSOPost;
 import com.bugquery.serverside.entities.Post;
 
+/*
+ * @author yonzarecki
+ */
 public class SQLDBConnector implements DBConnector {
 
 	@Override
