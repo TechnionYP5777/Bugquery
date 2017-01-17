@@ -38,9 +38,9 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 	 * extracted to a in memory list.
 	 */
 	private static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d, int numOfPosts) {
-		if(allPosts == null || d == null || numOfPosts <= 0 || t == null)
+		if(allPosts == null || d == null || numOfPosts <= 0 
+				|| t == null || allPosts.size() <= numOfPosts) // lazy evaluation
 			throw new IllegalArgumentException();
-		assert(allPosts.size() > numOfPosts);  // sufficient size
 		
 		Comparator<Post> postC = new Comparator<Post>() {
 			@Override
@@ -80,7 +80,6 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 		try {
 			allPosts = connector.getAllQuestionsWithTheException($.getException());
 		} catch(Exception ¢) {
-			System.out.println((¢ + ""));
 			throw new GeneralDBException("General db error: " + ¢.getMessage());
 		}
 		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, $, d, numOfPosts);

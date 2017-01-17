@@ -35,6 +35,31 @@ public class StackTraceRetrieverTest {
 	}
 
 	@Test
+	public void retrieverThrowsExceptionForIllegalConstructorParameters1() {
+		thrown.expect(IllegalArgumentException.class);
+		try {
+			Post p1 = new PostStub(stackTrace);
+			List<Post> posts = new ArrayList<>();
+			posts.add(p1);
+			// should throw
+			new GeneralStackTraceRetriever(null, getDummyConnector(posts)).getMostRelevantPosts(stackTrace, 1);
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void retrieverThrowsExceptionForIllegalConstructorParameters2() throws GeneralDBException {
+		thrown.expect(GeneralDBException.class);
+		try {
+			// should throw
+			new GeneralStackTraceRetriever(new JaccardSTDistancer(), null).getMostRelevantPosts(stackTrace, 1);
+		} catch (InvalidStackTraceException ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void retrieverThrowsExceptionForIllegalParameters1() {
 		thrown.expect(IllegalArgumentException.class);
 		try {
