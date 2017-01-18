@@ -3,13 +3,13 @@ package com.bugquery.serverside.controllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.containsString;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.bugquery.serverside.WebTestUtils;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(TemplateController.class)
 public class TemplateControllerTest {
@@ -25,7 +27,8 @@ public class TemplateControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	private static final Map<String, String> pageAddressByName = createPagesMap();
-
+	private WebTestUtils utils;
+	
 	private static Map<String, String> createPagesMap() {
 		Map<String, String> $ = new HashMap<>();
 		$.put("main", "/");
@@ -34,10 +37,10 @@ public class TemplateControllerTest {
 		$.put("submit", "/submit");
 		return $;
 	}
-
-	private void assertTitle(String pageName, String expectedTitle) throws Exception {
-		this.mockMvc.perform(get(pageAddressByName.get(pageName))).andExpect(status().isOk())
-				.andExpect(content().string(containsString("<title>" + expectedTitle + "</title>")));
+	
+	@Before
+	public void init() {
+		utils = new WebTestUtils(mockMvc);
 	}
 
 	@Test
@@ -50,16 +53,16 @@ public class TemplateControllerTest {
 	@Test
 	public void titleShouldBeWelcome() throws Exception {
 		for (String pageName : Arrays.asList("main", "index"))
-			assertTitle(pageName, "Welcome to BugQuery");
+			utils.assertTitle(pageAddressByName.get(pageName), "Welcome to BugQuery");
 	}
 
 	@Test
 	public void titleShouldBeEssentials() throws Exception {
-		assertTitle("guide", "BugQuery Essentials");
+		utils.assertTitle(pageAddressByName.get("guide"), "BugQuery Essentials");
 	}
 
 	@Test
 	public void titleShouldBeSubmit() throws Exception {
-		assertTitle("submit", "Submit to BugQuery");
+		utils.assertTitle(pageAddressByName.get("submit"), "Submit to BugQuery");
 	}
 }
