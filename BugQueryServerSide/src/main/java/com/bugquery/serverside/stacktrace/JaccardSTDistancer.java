@@ -23,17 +23,23 @@ public class JaccardSTDistancer implements StackTraceDistancer {
     }
 
     /**
+     * @param o1 a String containing a stack-trace
+     * @param o2 a String containing a stack-trace
      * jaccard distance, throws away order between lines
      * @return returns the jaccard distance, (union_size - intersection_size)
      */
     @Override
     public double distance(String o1, String o2) {
-        Set<String> $ = extractLineTuples(o1); // acctually this is union, great work spartanizer
-        $.addAll(extractLineTuples(o2));
+    	Set<String> line_set1 = extractLineTuples(o1);
+    	Set<String> line_set2 = extractLineTuples(o2);
+    	
+        Set<String> $ = new HashSet<>(line_set1); // acctually this is union
+        $.addAll(line_set2);
 
-        Set<String> intersection = extractLineTuples(o1);
-        intersection.retainAll(extractLineTuples(o2)); // keeps only the intersection of the two
-
-        return $.size() - intersection.size(); // union_size - (size of intersection)
+        Set<String> intersection =  new HashSet<>(line_set1);
+        intersection.retainAll(line_set2); // keeps only the intersection of the two
+        
+        // normalize by union's size, but still keep order by the union's size
+        return intersection.size() == $.size() ? 0.0 : 1 - (intersection.size() + 1.0) / $.size();
     }
 }

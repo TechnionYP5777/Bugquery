@@ -16,29 +16,32 @@ import com.bugquery.serverside.entities.StackTrace;
 public class StackTraceExtractor {
 	private static final String stackTraceRegularExpression = "(\\n|^)([ \\t\\f\\r])*([a-zA-Z0-9\\.]*Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)((\n|\r\n)*([ \t\f\r])*(Caused by:)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*(...(.*)(more)(\\n|\\r\\n)))*";
 	private static final String semiStackTraceRegularExpression = "((\\n|\\r\\n)*([ \\t\\f\\r])*(Caused by:)(.*)(\\n|\\r\\n)(([ \\t\\f\\r])*at(.*)(\\n|\\r\\n))*(...(.*)(more)(\\\\n|\\\\r\\\\n))*)";
+	private static final Pattern stackTraceRegexPattern = Pattern.compile(stackTraceRegularExpression);
+	private static final Pattern semiStackTraceRegexPattern = Pattern.compile(semiStackTraceRegularExpression);
+	
 	public static List<StackTrace> extract(String ¢) {
 		List<StackTrace> $ = new ArrayList<>();
 		if(¢ == null)
 			return $;
-		StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.stackTraceRegularExpression, ¢);
+		StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.stackTraceRegexPattern, ¢);
 		if($.isEmpty())
-			StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.semiStackTraceRegularExpression, ¢);
+			StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.semiStackTraceRegexPattern, ¢);
 		return $;
 	}
 	
 	public static boolean isStackTrace(String ¢) {
-		return ¢ != null && (StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.stackTraceRegularExpression, ¢)
-				|| StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.semiStackTraceRegularExpression, ¢));
+		return ¢ != null && (StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.stackTraceRegexPattern, ¢)
+				|| StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.semiStackTraceRegexPattern, ¢));
 	}
 	
-	private static void addToListAllMatchingRegex(List<StackTrace> $, String regex, String s) {
-		for (Matcher ¢ = Pattern.compile(regex).matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
+	private static void addToListAllMatchingRegex(List<StackTrace> $, Pattern p, String s) {
+		for (Matcher ¢ = p.matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
 			$.add(new StackTrace(¢.group(0).trim()));
 	}
 	
-	private static boolean doesExistMatchingRegex(String regex, String s) {
-		return s != null && regex != null
-				&& (Pattern.compile(regex).matcher(StackTraceExtractor.removeHtmlTags(s)).find());
+	private static boolean doesExistMatchingRegex(Pattern p, String s) {
+		return s != null && p != null
+				&& (p.matcher(StackTraceExtractor.removeHtmlTags(s)).find());
 	}
 	
 	public static String removeHtmlTags(String ¢) {
