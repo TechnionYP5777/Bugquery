@@ -84,12 +84,11 @@ public class StackTrace {
 		return $;
 	}
 	
-	@Override
-    public boolean equals(Object ¢) {
+	@Override public boolean equals(Object ¢) {
 		return ¢ instanceof StackTrace && (¢ == this || this.getString().equals(((StackTrace) ¢).getString()));
 	}
 
-  @Override public int hashCode() {
-    return super.hashCode();
-  }
+	@Override public int hashCode() {
+		return super.hashCode();
+	}
 }

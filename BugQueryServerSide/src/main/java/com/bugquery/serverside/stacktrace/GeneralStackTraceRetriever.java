@@ -56,10 +56,8 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever{
 		ArrayList<Post> $ = new ArrayList<>();
 		for (int ¢=0;¢<numOfPosts; ++¢)
 			$.add($.size(), pq.poll());
-		
 		return $;
 	}
-	
 
 	/**
 	 * This function completes the pipeline between the server and the database.

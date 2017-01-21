@@ -14,6 +14,11 @@ import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 
+/**
+ * 
+ * @author rodedzats
+ *
+ */
 @SuppressWarnings("static-method")
 public class StackTraceRetrieverTest {
 

@@ -2,6 +2,9 @@ package com.bugquery.serverside.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 /**
@@ -12,7 +15,6 @@ import org.junit.Test;
 @SuppressWarnings("static-method")
 public class StackTraceTest {
 
-	
 	@Test
 	public void correctExceptionForSimpleStackTrace() {
 		assertEquals("java.lang.NullPointerException",
@@ -302,4 +304,16 @@ public class StackTraceTest {
 		assertEquals(StackTrace.noExceptionFound,st.getException());
 	}
 
+	@Test
+	public void stackOfCallsIsParsedCorrectly() {
+		List<String> calls = new ArrayList<>();
+		calls.add("Exception in thread \"main\" java.lang.NullPointerException");
+		calls.add("at com.example.myproject.Book.getTitle(Book.java:16)");
+		calls.add("at com.example.myproject.Author.getBookTitles(Author.java:25)");
+		calls.add("at com.example.myproject.Bootstrap.main(Bootstrap.java:14)");
+		assertEquals(calls, new StackTrace("Exception in thread \"main\" java.lang.NullPointerException\n"
+				+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
+				+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
+				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)").getStackOfCalls());
+	}
 }
