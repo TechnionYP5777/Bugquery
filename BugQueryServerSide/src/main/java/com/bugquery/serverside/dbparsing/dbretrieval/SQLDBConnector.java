@@ -12,6 +12,7 @@ import com.bugquery.serverside.entities.Post;
 
 /*
  * @author yonzarecki
+ * @since 4.1.17
  */
 public class SQLDBConnector implements DBConnector {
 
