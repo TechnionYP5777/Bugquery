@@ -21,7 +21,8 @@ import org.eclipse.swt.widgets.Text;
  * implementation.
  * 
  * @author Yosef
- *
+ * @since Dec 19, 2016
+ * 
  */
 public class ClipboardDialog extends InputDialog {
 	public ClipboardDialog(Shell parentShell, String dialogTitle, String dialogMessage, String initialValue,

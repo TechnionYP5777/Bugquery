@@ -5,6 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * @author Yosef
+ * @since Dec 28, 2016
+ *
+ */
 @Controller
 public class TemplateController {
 	

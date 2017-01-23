@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 
+/**
+ * @author Yosef
+ * @since Jan 2, 2017
+ *
+ */
 @ControllerAdvice
 public class ExceptionHandlingController {
 	

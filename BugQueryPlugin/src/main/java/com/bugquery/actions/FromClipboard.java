@@ -9,6 +9,8 @@ import com.bugquery.stacktrace.GetTrace;
  * a handler class, when a stack trace was copied to the clipboard
  * 
  * @author Yosef
+ * @since Dec 6, 2016
+ * 
  */
 public class FromClipboard extends AbstractHandler {
 

@@ -8,7 +8,8 @@ import org.junit.Test;
  * Testing stack extraction of bugquery.stacktrace.ExtractTrace's methods
  * 
  * @author Yosef
- * @since 16-12-05
+ * @since Dec 5, 2016
+ * 
  */
 public class ExtractTraceTest {
 	private ExtractTrace et = new ExtractTrace();

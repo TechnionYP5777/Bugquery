@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Shell;
  * supports input with multiple lines.
  * 
  * @author Yosef
+ * @since Dec 8, 2016
+ * 
  */
 public class ExtendedDialog extends InputDialog {
 	public ExtendedDialog(Shell parentShell, String dialogTitle, String dialogMessage, String initialValue,

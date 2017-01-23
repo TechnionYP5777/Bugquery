@@ -22,6 +22,7 @@ import org.eclipse.ui.console.TextConsole;
  * 
  * @author Yosef
  * @since Nov 29 2016
+ * 
  */
 public class GetTrace {
 

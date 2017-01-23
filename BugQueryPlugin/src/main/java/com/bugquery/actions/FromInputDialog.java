@@ -11,6 +11,8 @@ import com.bugquery.stacktrace.GetTrace;
  * a handler class, get output from the user via input dialog
  * 
  * @author Yosef
+ * @since Dec 8, 2016
+ * 
  */
 public class FromInputDialog extends AbstractHandler {
 	String dialog_message = "Please Insert Your Stack Trace Below.";

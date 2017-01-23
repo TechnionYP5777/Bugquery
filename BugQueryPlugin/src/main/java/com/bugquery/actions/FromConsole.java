@@ -9,6 +9,8 @@ import com.bugquery.stacktrace.GetTrace;
  * a handler class, when a stack trace was printed in an output console
  * 
  * @author Yosef
+ * @since Dec 5, 2016
+ * 
  */
 public class FromConsole extends AbstractHandler {
 

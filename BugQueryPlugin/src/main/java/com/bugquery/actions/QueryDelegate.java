@@ -9,6 +9,7 @@ import org.eclipse.jdt.launching.JavaLaunchDelegate;
 /**
  * @author Yosef
  * @since Jan 10 2017
+ * 
  */
 public class QueryDelegate extends JavaLaunchDelegate {
 

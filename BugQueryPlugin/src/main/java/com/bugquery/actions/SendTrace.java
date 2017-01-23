@@ -15,6 +15,8 @@ import com.bugquery.stacktrace.ExtractTrace;
  * search in the BugQuery server (opens results in Browser)
  * 
  * @author Yosef
+ * @since Dec 7, 2016
+ * 
  */
 public class SendTrace {
 	/**

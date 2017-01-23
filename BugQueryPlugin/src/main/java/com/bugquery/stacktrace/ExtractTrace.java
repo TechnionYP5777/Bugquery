@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
  * output contains one) extracts a stack trace from it.
  * 
  * @author Yosef
- *
+ * @since Dec 5, 2016
+ * 
  */
 public class ExtractTrace {
 	public String no_trace_en = "No stack trace detected.";
