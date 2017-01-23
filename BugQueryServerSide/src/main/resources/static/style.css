@@ -181,3 +181,8 @@ form {
 	border: 1px solid #cfcfcf;
 	text-align: center;
 }
+
+.original-text {
+	max-height: 130px;
+	overflow-y: hidden;
+}

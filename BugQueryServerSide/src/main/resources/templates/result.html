@@ -3,25 +3,41 @@
 <title>BugQuery - Search Results</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="/style.css" />
+<script>
+	function toggle(ele, id) {
+		var question = document.getElementById("question-" + id);
+		var visible = question.style.maxHeight == "none";
+
+		question.style.maxHeight = visible ? "130px" : "none";
+		ele.innerHTML = visible ? "&#9207; Read More"
+				: "&#9206; Collapse Back";
+	}
+</script>
 </head>
 <body>
-<div th:replace="fragments/header"></div>
+	<div th:replace="fragments/header"></div>
 	<div class="wrapper">
 		<h3
 			th:text="'BugQuery has found ' + ${#lists.size(results)} + ' results:'"></h3>
 		<div class="code-wrapper">
 			<code th:text="${trace}"></code>
 		</div>
-		<div class="bugquery-result" th:each="result : ${results}">
+		<div class="bugquery-result" th:each="result, iterStat : ${results}">
 			<a class="bugquery-result-label"
 				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Result</a>
 			<div class="code-wrapper">
 				<code th:text="${result}"></code>
 			</div>
 			<h3>Original Question</h3>
-			<p th:utext="${result.questionString}">Cool Result!</p>
+			<div th:utext="${result.questionString}"
+				th:id="'question-' + ${iterStat.count}" class="original-text">Cool
+				Result!</div>
+			<p>
+				<a href="#" th:onclick="'toggle(this, ' + ${iterStat.count} + ');'">&#9207;
+					Read More</a>
+			</p>
 		</div>
 	</div>
-<div th:replace="fragments/footer"></div>
+	<div th:replace="fragments/footer"></div>
 </body>
 </html>
