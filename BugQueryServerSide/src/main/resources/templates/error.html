@@ -3,7 +3,7 @@
 <title th:text="${title}"></title>
 <meta charset="utf-8"></meta>
 <link rel="stylesheet" th:href="@{/style.css}" type="text/css"></link>
-<script th:if="${trace}">
+<script th:if="${errortrace}">
 	function traceToggle() {
 		document.getElementById("errortrace").style.display = (document
 				.getElementById("errortrace").style.display == "block") ? "none"
@@ -23,13 +23,13 @@
 			<p th:text="${exception}"></p>
 			<a class="button" href="/">Return to Home Page</a>
 			<input
-				th:if="${trace}" style="margin-left: 8px" class="button"
+				th:if="${errortrace}" style="margin-left: 8px" class="button"
 				type="submit" onclick="traceToggle()" value="Show Trace" />
 		</div>
-		<div th:if="${trace}" class="bugquery-result" style="display: none;"
+		<div th:if="${errortrace}" class="bugquery-result" style="display: none;"
 			id="errortrace">
 			<div class="code-wrapper">
-				<code th:text="${trace}"></code>
+				<code th:text="${errortrace}"></code>
 			</div>
 		</div>
 	</div>

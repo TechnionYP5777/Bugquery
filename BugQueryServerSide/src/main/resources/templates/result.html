@@ -6,11 +6,12 @@
 <script>
 	function toggle(ele, id) {
 		var question = document.getElementById("question-" + id);
-		var visible = question.style.maxHeight == "none";
+		var visible = question.style.height == "auto";
 
-		question.style.maxHeight = visible ? "130px" : "none";
-		ele.innerHTML = visible ? "&#9207; Read More"
-				: "&#9206; Collapse Back";
+		question.style.height = visible ? "70px" : "auto";
+		document.getElementById("hide-" + id).style.display = visible ? "block"
+				: "none";
+		ele.innerHTML = visible ? "&#9207; Read More" : "&#9206; Collapse Back";
 	}
 </script>
 </head>
@@ -29,11 +30,13 @@
 				<code th:text="${result}"></code>
 			</div>
 			<h3>Original Question</h3>
+			<div th:id="'hide-' + ${iterStat.count}" class="hide"></div>
+
 			<div th:utext="${result.questionString}"
 				th:id="'question-' + ${iterStat.count}" class="original-text">Cool
 				Result!</div>
-			<p>
-				<a href="#" th:onclick="'toggle(this, ' + ${iterStat.count} + ');'">&#9207;
+			<p style = "text-align: center;">
+				<a href="javascript:void(0)" th:onclick="'toggle(this, ' + ${iterStat.count} + ');'">&#9207;
 					Read More</a>
 			</p>
 		</div>

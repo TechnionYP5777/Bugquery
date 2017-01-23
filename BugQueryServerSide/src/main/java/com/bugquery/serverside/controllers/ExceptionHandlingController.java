@@ -43,7 +43,7 @@ public class ExceptionHandlingController {
 		¢.addAttribute("title", (r.getRequestURL() + ""));
 		
 		// for debugging purposes, we'll also include stack trace at this time:
-		¢.addAttribute("trace", traceToString(x.getStackTrace()));
+		¢.addAttribute("errortrace", traceToString(x.getStackTrace()));
 		return "error";
 	}
 

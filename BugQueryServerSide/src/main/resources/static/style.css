@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Libre+Franklin:400,600');
+@import
+	url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Libre+Franklin:400,600')
+	;
 
 html {
 	overflow: -moz-scrollbars-vertical;
@@ -21,6 +23,13 @@ h1 {
 h2 {
 	display: block;
 	font-size: 1.5em;
+	font-weight: bold;
+}
+
+h3 {
+	display: block;
+	font-size: 1.2em;
+	margin-bottom: 10px;
 	font-weight: bold;
 }
 
@@ -183,6 +192,29 @@ form {
 }
 
 .original-text {
-	max-height: 130px;
+	margin: 0 0 6px;
 	overflow-y: hidden;
+	height: 70px;
+	padding: 10px 15px;
+	z-index: 0;
+}
+
+.hide {
+	position: absolute;
+	margin: 30px 0 0;
+	height: 60px;
+	width: 938px;
+	background-image: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 1)
+		0, rgba(0, 150, 255, 0) 100%);
+	background-image: -moz-linear-gradient(0deg, rgba(255, 255, 255, 1) 0,
+		rgba(0, 150, 255, 0) 100%);
+	background-image: linear-gradient(0deg, rgba(255, 255, 255, 1) 0,
+		rgba(0, 150, 255, 0) 100%);
+	background-position: 50% 50%;
+	-webkit-background-origin: padding-box;
+	background-origin: padding-box;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+	-webkit-background-size: auto auto;
+	background-size: auto auto;
 }
