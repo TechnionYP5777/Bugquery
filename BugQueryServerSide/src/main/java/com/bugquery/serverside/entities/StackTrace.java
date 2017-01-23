@@ -10,7 +10,7 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 /**
  * 
  * @author rodedzats
- *
+ * @since 14.12.2016
  */
 public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";

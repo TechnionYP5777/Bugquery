@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * 
  * @author rodedzats
- *
+ * @since 14.12.2016
  */
 @SuppressWarnings("static-method")
 public class StackTraceTest {

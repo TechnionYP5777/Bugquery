@@ -17,7 +17,7 @@ import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 /**
  * 
  * @author rodedzats
- *
+ * @since 11.12.2016
  */
 @SuppressWarnings("static-method")
 public class StackTraceRetrieverTest {

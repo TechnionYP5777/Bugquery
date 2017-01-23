@@ -11,7 +11,7 @@ import com.bugquery.serverside.entities.StackTrace;
  * This class should be used for finding and extracting stack traces from stackoverflow
  * questions. It is based on the ExtractTrace class of yosefraisman
  * @author rodedzats
- *
+ * @since 7.12.2016
  */
 public class StackTraceExtractor {
 	private static final String stackTraceRegularExpression = "(\\n|^)([ \\t\\f\\r])*([a-zA-Z0-9\\.]*Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)((\n|\r\n)*([ \t\f\r])*(Caused by:)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*(...(.*)(more)(\\n|\\r\\n)))*";

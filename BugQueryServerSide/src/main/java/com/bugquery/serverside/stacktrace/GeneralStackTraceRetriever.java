@@ -15,7 +15,7 @@ import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 /**
  * Utility class for getting relevant stack traces from the database
  * @author rodedzats
- *
+ * @since 11.12.2016
  */
 public class GeneralStackTraceRetriever implements StackTraceRetriever{
 	

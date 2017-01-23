@@ -13,7 +13,7 @@ import com.bugquery.serverside.entities.StackTrace;
  * This test class is based on the answers in 
  * http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors
  * @author rodedzats
- *
+ * @since 7.12.2016
  */
 @SuppressWarnings("static-method")
 public class StackTraceExtractorTest {
