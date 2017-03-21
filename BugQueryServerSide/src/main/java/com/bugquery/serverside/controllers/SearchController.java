@@ -19,6 +19,13 @@ import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
 
+/**
+ * 
+ * @author Amit
+ * @since Dec 24, 2016
+ * Controller for stack searches
+ * 
+ */
 @Controller
 public class SearchController {
 

@@ -9,6 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * 
+ * @author Amit
+ * @since Dec 24, 2016
+ * This class represents a stack trace search
+ * 
+ */
 @Entity
 public class StackSearch {
 
