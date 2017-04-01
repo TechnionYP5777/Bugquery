@@ -112,10 +112,10 @@ public class StackTraceRetrieverTest {
 		thrown.expect(InvalidStackTraceException.class);
 		try {
 			new GeneralStackTraceRetriever()
-					.getMostRelevantPosts(("ERROR 2007-09-18 23:30:19,913 error 1294 Something awful happened!\n"
+					.getMostRelevantPosts("ERROR 2007-09-18 23:30:19,913 error 1294 Something awful happened!\n"
 							+ "Traceback (most recent call last):\n" + "  File \"b.py\", line 22, in f\n" + "    g()\n"
 							+ "  File \"b.py\", line 14, in g\n" + "    1/0\n"
-							+ "ZeroDivisionError: integer division or modulo by zero"), 10);
+							+ "ZeroDivisionError: integer division or modulo by zero", 10);
 		} catch (GeneralDBException ¢) {
 			¢.printStackTrace();
 		}

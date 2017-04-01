@@ -3,6 +3,7 @@ package com.bugquery.serverside.dbparsing.dbupdating;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,10 +34,22 @@ public class XMLDiffer {
 		this.newXMLAddr = newXMLAddr;
 		this.outputXMLAddr = outputXMLAddr;
 	}
+	
+	/**
+	 * 
+	 * @param byID - true for diff according to the id's, false for according to dates.
+	 * @return
+	 */
+	public Void createDiff(boolean byID){
+		if(byID)
+			createDiffID();
+		else
+			createDiffDate();
+		return null;
+	}
 
-	public Void createDiff() {
-		Set<Integer> oldSet = getAllIDs(this.oldXMLAddr);
-		Set<Integer> diffSet = getAllIDs(this.newXMLAddr);
+	private Void createDiffID() {
+		Set<Integer> oldSet = getAllIDs(this.oldXMLAddr), diffSet = getAllIDs(this.newXMLAddr);
 		// diffSet = newSet - all the Id's < max(oldset)
 		for (int maxId = Collections.max(new ArrayList<>(oldSet)).intValue(), ¢ = 0; ¢ <= maxId; ++¢)
 			diffSet.remove(Integer.valueOf(¢));
@@ -59,6 +72,49 @@ public class XMLDiffer {
 
 		return null;
 	}
+	
+	private Void createDiffDate(){
+		LocalDateTime lastDate = getLastDate(this.oldXMLAddr);
+		try (BufferedReader br = new BufferedReader(new FileReader(this.newXMLAddr));
+				FileWriter fw = new FileWriter(this.outputXMLAddr);) {
+			LocalDateTime current;
+			fw.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<posts>\n");
+			br.readLine(); // skip two first lines
+			br.readLine();
+			for (String prevLine = null, line; (line = br.readLine()) != null;) {
+				if (prevLine != null){
+					current = getDate(line);
+					if(current.isAfter(lastDate))
+						fw.write(prevLine + "\n");
+				}
+				prevLine = line;
+			}
+			fw.write("</posts>");
+		} catch (Exception ¢) {
+			System.out.println(¢.getMessage());
+		}
+		return null;
+	}
+
+	/**
+	 * Get the date from a single xml line.
+	 */
+	@SuppressWarnings({ "static-method", "unused" })
+	private LocalDateTime getDate(String line) {
+		// skelly
+		// LocalDateTime datetime = LocalDateTime.parse(oldstring, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+		return null;
+	}
+
+	/**
+	 * Get the date of the latest post in the xml file.
+	 */
+	@SuppressWarnings({ "static-method", "unused" })
+	private LocalDateTime getLastDate(String xmlAddress) {
+		// skelly
+		return null;
+	}
+	
 
 	/**
 	 * Get a set of all the ids in the xml file.
@@ -78,7 +134,7 @@ public class XMLDiffer {
 	/**
 	 * Gets Id value of a xml line
 	 */
-	public static Integer getIDValue(String xml) {
+	static Integer getIDValue(String xml) {
 		return Integer.valueOf(xml.split(" Id=\"")[1].split("\"")[0]);
 	}
 

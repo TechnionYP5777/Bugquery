@@ -24,7 +24,7 @@ public class MinSOPostTest {
 	public void testFieldAccessOK_stringConstructor() {
 		MinSOPost post = new MinSOPost(trace, question);
 		assertEquals(trace,post.stackTrace.getString());
-		assertEquals(trace,(post + ""));
+		assertEquals(trace,post + "");
 	}
 
 	@Test
@@ -32,7 +32,7 @@ public class MinSOPostTest {
 		StackTrace st = new StackTrace(trace);
 		MinSOPost post = new MinSOPost(st, question);
 		assertEquals(st, post.stackTrace);
-		assertEquals(trace,(post + ""));
+		assertEquals(trace,post + "");
 	}
 	
 }
