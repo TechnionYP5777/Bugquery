@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -83,8 +84,8 @@ public class XMLDiffer {
 			br.readLine();
 			for (String prevLine = null, line; (line = br.readLine()) != null;) {
 				if (prevLine != null){
-					current = getDate(line);
-					if(current.isAfter(lastDate))
+					current = getDate(prevLine);
+					if(current.isAfter(lastDate) && !current.equals(lastDate))
 						fw.write(prevLine + "\n");
 				}
 				prevLine = line;
@@ -99,20 +100,24 @@ public class XMLDiffer {
 	/**
 	 * Get the date from a single xml line.
 	 */
-	@SuppressWarnings({ "static-method", "unused" })
-	private LocalDateTime getDate(String line) {
-		// skelly
-		// LocalDateTime datetime = LocalDateTime.parse(oldstring, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-		return null;
+	private static LocalDateTime getDate(String line) {
+		return LocalDateTime.parse(line.split(" CreationDate=\"")[1].split("\"")[0],
+				DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"));
 	}
 
 	/**
 	 * Get the date of the latest post in the xml file.
 	 */
-	@SuppressWarnings({ "static-method", "unused" })
-	private LocalDateTime getLastDate(String xmlAddress) {
-		// skelly
-		return null;
+	private static LocalDateTime getLastDate(String xmlAddress) {
+		LocalDateTime $ = LocalDateTime.MIN;
+		try (BufferedReader br = new BufferedReader(new FileReader(xmlAddress))) {
+			for (String line; (line = br.readLine()) != null;)
+				if (line.charAt(0) != '<' && $.isBefore(getDate(line)))
+					$ = getDate(line);
+		} catch (Exception ¢) {
+			System.out.println(¢.getMessage());
+		}
+		return $;
 	}
 	
 
