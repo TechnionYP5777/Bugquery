@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <posts>
-  <row Id="1" PostTypeId="1" AcceptedAnswerId="51" />
-  <row Id="2" PostTypeId="1" AcceptedAnswerId="12" />
-  <row Id="3" PostTypeId="1" AcceptedAnswerId="152" />
-  <row Id="5" PostTypeId="1" AcceptedAnswerId="77" />
+  <row Id="1" PostTypeId="1" AcceptedAnswerId="51" CreationDate="2017-03-09T17:01:54.670" />
+  <row Id="2" PostTypeId="1" AcceptedAnswerId="12" CreationDate="2017-03-09T16:01:54.670" />
+  <row Id="3" PostTypeId="1" AcceptedAnswerId="152" CreationDate="2017-03-09T19:01:54.670" />
+  <row Id="5" PostTypeId="1" AcceptedAnswerId="77" CreationDate="2017-03-10T17:01:54.670" />
 </posts>
