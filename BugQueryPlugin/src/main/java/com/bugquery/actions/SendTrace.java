@@ -67,10 +67,10 @@ public class SendTrace {
 			return;
 		}
 
-//		Program.launch(conn.getHeaderField("location"));
+		Program.launch(conn.getHeaderField("location"));
 		// This parameters should be extracted from the stack trace
-		IFile file = get.file("test", "src", "test.java");
-		IMarker mk = MarkerManager.getInstance().addMarker(file, "This line causes exception", 5, IMarker.SEVERITY_WARNING);
+//		IFile file = get.file("test", "src", "test.java");
+//		IMarker mk = MarkerManager.getInstance().addMarker(file, "This line causes exception", 5, IMarker.SEVERITY_WARNING);
 	}
 
 	/**
