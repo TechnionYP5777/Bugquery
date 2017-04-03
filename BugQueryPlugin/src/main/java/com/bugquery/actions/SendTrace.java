@@ -6,8 +6,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.program.Program;
+import org.eclipse.ui.IMarkerResolution;
+import org.eclipse.ui.PlatformUI;
 
+import com.bugquery.fixer.ProjectUtils;
+import com.bugquery.fixer.ProjectUtils.get;
+import com.bugquery.fixer.QuickFixer;
+import com.bugquery.fixer.MarkerManager;
 import com.bugquery.stacktrace.ExtractTrace;
 
 /**
@@ -28,9 +37,11 @@ public class SendTrace {
 	 *         browser.
 	 */
 	public void sendBugQuery(String trace) {
+//		String urlStr = "http://localhost:8080/stacks";
+		String urlStr = "http://www.google.com";
 		URL url;
 		try {
-			url = new URL("http://localhost:8080/stacks");
+			url = new URL(urlStr);
 		} catch (MalformedURLException e) {
 			return; // shouldn't happen
 		}
@@ -56,7 +67,10 @@ public class SendTrace {
 			return;
 		}
 
-		Program.launch(conn.getHeaderField("location"));
+//		Program.launch(conn.getHeaderField("location"));
+		// This parameters should be extracted from the stack trace
+		IFile file = get.file("test", "src", "test.java");
+		IMarker mk = MarkerManager.getInstance().addMarker(file, "This line causes exception", 5, IMarker.SEVERITY_WARNING);
 	}
 
 	/**
@@ -67,5 +81,5 @@ public class SendTrace {
 	SendTrace(String trace) {
 		if (trace != null && !trace.isEmpty())
 			sendBugQuery(new ExtractTrace().extract(trace));
-	}
+  	}
 }
