@@ -14,8 +14,8 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
  */
 public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
-	private final String causedByRegex = "Caused by:.*[: \\n]";
-	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[:  \\n])";
+	private final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
+	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
 	private final int indexOfExceptionNameInCausedBy = 1;
 	
 	private String exception; // exception type

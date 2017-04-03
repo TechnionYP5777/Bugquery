@@ -316,4 +316,13 @@ public class StackTraceTest {
 				+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
 				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)").getStackOfCalls());
 	}
+	
+	@Test
+	public void checkWindowsNewlinesStackTrace() {
+		assertEquals("java.lang.NullPointerException",
+				new StackTrace("Exception in thread \"main\" java.lang.NullPointerException\r\n"
+						+ "at com.example.myproject.Book.getTitle(Book.java:16)\r\n"
+						+ "at com.example.myproject.Author.getBookTitles(Author.java:25)\r\n"
+						+ "at com.example.myproject.Bootstrap.main(Bootstrap.java:14)").getException());
+	}
 }
