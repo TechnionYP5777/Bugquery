@@ -1,11 +1,11 @@
-package com.bugquery.serverside.stacktrace;
+package com.bugquery.fixer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bugquery.serverside.entities.StackTrace;
+import com.bugquery.fixer.StackTrace;
 
 /**
  * This class should be used for finding and extracting stack traces from stackoverflow
@@ -15,7 +15,7 @@ import com.bugquery.serverside.entities.StackTrace;
  */
 public class StackTraceExtractor {
 	private static final String stackTraceRegularExpression = "(\\n|^)([ \\t\\f\\r])*([a-zA-Z0-9\\.]*Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)((\n|\r\n)*([ \t\f\r])*(Caused by:)?(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*(...(.*)(more)(\\n|\\r\\n)))*";
-	private static final String semiStackTraceRegularExpression = "((\\n|\\r\\n)*([ \\t\\f\\r])*(Caused by:)(.*)(\\n|\\r\\n)(([ \\t\\f\\r])*at(.*)(\\n|\\r\\n))*(...(.*)(more)(\\\\n|\\\\r\\\\n))*)";
+	private static final String semiStackTraceRegularExpression = "((\\n|\\r\\n)*([ \\t\\f\\r])*(Caused by:)?(.*)(\\n|\\r\\n)(([ \\t\\f\\r])*at(.*)(\\n|\\r\\n))*(...(.*)(more)(\\\\n|\\\\r\\\\n))*)";
 	private static final Pattern stackTraceRegexPattern = Pattern.compile(stackTraceRegularExpression);
 	private static final Pattern semiStackTraceRegexPattern = Pattern.compile(semiStackTraceRegularExpression);
 	

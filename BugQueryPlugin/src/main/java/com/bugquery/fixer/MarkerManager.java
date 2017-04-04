@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
 
@@ -23,7 +24,7 @@ public class MarkerManager {
 		this.markers = new ArrayList<IMarker>();
 	}
 	
-	public static MarkerManager getInstance(){
+	public static MarkerManager instance(){
 	      return instance;
    }
 	
@@ -35,11 +36,11 @@ public class MarkerManager {
 	 * @param severity
 	 * @return 
 	 */
-	public IMarker addMarker(IFile file, String message, int lineNumber, int severity) {
+	public IMarker addMarker(IFile file, String message, int lineNumber) {
 		try {
 			IMarker marker = file.createMarker(IMarker.PROBLEM);
 			marker.setAttribute(IMarker.MESSAGE, message);
-			marker.setAttribute(IMarker.SEVERITY, severity);
+			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 			if (lineNumber == -1) {
 				lineNumber = 1;
 			}
@@ -51,7 +52,20 @@ public class MarkerManager {
 		}
 	}
 	
-	public void deleteAllMarkers() {
+	public IMarker addMarker(IFile file, String trace) {
+		return addMarker(file, "Fix: " + StackTrace.of(trace).getException(), StackTrace.of(trace).getLine());
+	}
+	
+	public void deleteMarkerFrom(IResource i) {
+		try {
+			i.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAllKnownMarkers() {
 		for(IMarker m : markers) {
 			try {
 				m.delete();
