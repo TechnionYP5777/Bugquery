@@ -97,8 +97,9 @@ public class StackTrace {
 		return $;
 	}
 	
+	// TODO: Doron, finish implementing
+	/** Maybe this should give us List<Integer> of line numbers and List<String> of files*/
 	private int getLine(String stackTrace) {
-		// TODO: Doron, implement
 		Matcher m = Pattern.compile(this.atRegex).matcher(stackTrace);
 		boolean f = m.find();
 		if(!f) {
