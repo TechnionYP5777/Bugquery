@@ -62,10 +62,10 @@ public class SendTrace {
 			return;
 		}
 
-		Program.launch(conn.getHeaderField("location"));
+//		Program.launch(conn.getHeaderField("location"));
 		// This parameters should be extracted from the stack trace
-//		IFile file = ResourcesUtils.getFile("test", "src", "test.java");
-//		MarkerManager.instance().addMarker(file, trace);
+		IFile file = ResourcesUtils.getFile("test", "src", "test.java");
+		MarkerManager.instance().addMarker(file, trace);
 	}
 
 	/**

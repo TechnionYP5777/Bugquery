@@ -14,6 +14,7 @@ import com.bugquery.fixer.StackTraceExtractor;
  */
 public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
+	private final String atRegex = "at .*:[0-9]+";
 	private final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
 	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
 	private final int indexOfExceptionNameInCausedBy = 1;
@@ -96,12 +97,23 @@ public class StackTrace {
 		return $;
 	}
 	
-	@SuppressWarnings("unused")
 	private int getLine(String stackTrace) {
 		// TODO: Doron, implement
-		return 4;
+		Matcher m = Pattern.compile(this.atRegex).matcher(stackTrace);
+		boolean f = m.find();
+		if(!f) {
+			return -1;
+		}
+		return getLineNumberFromExceptionLine(m.group(0));
 	}
 	
+	private int getLineNumberFromExceptionLine(String exceptionLine) {
+		int i = exceptionLine.length()-1;
+		while(exceptionLine.charAt(i) >= '0' && exceptionLine.charAt(i) <= '9')
+			--i;
+		return Integer.parseInt(exceptionLine.substring(i+1, exceptionLine.length()));
+	}
+
 	@Override public boolean equals(Object ¢) {
 		return ¢ instanceof StackTrace && (¢ == this || this.getString().equals(((StackTrace) ¢).getString()));
 	}

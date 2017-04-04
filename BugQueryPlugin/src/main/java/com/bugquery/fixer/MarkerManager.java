@@ -40,7 +40,7 @@ public class MarkerManager {
 		try {
 			IMarker marker = file.createMarker(IMarker.PROBLEM);
 			marker.setAttribute(IMarker.MESSAGE, message);
-			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
+			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
 			if (lineNumber == -1) {
 				lineNumber = 1;
 			}
