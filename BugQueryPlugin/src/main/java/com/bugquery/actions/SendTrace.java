@@ -8,14 +8,9 @@ import java.net.URL;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.program.Program;
-import org.eclipse.ui.IMarkerResolution;
-import org.eclipse.ui.PlatformUI;
 
-import com.bugquery.fixer.ProjectUtils;
-import com.bugquery.fixer.ProjectUtils.get;
-import com.bugquery.fixer.QuickFixer;
+import com.bugquery.fixer.ResourcesUtils;
 import com.bugquery.fixer.MarkerManager;
 import com.bugquery.stacktrace.ExtractTrace;
 
@@ -69,8 +64,8 @@ public class SendTrace {
 
 		Program.launch(conn.getHeaderField("location"));
 		// This parameters should be extracted from the stack trace
-//		IFile file = get.file("test", "src", "test.java");
-//		IMarker mk = MarkerManager.getInstance().addMarker(file, "This line causes exception", 5, IMarker.SEVERITY_WARNING);
+//		IFile file = ResourcesUtils.getFile("test", "src", "test.java");
+//		MarkerManager.getInstance().addMarker(file, "This line causes exception", 5, IMarker.SEVERITY_WARNING);
 	}
 
 	/**
