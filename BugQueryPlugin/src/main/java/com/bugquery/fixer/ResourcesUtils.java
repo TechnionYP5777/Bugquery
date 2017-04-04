@@ -13,28 +13,24 @@ import org.eclipse.core.resources.ResourcesPlugin;
  * @since 03-Apr-17
  */
 
-public class ProjectUtils {
-	public enum get {
-		SINGLETON;
+public class ResourcesUtils {
+	public static IWorkspace getWorkspace() {
+		return ResourcesPlugin.getWorkspace();
+	}
 
-		public static IWorkspace workspace() {
-			return ResourcesPlugin.getWorkspace();
-		}
+	public static IWorkspaceRoot getRoot() {
+		return getWorkspace().getRoot();
+	}
 
-		public static IWorkspaceRoot root() {
-			return get.workspace().getRoot();
-		}
+	public static IProject getProject(String myProject) {
+		return getRoot().getProject(myProject);
+	}
 
-		public static IProject project(String myProject) {
-			return get.root().getProject(myProject);
-		}
+	public static IFolder getFolder(String myProject, String myFolder) {
+		return getProject(myProject).getFolder(myFolder);
+	}
 
-		public static IFolder folder(String myProject, String myFolder) {
-			return get.project(myProject).getFolder(myFolder);
-		}
-
-		public static IFile file(String myProject, String myFolder, String myFile) {
-			return get.folder(myProject, myFolder).getFile(myFile);
-		}
+	public static IFile getFile(String myProject, String myFolder, String myFile) {
+		return getFolder(myProject, myFolder).getFile(myFile);
 	}
 }
