@@ -23,50 +23,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Users/doron/eclipse/java-neon3/plugins/org.eclipse.ui.ide_3.12.3.v20170119-0935.jar" sourcepath="D:/Users/doron/eclipse/java-neon3/plugins/org.eclipse.ui.ide.source_3.12.3.v20170119-0935.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Users/doron/eclipse/java-neon3/plugins/org.eclipse.platform.doc.isv_4.6.2.v20170221-1001.jar!/reference/api"/>
-		</attributes>
-		<accessrules>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/actions/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/dialogs/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/ide/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/ide/dialogs/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/ide/fileSystem/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/ide/undo/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/actions/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/commands/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/dialogs/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/filesystem/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/handlers/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/misc/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/model/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/registry/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/ide/undo/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/views/bookmarkexplorer/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/views/framelist/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/views/markers/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/views/navigator/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/views/properties/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/views/tasklist/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/wizards/datatransfer/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/wizards/newresource/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/model/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/part/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/views/bookmarkexplorer/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/views/framelist/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/views/markers/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/views/markers/internal/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/views/navigator/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/views/properties/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/views/tasklist/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/wizards/datatransfer/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/wizards/newresource/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/ui/internal/editorsupport/win32/*"/>
-			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
-		</accessrules>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

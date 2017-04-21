@@ -7,8 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.swt.program.Program;
+// import org.eclipse.core.resources.IMarker;
+// import org.eclipse.swt.program.Program;
 
 import com.bugquery.fixer.ResourcesUtils;
 import com.bugquery.fixer.MarkerManager;
