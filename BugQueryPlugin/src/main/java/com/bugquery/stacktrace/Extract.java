@@ -26,7 +26,7 @@ public interface Extract {
 		if (¢ == null)
 			return notFound;
 		String $ = "";
-
+// TODO: compile this pattern only once, in a static field
 		for (Matcher m = Pattern
 				/*
 				 * TODO. Search in documentation of regular expressions. There
