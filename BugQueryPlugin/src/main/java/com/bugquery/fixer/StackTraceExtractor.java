@@ -6,10 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bugquery.fixer.StackTrace;
+import com.bugquery.stacktrace.Extract;
 
 /**
  * This class should be used for finding and extracting stack traces from stackoverflow
- * questions. It is based on the ExtractTrace class of yosefraisman
+ * questions. It is based on the {@link Extract} class 
  * @author rodedzats
  * @since 7.12.2016
  */

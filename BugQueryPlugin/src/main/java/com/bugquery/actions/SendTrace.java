@@ -12,7 +12,7 @@ import org.eclipse.core.resources.IFile;
 
 import com.bugquery.fixer.ResourcesUtils;
 import com.bugquery.fixer.MarkerManager;
-import com.bugquery.stacktrace.ExtractTrace;
+import com.bugquery.stacktrace.Extract;
 
 /**
  * Handles an input of stack trace: Performs stack extraction and starts a
@@ -31,11 +31,12 @@ public class SendTrace {
 	 * 
 	 * @param trace
 	 */
-	// TOOD Cumbersome design. Why not just simple static function?
+	// TOOD Cumbersome design. Why not just simple static function? See if you
+	// can imitate Extract.trace
 	// --yg
 	SendTrace(String trace) {
 		if (trace != null && !trace.isEmpty())
-			sendBugQuery(new ExtractTrace().extract(trace));
+			sendBugQuery(Extract.trace(trace));
 	}
 
 	/**

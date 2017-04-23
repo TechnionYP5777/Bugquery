@@ -5,32 +5,31 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Testing stack extraction of bugquery.stacktrace.ExtractTrace's methods
+ * Unit tests of {@link Extract} 
  * 
  * @author Yosef
  * @since Dec 5, 2016
  * 
  */
 public class ExtractTraceTest {
-	private ExtractTrace et = new ExtractTrace();
 
 	/** parsing of null object is be @no_trace */
 	@Test
 	public void invalidInput() {
-		assertEquals(et.no_trace_en, et.extract(null));
+		assertEquals(Extract.notFound, Extract.trace(null));
 	}
 
 	/** parsing of an empty String is @no_trace */
 	@Test
 	public void emptyInput() {
-		assertEquals(et.no_trace_en, et.extract(""));
+		assertEquals(Extract.notFound, Extract.trace(""));
 	}
 
 	/** parsing of a String without traces is @no_trace */
 	@Test
 	public void noTraces() {
-		assertEquals(et.no_trace_en, et.extract("123"));
-		assertEquals(et.no_trace_en, et.extract("123\n\t"));
+		assertEquals(Extract.notFound, Extract.trace("123"));
+		assertEquals(Extract.notFound, Extract.trace("123\n\t"));
 	}
 
 	/** parsing of a real trace is the trace itself */
@@ -38,7 +37,7 @@ public class ExtractTraceTest {
 	public void realTrace() {
 		assertEquals(
 				"Exception in thread \"main\" java.lang.NullPointerException: Message\n\tat test.Fail.karma(Fail.java:5)\n\tat test.main.main(main.java:7)",
-				et.extract(
+				Extract.trace(
 						"Exception in thread \"main\" java.lang.NullPointerException: Message\n\tat test.Fail.karma(Fail.java:5)\n\tat test.main.main(main.java:7)"));
 	}
 
@@ -50,7 +49,7 @@ public class ExtractTraceTest {
 	public void traceInOutput() {
 		assertEquals(
 				"Exception in thread \"main\" java.lang.NullPointerException: Message\n\tat test.Fail.karma(Fail.java:5)\n\tat test.main.main(main.java:7)",
-				et.extract(
+				Extract.trace(
 						"Exception in thread \"main\" java.lang.NullPointerException: Message\n\tat test.Fail.karma(Fail.java:5)\n\tat test.main.main(main.java:7)\nSome User Output"));
 	}
 
@@ -63,7 +62,7 @@ public class ExtractTraceTest {
 	public void traceWhitespace() {
 		assertEquals(
 				"Exception in thread \"main\" java.lang.NullPointerException\r\n        at com.example.myproject.Book.getTitle(Book.java:16)\r\n        at com.example.myproject.Author.getBookTitles(Author.java:25)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)",
-				et.extract(
+				Extract.trace(
 						"Exception in thread \"main\" java.lang.NullPointerException\r\n        at com.example.myproject.Book.getTitle(Book.java:16)\r\n        at com.example.myproject.Author.getBookTitles(Author.java:25)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\n"));
 	}
 
@@ -75,7 +74,7 @@ public class ExtractTraceTest {
 	public void traceWithCausedBy() {
 		assertEquals(
 				"Exception in thread \"main\" java.lang.IllegalStateException: A book has a null property\r\n        at com.example.myproject.Author.getBookIds(Author.java:38)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\nCaused by: java.lang.NullPointerException\r\n        at com.example.myproject.Book.getId(Book.java:22)\r\n        at com.example.myproject.Author.getBookIds(Author.java:35)",
-				et.extract(
+				Extract.trace(
 						"Exception in thread \"main\" java.lang.IllegalStateException: A book has a null property\r\n        at com.example.myproject.Author.getBookIds(Author.java:38)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\nCaused by: java.lang.NullPointerException\r\n        at com.example.myproject.Book.getId(Book.java:22)\r\n        at com.example.myproject.Author.getBookIds(Author.java:35)\r\n\r\n"));
 	}
 
