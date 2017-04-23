@@ -8,7 +8,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import com.bugquery.stacktrace.GetTrace;
 
 /**
- * a handler class, get output from the user via input dialog
+ *  Handler of event 'trace supplied through via input dialog'
  * 
  * @author Yosef
  * @since Dec 8, 2016

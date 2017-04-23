@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 
-/**
+/** Sink: all exception go here
  * @author Yosef
  * @since Jan 2, 2017
  *
@@ -25,7 +25,7 @@ public class ExceptionHandlingController {
 		return $;
 	}
 
-	/*
+	/**
 	 * Handles com.bugquery.serverside.exceptions.ResourceNotFoundException,
 	 * Assumes Exception.getMessage() has all the relevant information.
 	 */
@@ -37,7 +37,7 @@ public class ExceptionHandlingController {
 	}
 
 	
-	/*
+	/**
 	 * Default handler, deals with all other, non-specific, types of Exception
 	 */
 	@ExceptionHandler(Exception.class)

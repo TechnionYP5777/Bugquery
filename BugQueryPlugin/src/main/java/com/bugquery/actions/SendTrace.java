@@ -24,15 +24,32 @@ import com.bugquery.stacktrace.ExtractTrace;
  */
 public class SendTrace {
 	/**
+	 * Not to be used clients constructor. Instantiates this class with a given
+	 * trace. If the parameter is not {#@code null} nor the empty string, input
+	 * isn't null or empty, extracts a trace and passes it on to sendBugQuery,
+	 * to display online
+	 * 
+	 * @param trace
+	 */
+	// TOOD Cumbersome design. Why not just simple static function?
+	// --yg
+	SendTrace(String trace) {
+		if (trace != null && !trace.isEmpty())
+			sendBugQuery(new ExtractTrace().extract(trace));
+	}
+
+	/**
+	 * Sends an extracted trace, reformatted as a byte[] UTF-8, to the server in
+	 * {@code localhost:8080}. Request thorough POST to "/stacks", opens a page
+	 * with the URL it receives as a response in the default web browser.
+	 * 
 	 * @param trace
 	 *            - an extracted trace
-	 * @return Sends the extracted trace, reformatted as a byte[] UTF-8, to the
-	 *         server in localhost:8080 using a POST request to "/stacks", opens
-	 *         a page with the url it receives as a response in the default web
-	 *         browser.
 	 */
 	public void sendBugQuery(String trace) {
-//		String urlStr = "http://localhost:8080/stacks";
+		// TODO: try not leave commented code It is never clear when to
+		// uncomment it.
+		// String urlStr = "http://localhost:8080/stacks";
 		String urlStr = "http://www.google.com";
 		URL url;
 		try {
@@ -62,19 +79,9 @@ public class SendTrace {
 			return;
 		}
 
-//		Program.launch(conn.getHeaderField("location"));
+		// Program.launch(conn.getHeaderField("location"));
 		// This parameters should be extracted from the stack trace
 		IFile file = ResourcesUtils.getFile("test", "src", "test.java");
 		MarkerManager.instance().addMarker(file, trace);
 	}
-
-	/**
-	 * @param trace
-	 * @return if the input isn't null or empty, extracts a trace and passes it
-	 *         on to sendBugQuery, to display online
-	 */
-	SendTrace(String trace) {
-		if (trace != null && !trace.isEmpty())
-			sendBugQuery(new ExtractTrace().extract(trace));
-  	}
 }

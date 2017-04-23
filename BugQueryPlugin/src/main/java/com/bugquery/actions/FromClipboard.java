@@ -6,7 +6,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import com.bugquery.stacktrace.GetTrace;
 
 /**
- * a handler class, when a stack trace was copied to the clipboard
+ * Handler of event 'stack trace copied to clipboard'
  * 
  * @author Yosef
  * @since Dec 6, 2016
