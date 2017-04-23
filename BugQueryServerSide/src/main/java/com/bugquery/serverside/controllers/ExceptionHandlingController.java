@@ -45,7 +45,7 @@ public class ExceptionHandlingController {
 		if (AnnotationUtils.findAnnotation(x.getClass(), ResponseStatus.class) != null)
 			throw x;
 		¢.addAttribute("exception", x + "");
-		¢.addAttribute("title", (r.getRequestURL() + ""));
+		¢.addAttribute("title", r.getRequestURL() + "");
 		
 		// for debugging purposes, we'll also include stack trace at this time:
 		¢.addAttribute("errortrace", traceToString(x.getStackTrace()));

@@ -22,21 +22,21 @@ public class StackTrace {
 	private List<String> stackOfCalls;
 	private String content; // the whole stack-trace
 
-	public StackTrace(String stackTrace, String exception, List<String> stackOfCalls) {
+	public StackTrace(String content, String exception, List<String> stackOfCalls) {
 		this.exception = exception;
 		this.stackOfCalls = stackOfCalls;
-		this.content = stackTrace;
+		this.content = content;
 	}
 	
-	public StackTrace(String stackTrace) {
-		if (!StackTraceExtractor.isStackTrace(stackTrace)) {
+	public StackTrace(String content) {
+		if (!StackTraceExtractor.isStackTrace(content)) {
 			this.exception = StackTrace.noExceptionFound;
 			this.stackOfCalls = null;
 		} else {
-			this.exception = this.getException(stackTrace);
-			this.stackOfCalls = StackTrace.getStackOfCalls(stackTrace);
+			this.exception = this.getException(content);
+			this.stackOfCalls = StackTrace.getStackOfCalls(content);
 		}
-		this.content = stackTrace;
+		this.content = content;
 	}
 	
 	public String getException() {
