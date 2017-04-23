@@ -7,14 +7,15 @@ import com.bugquery.stacktrace.GetTrace;
 
 /**
  * Handler of event 'stack trace copied to clipboard'
- * 
+ *
  * @author Yosef
  * @since Dec 6, 2016
- * 
+ *
  */
 public class FromClipboard extends AbstractHandler {
 
-	public Object execute(ExecutionEvent ¢) {
+	@Override
+	public Object execute(final ExecutionEvent ¢) {
 		new SendTrace(new GetTrace().fromClipboard2());
 		return null;
 	}

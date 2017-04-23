@@ -10,17 +10,17 @@ import org.eclipse.core.resources.IFile;
 // import org.eclipse.core.resources.IMarker;
 // import org.eclipse.swt.program.Program;
 
-import com.bugquery.fixer.ResourcesUtils;
 import com.bugquery.fixer.MarkerManager;
+import com.bugquery.fixer.ResourcesUtils;
 import com.bugquery.stacktrace.Extract;
 
 /**
  * Handles an input of stack trace: Performs stack extraction and starts a
  * search in the BugQuery server (opens results in Browser)
- * 
+ *
  * @author Yosef
  * @since Dec 7, 2016
- * 
+ *
  */
 public class SendTrace {
 	/**
@@ -28,13 +28,13 @@ public class SendTrace {
 	 * trace. If the parameter is not {#@code null} nor the empty string, input
 	 * isn't null or empty, extracts a trace and passes it on to sendBugQuery,
 	 * to display online
-	 * 
+	 *
 	 * @param trace
 	 */
 	// TOOD Cumbersome design. Why not just simple static function? See if you
 	// can imitate Extract.trace
 	// --yg
-	SendTrace(String trace) {
+	SendTrace(final String trace) {
 		if (trace != null && !trace.isEmpty())
 			sendBugQuery(Extract.trace(trace));
 	}
@@ -43,7 +43,7 @@ public class SendTrace {
 	 * Sends an extracted trace, reformatted as a byte[] UTF-8, to the server in
 	 * {@code localhost:8080}. Request thorough POST to "/stacks", opens a page
 	 * with the URL it receives as a response in the default web browser.
-	 * 
+	 *
 	 * @param trace
 	 *            - an extracted trace
 	 */
@@ -51,11 +51,11 @@ public class SendTrace {
 		// TODO: try not leave commented code It is never clear when to
 		// uncomment it.
 		// String urlStr = "http://localhost:8080/stacks";
-		String urlStr = "http://www.google.com";
+		final String urlStr = "http://www.google.com";
 		URL url;
 		try {
 			url = new URL(urlStr);
-		} catch (MalformedURLException e) {
+		} catch (final MalformedURLException e) {
 			return; // shouldn't happen
 		}
 
@@ -63,7 +63,7 @@ public class SendTrace {
 		try {
 			trace = "trace=" + trace;
 			post_bytes = trace.getBytes("UTF-8");
-		} catch (UnsupportedEncodingException e1) {
+		} catch (final UnsupportedEncodingException e1) {
 			return;
 		}
 
@@ -76,13 +76,13 @@ public class SendTrace {
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.getOutputStream().write(post_bytes);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			return;
 		}
 
 		// Program.launch(conn.getHeaderField("location"));
 		// This parameters should be extracted from the stack trace
-		IFile file = ResourcesUtils.getFile("test", "src", "test.java");
+		final IFile file = ResourcesUtils.getFile("test", "src", "test.java");
 		MarkerManager.instance().addMarker(file, trace);
 	}
 }

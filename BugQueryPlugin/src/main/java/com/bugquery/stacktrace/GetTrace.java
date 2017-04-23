@@ -19,10 +19,10 @@ import org.eclipse.ui.console.TextConsole;
 /**
  * GetTrace is a class for methods that return Strings with stack traces, using
  * several inputs (e.g. consoles).
- * 
+ *
  * @author Yosef
  * @since Nov 29 2016
- * 
+ *
  */
 public class GetTrace {
 
@@ -31,8 +31,8 @@ public class GetTrace {
 	 *            a Throwable
 	 * @return a String from @exception's stack trace
 	 */
-	public String fromException(Throwable exception) {
-		StringWriter $ = new StringWriter();
+	public String fromException(final Throwable exception) {
+		final StringWriter $ = new StringWriter();
 		exception.printStackTrace(new PrintWriter($));
 		return $ + "";
 	}
@@ -41,10 +41,10 @@ public class GetTrace {
 	 * @param console_name
 	 * @return a new console, named @console_name.
 	 */
-	private TextConsole emptyNewConsole(String console_name) {
-		MessageConsole $ = new MessageConsole(console_name, null);
+	private TextConsole emptyNewConsole(final String console_name) {
+		final MessageConsole $ = new MessageConsole(console_name, null);
 		ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { $ });
-		return (TextConsole) $;
+		return $;
 	}
 
 	/**
@@ -64,8 +64,8 @@ public class GetTrace {
 	 *         ConsoleManager. if it doesn't exist, returns the first available
 	 *         console, or an empty new one (if it doesn't exist either)
 	 */
-	private TextConsole getConsoleNamed(String name_str) {
-		IConsole[] $ = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
+	private TextConsole getConsoleNamed(final String name_str) {
+		final IConsole[] $ = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
 		for (int ¢ = 0; ¢ < $.length; ++¢)
 			if ($[¢].getName().indexOf(name_str) != -1)
 				return (TextConsole) $[¢];
@@ -81,21 +81,21 @@ public class GetTrace {
 		return getConsoleNamed("<terminated>").getDocument().get();
 	}
 
-	/** 
-	 * @return system clipboard output
-	 * [[SuppressWarningsSpartan]] - causes issue with Maven
+	/**
+	 * @return system clipboard output [[SuppressWarningsSpartan]] - causes
+	 *         issue with Maven
 	 */
 	public String fromClipboard() {
 		Transferable content;
 		String $ = "";
 
-		DataFlavor[] m = Toolkit.getDefaultToolkit().getSystemClipboard().getAvailableDataFlavors();
-		for (DataFlavor n : m)
+		final DataFlavor[] m = Toolkit.getDefaultToolkit().getSystemClipboard().getAvailableDataFlavors();
+		for (final DataFlavor n : m)
 			System.out.println(n.getPrimaryType() + " " + n.getHumanPresentableName());
 
 		try {
 			content = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-		} catch (IllegalStateException e) {
+		} catch (final IllegalStateException e) {
 			return $;
 		}
 
@@ -107,9 +107,9 @@ public class GetTrace {
 
 		try {
 			$ += content.getTransferData(DataFlavor.stringFlavor);
-		} catch (UnsupportedFlavorException e) {
+		} catch (final UnsupportedFlavorException e) {
 			return $;
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			return $;
 		}
 
@@ -117,23 +117,23 @@ public class GetTrace {
 	}
 
 	public String fromClipboard2() {
-		ClipboardDialog $ = new ClipboardDialog(Display.getCurrent().getActiveShell(), "BugQuery Input", "", null,
+		final ClipboardDialog $ = new ClipboardDialog(Display.getCurrent().getActiveShell(), "BugQuery Input", "", null,
 				null);
 		return $.open() != Window.OK ? null : $.getValue();
 	}
 
 	/**
 	 * creates a new input dialog (ExtendedDialog)
-	 * 
+	 *
 	 * @param s,
 	 *            a shell for our dialog
-	 * 
+	 *
 	 * @return null if no window was opened, or if the window was closed without
 	 *         the OK button being clicked. otherwise, returns the input from
 	 *         the user.
 	 */
-	public String fromInputDialog(Shell ¢) {
-		ExtendedDialog $ = new ExtendedDialog(¢, "BugQuery Input", "Please Insert Your Output", null, null);
+	public String fromInputDialog(final Shell ¢) {
+		final ExtendedDialog $ = new ExtendedDialog(¢, "BugQuery Input", "Please Insert Your Output", null, null);
 		return $.open() != Window.OK ? null : $.getValue();
 	}
 

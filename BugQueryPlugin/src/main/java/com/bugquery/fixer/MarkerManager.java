@@ -8,70 +8,69 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
-
 /**
  * Singleton for managing our IMarker's
+ * 
  * @author doron
  * @since 03-Apr-17
  */
 
 public class MarkerManager {
-	
+
 	private static MarkerManager instance = new MarkerManager();
 	List<IMarker> markers;
-	
+
 	private MarkerManager() {
-		this.markers = new ArrayList<IMarker>();
+		markers = new ArrayList<>();
 	}
-	
-	public static MarkerManager instance(){
-	      return instance;
-   }
-	
+
+	public static MarkerManager instance() {
+		return instance;
+	}
+
 	/**
 	 * convenient method for marking file associated with this builder
+	 * 
 	 * @param file
 	 * @param message
 	 * @param lineNumber
 	 * @param severity
-	 * @return 
+	 * @return
 	 */
-	public IMarker addMarker(IFile file, String message, int lineNumber) {
+	public IMarker addMarker(final IFile file, final String message, int lineNumber) {
 		try {
-			IMarker marker = file.createMarker(IMarker.PROBLEM);
+			final IMarker marker = file.createMarker(IMarker.PROBLEM);
 			marker.setAttribute(IMarker.MESSAGE, message);
 			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
-			if (lineNumber == -1) {
+			if (lineNumber == -1)
 				lineNumber = 1;
-			}
 			marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 			markers.add(marker);
 			return marker;
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			return null;
 		}
 	}
-	
-	public IMarker addMarker(IFile file, String trace) {
+
+	public IMarker addMarker(final IFile file, final String trace) {
 		return addMarker(file, "Fix: " + StackTrace.of(trace).getException(), StackTrace.of(trace).getLine());
 	}
-	
-	public void deleteMarkerFrom(IResource i) {
+
+	public void deleteMarkerFrom(final IResource i) {
 		try {
 			i.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void deleteAllKnownMarkers() {
-		for(IMarker m : markers) {
+		for (final IMarker m : markers)
 			try {
 				m.delete();
-			} catch (CoreException e) {
+			} catch (final CoreException e) {
 				e.printStackTrace();
 			}
-		}
 	}
 }

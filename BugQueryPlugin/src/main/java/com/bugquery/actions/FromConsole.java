@@ -7,14 +7,15 @@ import com.bugquery.stacktrace.GetTrace;
 
 /**
  * Handler of event 'stack trace printed in output console'
- * 
+ *
  * @author Yosef
  * @since Dec 5, 2016
- * 
+ *
  */
 public class FromConsole extends AbstractHandler {
 
-	public Object execute(ExecutionEvent ¢) {
+	@Override
+	public Object execute(final ExecutionEvent ¢) {
 		new SendTrace(new GetTrace().fromConsole());
 		return null;
 	}

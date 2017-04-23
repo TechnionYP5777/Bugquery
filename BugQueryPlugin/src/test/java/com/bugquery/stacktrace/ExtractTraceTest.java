@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Unit tests of {@link Extract} 
- * 
+ * Unit tests of {@link Extract}
+ *
  * @author Yosef
  * @since Dec 5, 2016
- * 
+ *
  */
 public class ExtractTraceTest {
 

@@ -3,12 +3,13 @@ package com.bugquery.fixer;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.*;
+import org.eclipse.ui.IMarkerResolution;
+import org.eclipse.ui.IMarkerResolutionGenerator;
 
 /**
  * This class offers a quick fix, attached to an {@link IMarker}. The fix cannot
  * remove he marker, but it opens new tab with browser on the query
- * 
+ *
  * @author doron
  * @since 03-Apr-17
  */
@@ -18,11 +19,11 @@ import org.eclipse.ui.*;
 public class QuickFixer implements IMarkerResolutionGenerator {
 
 	@Override
-	public IMarkerResolution[] getResolutions(IMarker mk) {
+	public IMarkerResolution[] getResolutions(final IMarker mk) {
 		try {
-			Object problem = mk.getAttribute("MESSAGE");
+			final Object problem = mk.getAttribute("MESSAGE");
 			return new IMarkerResolution[] { new QuickFix("Fix #1 for " + problem) };
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			return new IMarkerResolution[0];
 		}
 	}
@@ -30,15 +31,17 @@ public class QuickFixer implements IMarkerResolutionGenerator {
 	private class QuickFix implements IMarkerResolution {
 		String label;
 
-		QuickFix(String label) {
+		QuickFix(final String label) {
 			this.label = label;
 		}
 
+		@Override
 		public String getLabel() {
 			return label;
 		}
 
-		public void run(IMarker marker) {
+		@Override
+		public void run(final IMarker marker) {
 			// TODO implement this method.
 			MessageDialog.openInformation(null, "QuickFix Demo", "This quick-fix is not yet implemented");
 		}
