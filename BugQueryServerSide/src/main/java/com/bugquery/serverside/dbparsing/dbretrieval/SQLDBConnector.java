@@ -10,7 +10,7 @@ import java.util.List;
 import com.bugquery.serverside.entities.MinSOPost;
 import com.bugquery.serverside.entities.Post;
 
-/*
+/**
  * @author yonzarecki
  * @since 4.1.17
  */

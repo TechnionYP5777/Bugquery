@@ -10,14 +10,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author ZivIzhar
- * @since 9.1.17 This class takes two versions of a forum's xmls - a new one and
+/*This class takes two versions of a forum's xmls - a new one and
  *        an old one and creates a new xml file which contains the needed
  *        changes in the database in order to update the db with the new posts.
  *        ASSUMPTIONS :
  *         1. The posts' content don't change 
  *         2. Newer posts get higher id
+ * @author ZivIzhar
+ * @since 9.1.17 T
  */
 public class XMLDiffer {
 	private String oldXMLAddr, newXMLAddr, outputXMLAddr;

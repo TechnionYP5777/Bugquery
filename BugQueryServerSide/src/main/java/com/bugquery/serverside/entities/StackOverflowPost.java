@@ -29,6 +29,7 @@ public class StackOverflowPost extends Post {
 		this.answerCount = answerCount;
 	}
 	//TODO: need to decide which stacktrace to choose, for now, first one.
+	// TODO why not use all as keys? --yg
 	private static String getStackTrace(String body){
 		return StackTraceExtractor.extract(body).get(0).getString();
 	}

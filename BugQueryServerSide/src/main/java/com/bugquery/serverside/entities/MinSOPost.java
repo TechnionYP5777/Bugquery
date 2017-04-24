@@ -1,6 +1,6 @@
 package com.bugquery.serverside.entities;
 
-/**
+/** TODO document --yg
  * @author yonzarecki
  * @since 21.12.16
  */

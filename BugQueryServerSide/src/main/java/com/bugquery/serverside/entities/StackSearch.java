@@ -32,9 +32,10 @@ public class StackSearch {
 
 	public StackSearch(String encodedTrace) {
 		try {
-			this.trace = URLDecoder.decode(encodedTrace, "UTF-8");
+			trace = URLDecoder.decode(encodedTrace, "UTF-8");
 		} catch (@SuppressWarnings("unused") UnsupportedEncodingException e) {
 		  // TODO : handle this exception
+			// TODO exception management policy? --yg
 		}
 	}
 
