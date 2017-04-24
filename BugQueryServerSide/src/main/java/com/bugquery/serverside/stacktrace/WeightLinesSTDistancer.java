@@ -17,6 +17,7 @@ public class WeightLinesSTDistancer implements StackTraceDistancer {
     	List<String> st2 = StackTraceDistancer.splitByNewlines(o2);
     	double currentWeight = 1;
     	double $ = 0;
+    	// TODO better approximation of the levenshtein distance --yg
     	for(int ¢=0; ¢ < Math.max(st1.size(), st2.size()); ++¢) {
     		if(¢ >= st1.size() || ¢ >= st2.size() || 
     				!st1.get(¢).equalsIgnoreCase(st2.get(¢)))

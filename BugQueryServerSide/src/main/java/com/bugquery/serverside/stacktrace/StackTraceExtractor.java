@@ -14,6 +14,8 @@ import com.bugquery.serverside.entities.StackTrace;
  * @since 7.12.2016
  */
 public class StackTraceExtractor {
+	private static final String PLEASE_RENAME_ME_TOO = "<[a-zA-Z0-9/]*>";
+	private static final String PLEASE_RENAME_ME = "<[a-zA-Z0-9/]*>&#xA;&#xA;<[a-zA-Z0-9/]*>";
 	private static final String stackTraceRegularExpression = "(\\n|^)([ \\t\\f\\r])*([a-zA-Z0-9\\.]*Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)((\n|\r\n)*([ \t\f\r])*(Caused by:)?(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*(...(.*)(more)(\\n|\\r\\n)))*";
 	private static final String semiStackTraceRegularExpression = "((\\n|\\r\\n)*([ \\t\\f\\r])*(Caused by:)(.*)(\\n|\\r\\n)(([ \\t\\f\\r])*at(.*)(\\n|\\r\\n))*(...(.*)(more)(\\\\n|\\\\r\\\\n))*)";
 	private static final Pattern stackTraceRegexPattern = Pattern.compile(stackTraceRegularExpression);
@@ -45,6 +47,6 @@ public class StackTraceExtractor {
 	}
 	
 	public static String removeHtmlTags(String ¢) {
-		return ¢.replaceAll("<[a-zA-Z0-9/]*>&#xA;&#xA;<[a-zA-Z0-9/]*>","\n").replaceAll("<[a-zA-Z0-9/]*>", "").replaceAll("&#xA;", "\n");
+		return ¢.replaceAll(PLEASE_RENAME_ME,"\n").replaceAll(PLEASE_RENAME_ME_TOO, "").replaceAll("&#xA;", "\n");
 	}
 }
