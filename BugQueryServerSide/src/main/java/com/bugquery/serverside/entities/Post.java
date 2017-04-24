@@ -1,9 +1,12 @@
 package com.bugquery.serverside.entities;
 
+import javax.persistence.Embedded;
+
 /**
  * @author zivizhar
  */
 public abstract class Post {
+	@Embedded
 	public StackTrace stackTrace;
 	public Post(StackTrace stackTrace) {
 		this.stackTrace = stackTrace;
