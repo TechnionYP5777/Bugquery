@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.Embeddable;
+
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 /**
@@ -12,6 +14,7 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
  * @author rodedzats
  * @since 14.12.2016
  */
+@Embeddable
 public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
 	private final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
