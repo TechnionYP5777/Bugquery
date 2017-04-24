@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.bugquery.serverside.dbparsing.dbcreation.DBFilter;
 import com.bugquery.serverside.entities.StackOverflowPost;
 import com.bugquery.serverside.repositories.StackOverflowPostRepository;
 
@@ -37,8 +38,10 @@ public class Application {
 			StackOverflowPost soPost = new StackOverflowPost("id", 0, "parentId", "acceptedAnswerId", 0, "body", "title", "tags", 2);
 			soRepo.save(soPost);
 			if (args.length > 0) {
-				if ("--createDB".equals(args[0]))
+				if ("--createDB".equals(args[0])){
 					log.info("Created DB");
+					(new DBFilter("localhost:4488/bugquery", true)).createDatabase();
+				}
 					//create DB
 				if ("--updateDB".equals(args[0]))
 				 log.info("Updated DB");
