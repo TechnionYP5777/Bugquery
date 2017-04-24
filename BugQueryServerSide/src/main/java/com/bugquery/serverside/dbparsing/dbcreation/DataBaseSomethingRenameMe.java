@@ -14,17 +14,16 @@ import java.util.List;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
-public class DataBaseProxy {
+public class DataBaseSomethingRenameMe {
 	private static String address = "localhost:4488";
 	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String INSERT_QUERY = "INSERT INTO bugquery_index3(BugQueryId,SOId,Ex,StackTrace,Question,PostTypeId,ParentID,AcceptedAnswerId, Score,Title, Tags, AnswerCount) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static int uniqueId;
 	/**
-	 * 
 	 * @param question The question to be inserted to the db.
 	 * @param logFile If you want to print  to standard input put empty string 
 	 */
-	// TODO try to not leave commented out code
+	// TODO try to not leave commented out code --yg
 //	public static void insertNewExceptionToDB(StackOverflowPost p, String logFile) {
 //		try {
 //			Class.forName("com.mysql.jdbc.Driver").newInstance();

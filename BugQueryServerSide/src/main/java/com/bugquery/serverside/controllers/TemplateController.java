@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TemplateController {
 
+	private static final String INDEX = "index";
 	private static final String GUIDE = "guide";
 	private static final String HOME = "home";
 	private static final String LAYOUT = "layout";
@@ -30,7 +31,7 @@ public class TemplateController {
 		return LAYOUT;
 	}
 
-	@RequestMapping(value = { "/" + "index", ROOT }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/" + INDEX, ROOT }, method = RequestMethod.GET)
 	public static String getHome(Model ¢) {
 		¢.addAttribute(VIEW, HOME);
 		¢.addAttribute(TITLE, "Welcome to BugQuery");
