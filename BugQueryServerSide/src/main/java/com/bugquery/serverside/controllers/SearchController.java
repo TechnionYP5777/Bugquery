@@ -20,7 +20,7 @@ import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
 
 /**
- * 
+ * Hook to handle {@link #REQUEST_FORMAT} 
  * @author Amit
  * @since Dec 24, 2016
  * Controller for stack searches
@@ -29,10 +29,11 @@ import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
 @Controller
 public class SearchController {
 
+	public static final String REQUEST_FORMAT = "/stacks/{id}";
 	@Autowired
 	private StackSearchRepository repository;
 
-	@RequestMapping(value = "/stacks/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_FORMAT, method = RequestMethod.GET)
 	public String getSearchResults(@PathVariable Long id, Model m) {
 		StackSearch ss = repository.findOne(id);
 		if (ss == null)

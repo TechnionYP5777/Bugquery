@@ -14,11 +14,61 @@ import java.util.List;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
-public class DBGetter {
-	static int uniqueId;
-	static String address = "localhost:4488";
-	public static void importFromSOToBugQuery(String logFile) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+public class DataBaseProxy {
+	private static String address = "localhost:4488";
+	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String INSERT_QUERY = "INSERT INTO bugquery_index3(BugQueryId,SOId,Ex,StackTrace,Question,PostTypeId,ParentID,AcceptedAnswerId, Score,Title, Tags, AnswerCount) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static int uniqueId;
+	/**
+	 * 
+	 * @param question The question to be inserted to the db.
+	 * @param logFile If you want to print  to standard input put empty string 
+	 */
+	// TODO try to not leave commented out code
+//	public static void insertNewExceptionToDB(StackOverflowPost p, String logFile) {
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver").newInstance();
+//		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+//			e1.printStackTrace();
+//		}
+//		try {
+//			try(PrintWriter printWriter = new PrintWriter(new FileWriter(logFile))){
+//      insertQusetionToDB(
+//					DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root"),
+//					logFile == "" ? null : printWriter, p);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	    
+//		
+//	}
+	
+	public static void main(String[] args) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
+		importFromStackOverflow("log.txt");
+		importAnswersFromStackOverflow();
+	}
+
+	private static void importAnswersFromStackOverflow() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Class.forName(COM_MYSQL_JDBC_DRIVER).newInstance();
+			try(Connection connection = DriverManager.getConnection("jdbc:mysql://gpu7.cs.technion.ac.il:3306/bugquery?user=root&password=root")){
+				connection.createStatement().executeUpdate("CREATE TABLE bugquery_answers(BugQueryId int,SOId int,Answer Text,PostTypeId int, ParentID int,AcceptedAnswerId int, Score int,Title Text, Tags varchar(500), AnswerCount int)");
+				try(ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM bugquery_index3")){
+					for (ResultSet i_rs = rs; i_rs.next();) {
+						@SuppressWarnings("unused")
+						int soId = rs.getInt("SOId");
+						connection.createStatement().executeUpdate("INSERT INTO bugquery_answers(SOId,Answer,PostTypeId,ParentID,AcceptedAnswerId,Score,Title,Tags,AnswerCount) SELECT (so_posts10.Id,)");
+						
+					}
+			}
+		}
+		
+	}
+
+	private static void importFromStackOverflow(String logFile) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		Class.forName(COM_MYSQL_JDBC_DRIVER).newInstance();
 	    try(Connection connection = DriverManager.getConnection("jdbc:mysql://"+address+"/bugquery?user=root&password=root")){
 	      int numOfRows = 0;
 	      connection.createStatement().executeUpdate("CREATE INDEX so_index ON so_posts10(Id)");
@@ -26,7 +76,7 @@ public class DBGetter {
 	        if (r.next())
 	          numOfRows = r.getInt("maxId");
 	      }
-	     connection.createStatement().executeUpdate("DROP TABLE bugquery_index3");
+	     update(connection, "DROP TABLE bugquery_index3");
       connection.createStatement().executeUpdate("CREATE TABLE bugquery_index3(BugQueryId int,SOId int,Ex Text,StackTrace Text,Question Text,PostTypeId int, ParentID int,AcceptedAnswerId int, Score int,Title Text, Tags varchar(500), AnswerCount int)");	      
 	      FileWriter write = null;
   	    try {
@@ -51,7 +101,8 @@ public class DBGetter {
   	    }
 	    }    
 	}
-
+	
+	
 	private static void insertQusetionToDB(Connection c, PrintWriter printer, ResultSet s) throws SQLException {
 		List<StackTrace> extract = new ArrayList<>();
 		String body = s.getString("Body");
@@ -76,11 +127,12 @@ public class DBGetter {
 		}
 		
 		for (StackTrace ¢1 : extract) {
-			String string = "INSERT INTO bugquery_index3(BugQueryId,SOId,Ex,StackTrace,Question,PostTypeId,ParentID,AcceptedAnswerId, Score,Title, Tags, AnswerCount) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+			// TODO you were supposed to do proper loggin
 			System.out.println("The id is: "+id);
 
-			try(PreparedStatement ps2 = c.prepareStatement(string)){
+			try(PreparedStatement ps2 = c.prepareStatement(INSERT_QUERY)){
 	  			String ex = ¢1.getException();
+	  			// TODO Convert to static function uniqueId() that returns a new id.
 	  			ps2.setInt(1, uniqueId);
 	  			uniqueId += 1;
 	  			ps2.setInt(2, id);
@@ -98,52 +150,8 @@ public class DBGetter {
 			}	
 		}
 	}
-	
-	
-	/**
-	 * 
-	 * @param question The question to be inserted to the db.
-	 * @param logFile If you want to print  to standard input put empty string 
-	 */
-//	public static void insertNewExceptionToDB(StackOverflowPost p, String logFile) {
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver").newInstance();
-//		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
-//			e1.printStackTrace();
-//		}
-//		try {
-//			try(PrintWriter printWriter = new PrintWriter(new FileWriter(logFile))){
-//      insertQusetionToDB(
-//					DriverManager.getConnection("jdbc:mysql://localhost:4488/bugquery?user=root&password=root"),
-//					logFile == "" ? null : printWriter, p);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	    
-//		
-//	}
-	
-	public static void main(String[] args) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
-		DBGetter.importFromSOToBugQuery("log.txt");
-		DBGetter.importAnswersFromSO();
-	}
 
-	private static void importAnswersFromSO() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-			try(Connection connection = DriverManager.getConnection("jdbc:mysql://gpu7.cs.technion.ac.il:3306/bugquery?user=root&password=root")){
-				connection.createStatement().executeUpdate("CREATE TABLE bugquery_answers(BugQueryId int,SOId int,Answer Text,PostTypeId int, ParentID int,AcceptedAnswerId int, Score int,Title Text, Tags varchar(500), AnswerCount int)");
-				try(ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM bugquery_index3")){
-					for (ResultSet i_rs = rs; i_rs.next();) {
-						@SuppressWarnings("unused")
-						int soId = rs.getInt("SOId");
-						connection.createStatement().executeUpdate("INSERT INTO bugquery_answers(SOId,Answer,PostTypeId,ParentID,AcceptedAnswerId,Score,Title,Tags,AnswerCount) SELECT (so_posts10.Id,)");
-						
-					}
-			}
-		}
-		
+	private static void update(Connection c, String sqlQuery) throws SQLException {
+		c.createStatement().executeUpdate(sqlQuery);
 	}
 }

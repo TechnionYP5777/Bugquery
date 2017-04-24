@@ -8,7 +8,7 @@ import org.eclipse.ui.IMarkerResolutionGenerator;
 
 /**
  * This class offers a quick fix, attached to an {@link IMarker}. The fix cannot
- * remove he marker, but it opens new tab with browser on the query
+ * remove the marker, but it opens new tab with browser on the query
  *
  * @author doron
  * @since 03-Apr-17
