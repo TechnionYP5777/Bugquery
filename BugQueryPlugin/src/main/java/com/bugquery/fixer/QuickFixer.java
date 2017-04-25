@@ -7,6 +7,8 @@ import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator;
 
 /**
+ * ATTENTION: This class is on hold
+ * 
  * This class offers a quick fix, attached to an {@link IMarker}. The fix cannot
  * remove the marker, but it opens new tab with browser on the query
  *
@@ -42,7 +44,6 @@ public class QuickFixer implements IMarkerResolutionGenerator {
 
 		@Override
 		public void run(final IMarker marker) {
-			// TODO implement this method.
 			MessageDialog.openInformation(null, "QuickFix Demo", "This quick-fix is not yet implemented");
 		}
 	}

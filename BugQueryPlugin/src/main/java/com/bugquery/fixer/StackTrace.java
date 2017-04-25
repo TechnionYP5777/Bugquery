@@ -98,6 +98,8 @@ public class StackTrace {
 
 	// TODO: Doron, finish implementing
 	/**
+	 * ATTENTION: This function is on hold
+	 * 
 	 * Maybe this should give us List<Integer> of line numbers and List<String>
 	 * of files
 	 */

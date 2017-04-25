@@ -48,10 +48,7 @@ public class SendTrace {
 	 *            - an extracted trace
 	 */
 	public void sendBugQuery(String trace) {
-		// TODO: try not leave commented code It is never clear when to
-		// uncomment it.
-		// String urlStr = "http://localhost:8080/stacks";
-		final String urlStr = "http://www.google.com";
+		final String urlStr = "http://localhost:8080/stacks";
 		URL url;
 		try {
 			url = new URL(urlStr);

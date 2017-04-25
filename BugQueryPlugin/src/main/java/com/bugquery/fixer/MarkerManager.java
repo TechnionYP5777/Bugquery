@@ -60,7 +60,6 @@ public class MarkerManager {
 		try {
 			i.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		} catch (final CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
