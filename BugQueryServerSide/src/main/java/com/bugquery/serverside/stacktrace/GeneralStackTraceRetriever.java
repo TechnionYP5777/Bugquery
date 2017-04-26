@@ -43,8 +43,16 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 		if (allPosts == null || d == null || numOfPosts <= 0 || t == null || allPosts.size() <= numOfPosts) // lazy
 			throw new IllegalArgumentException();
 
-		final Comparator<Post> comparator = (p1,
-				p2) -> (int) (d.distance(p1.stackTrace, t) - d.distance(p2.stackTrace, t));
+		// Can't use lambda function since we need the value to be int!
+		// Rounding down is not correct in this case.
+		final Comparator<Post> comparator = new Comparator<Post>() {
+			@Override
+			public int compare(Post p1, Post p2) {
+				double $ = d.distance(p1.stackTrace, t), d_p2 = d.distance(p2.stackTrace, t);
+				return $ > d_p2 ? 1 : $ < d_p2 ? -1 : 0; // distance twice
+			}
+		};
+		
 		PriorityQueue<Post> pq = new PriorityQueue<>(allPosts.size(), comparator);
 		pq.addAll(allPosts); // build PQ with the same init size
 		List<Post> $ = new ArrayList<>();
