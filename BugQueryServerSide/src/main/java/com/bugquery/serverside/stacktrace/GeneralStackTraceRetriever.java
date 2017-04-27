@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import org.springframework.stereotype.Component;
+
 import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
 import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
@@ -18,6 +20,7 @@ import com.bugquery.serverside.exceptions.InvalidStackTraceException;
  * @author rodedzats
  * @since 11.12.2016
  */
+@Component
 public class GeneralStackTraceRetriever implements StackTraceRetriever {
 
 	private StackTraceDistancer d;

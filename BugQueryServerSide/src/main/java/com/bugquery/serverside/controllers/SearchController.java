@@ -17,7 +17,7 @@ import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 import com.bugquery.serverside.repositories.StackSearchRepository;
-import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
+import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
  * Hook to handle {@link #REQUEST_FORMAT} 
@@ -32,6 +32,9 @@ public class SearchController {
 	public static final String REQUEST_FORMAT = "/stacks/{id}";
 	@Autowired
 	private StackSearchRepository repository;
+	
+	@Autowired
+	private StackTraceRetriever retriever;
 
 	@RequestMapping(value = REQUEST_FORMAT, method = RequestMethod.GET)
 	public String getSearchResults(@PathVariable Long id, Model m) {
@@ -60,8 +63,8 @@ public class SearchController {
 		return "redirect:stacks/" + $.getId();
 	}
 
-	public static List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
-		return new GeneralStackTraceRetriever().getMostRelevantPosts(trace, 10);
+	public List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
+		return retriever.getMostRelevantPosts(trace, 10);
 	}
 
 	public void setRepository(StackSearchRepository ¢) {

@@ -35,4 +35,8 @@ public class WebTestUtils {
 	public void assertMediaType(String pageAddress, MediaType t) throws Exception {
 		this.mockMvc.perform(get(pageAddress)).andExpect(content().contentType(t));
 	}
+
+	public void assertContentContains(String pageAddress, String expectedContent) throws Exception {
+		this.mockMvc.perform(get(pageAddress)).andExpect(content().string(containsString(expectedContent)));
+	}
 }
