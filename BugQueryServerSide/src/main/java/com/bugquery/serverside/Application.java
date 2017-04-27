@@ -8,9 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.bugquery.serverside.dbparsing.dbcreation.DBFilter;
-import com.bugquery.serverside.entities.StackOverflowPost;
 import com.bugquery.serverside.repositories.StackOverflowPostRepository;
 
 /**
@@ -25,11 +25,12 @@ public class Application {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class,args);
 	}
-	@Autowired
-	StackOverflowPostRepository soRepo;
+	
 	
 	
 	@Bean
@@ -39,7 +40,7 @@ public class Application {
 			if (args.length > 0) {
 				if ("--createDB".equals(args[0])){
 					log.info("Created DB");
-					(new DBFilter("localhost:4488/bugquery","root","root", true,soRepo)).createTheQuestionsDatabase();
+					(new DBFilter("localhost:4488/bugquery","root","root", true)).createTheQuestionsDatabase();
 				}
 					//create DB
 				if ("--updateDB".equals(args[0]))

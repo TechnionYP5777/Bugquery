@@ -33,15 +33,16 @@ public class DBFilter {
 	String srcUsername;
 	String srcPassword;
 	boolean isCreation;
+	@Autowired
 	StackOverflowPostRepository soRepo;
 	private static final Logger log = LoggerFactory.getLogger(DBFilter.class);
 	
-	public DBFilter(String srcAddress,String srcUsername,String srcPassword, boolean isCreation,StackOverflowPostRepository soRepo) {
+	public DBFilter(String srcAddress,String srcUsername,String srcPassword, boolean isCreation) {
 		this.srcAddress = "jdbc:mysql://"+srcAddress;
 		this.isCreation = isCreation;
 		this.srcPassword = srcPassword;
 		this.srcUsername = srcUsername;
-		this.soRepo = soRepo;
+//		this.soRepo = soRepo;
 	}
 
 	public void createTheQuestionsDatabase() {
