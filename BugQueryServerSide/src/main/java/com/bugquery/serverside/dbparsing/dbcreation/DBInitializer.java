@@ -20,7 +20,7 @@ public class DBInitializer {
   		
   		try {
   			
-  			st.executeUpdate("CREATE TABLE so_posts10(Id int, PostTypeId int, ParentId int,AcceptedAnswerId int, Score int, Body Text,Title Text, Tags varchar(500), AnswerCount int)");
+  			st.executeUpdate("CREATE TABLE so_posts(Id int, PostTypeId int, ParentId int,AcceptedAnswerId int, Score int, Body Text,Title Text, Tags varchar(500), AnswerCount int)");
   			st.executeUpdate("LOAD XML INFILE 'D:\\\\BugQuery Project\\\\StackOverflow data\\\\Posts.xml' INTO TABLE so_posts10(Id, PostTypeId,ParentId,AcceptedAnswerId,Score,Body,Title,Tags,AnswerCount)");
   			
   		} catch (SQLException ¢) {

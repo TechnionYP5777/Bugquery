@@ -16,21 +16,25 @@ public class StackOverflowPost extends Post {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long localId;
-	public String id;
-	public int postTypeId;
-	public String parentId;
-	public String acceptedAnswerId;
-	public int score;
+	private int stackOvaerflowId;
+	private int postTypeId;
+	private int parentId;
+	private int acceptedAnswerId;
+	private int score;
 	@Column(columnDefinition = "Text")
-	public String body;
-	public String title;
-	public String tags;
-	public int answerCount;
-
-	public StackOverflowPost(String id, int postTypeId, String parentId, String acceptedAnswerId, int score,
+	private String body;
+	private String title;
+	private String tags;
+	private int answerCount;
+	
+	public StackOverflowPost() {
+		
+	}
+	
+	public StackOverflowPost(int id, int postTypeId, int parentId, int acceptedAnswerId, int score,
 			String body, String title, String tags, int answerCount) {
 		super(getStackTrace(body));
-		this.id = id;
+		this.stackOvaerflowId = id;
 		this.postTypeId = postTypeId;
 		this.parentId = parentId;
 		this.acceptedAnswerId = acceptedAnswerId;
@@ -40,6 +44,47 @@ public class StackOverflowPost extends Post {
 		this.tags = tags;
 		this.answerCount = answerCount;
 	}
+	
+
+	public void setStackOverflowId(int id) {
+		this.stackOvaerflowId = id;
+	}
+
+	public void setPostTypeId(int postTypeId) {
+		this.postTypeId = postTypeId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+	public void setAcceptedAnswerId(int acceptedAnswerId) {
+		this.acceptedAnswerId = acceptedAnswerId;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public void setBody(String body) {
+		this.setStackTrace(new StackTrace(body));
+		this.body = body;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public void setAnswerCount(int answerCount) {
+		this.answerCount = answerCount;
+	}
+
+	
+	
 
 	//TODO: need to decide which stacktrace to choose, for now, first one.
 	// TODO why not use all as keys? --yg

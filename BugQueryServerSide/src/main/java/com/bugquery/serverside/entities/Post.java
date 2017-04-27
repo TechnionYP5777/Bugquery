@@ -8,6 +8,9 @@ import javax.persistence.Embedded;
 public abstract class Post {
 	@Embedded
 	public StackTrace stackTrace;
+	public Post(){
+		
+	}
 	public Post(StackTrace stackTrace) {
 		this.stackTrace = stackTrace;
 	}
@@ -20,4 +23,8 @@ public abstract class Post {
 	public String toString() {
 		return stackTrace.getString();
 	}
+	public void setStackTrace(StackTrace ¢) {
+		this.stackTrace = ¢;
+	}
+	
 }
