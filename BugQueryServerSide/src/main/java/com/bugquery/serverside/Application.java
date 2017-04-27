@@ -29,18 +29,15 @@ public class Application {
 		SpringApplication.run(Application.class,args);
 	}
 	
-	@Autowired
-	StackOverflowPostRepository soRepo;
 	
 	@Bean
 	public CommandLineRunner checkDBargs() {
 		return (args) -> {
-			StackOverflowPost soPost = new StackOverflowPost("id", 0, "parentId", "acceptedAnswerId", 0, "body", "title", "tags", 2);
-			soRepo.save(soPost);
+			
 			if (args.length > 0) {
 				if ("--createDB".equals(args[0])){
 					log.info("Created DB");
-					(new DBFilter("localhost:4488/bugquery", true)).createDatabase();
+					(new DBFilter("localhost:4488/bugquery","root","root", true)).createTheQuestionsDatabase();
 				}
 					//create DB
 				if ("--updateDB".equals(args[0]))
