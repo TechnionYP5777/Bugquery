@@ -52,7 +52,7 @@ public class DBFilter {
 			conn = DriverManager.getConnection(srcAddress,srcUsername,srcPassword);
 			stmt = conn.createStatement();
 
-			String sql = "SELECT * FROM so_posts";
+			String sql = "SELECT * FROM so_posts LIMIT 20000";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			List<StackOverflowPost> addedPosts = new ArrayList<>();
