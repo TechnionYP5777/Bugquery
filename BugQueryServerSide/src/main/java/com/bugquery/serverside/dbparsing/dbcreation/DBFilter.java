@@ -51,9 +51,8 @@ public class DBFilter {
 			Class.forName(JDBC_DRIVER_STRING);
 			conn = DriverManager.getConnection(srcAddress,srcUsername,srcPassword);
 			stmt = conn.createStatement();
-			String sql = "SELECT * FROM so_posts LIMIT 30000";
+			String sql = "SELECT * FROM so_posts";
 			ResultSet rs = stmt.executeQuery(sql);
-			long localId;
 			List<StackOverflowPost> addedPosts = new ArrayList<>();
 			while (rs.next()){
 				String tags = rs.getString("Tags");
@@ -64,13 +63,10 @@ public class DBFilter {
 			soRepo.save(addedPosts);
 			
 		}catch(SQLException se){
-			      //Handle errors for JDBC
 			      se.printStackTrace();
 		}catch(Exception e){
-			      //Handle errors for Class.forName
 			      e.printStackTrace();
 	   }finally{
-			      //finally block used to close resources
 		   try{
 	         if(stmt!=null)
 	            stmt.close();
@@ -101,8 +97,6 @@ public class DBFilter {
 			$.setTags(¢.getString("Tags"));
 			$.setAnswerCount(¢.getInt("AnswerCount"));
 			$.setStackTrace(stackTrace);
-//			soRepo.save($);
-//			log.info("added");
 			addedPosts.add($);
 		}
 		
