@@ -67,7 +67,6 @@ public class StackOverflowPost extends Post {
 	}
 
 	public void setBody(String body) {
-		this.setStackTrace(new StackTrace(body));
 		this.body = body;
 	}
 

@@ -8,12 +8,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.bugquery.serverside.Application;
 import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
 import com.bugquery.serverside.entities.StackOverflowPost;
+import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.repositories.StackOverflowPostRepository;
+import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -26,15 +33,15 @@ public class DBFilter {
 	String srcUsername;
 	String srcPassword;
 	boolean isCreation;
-	
-	@Autowired
 	StackOverflowPostRepository soRepo;
+	private static final Logger log = LoggerFactory.getLogger(DBFilter.class);
 	
-	public DBFilter(String srcAddress,String srcUsername,String srcPassword, boolean isCreation) {
+	public DBFilter(String srcAddress,String srcUsername,String srcPassword, boolean isCreation,StackOverflowPostRepository soRepo) {
 		this.srcAddress = "jdbc:mysql://"+srcAddress;
 		this.isCreation = isCreation;
 		this.srcPassword = srcPassword;
 		this.srcUsername = srcUsername;
+		this.soRepo = soRepo;
 	}
 
 	public void createTheQuestionsDatabase() {
@@ -44,15 +51,17 @@ public class DBFilter {
 			Class.forName(JDBC_DRIVER_STRING);
 			conn = DriverManager.getConnection(srcAddress,srcUsername,srcPassword);
 			stmt = conn.createStatement();
-			String sql = "SELECT * FROM so_posts10 LIMIT 15000";
+			String sql = "SELECT * FROM so_posts LIMIT 30000";
 			ResultSet rs = stmt.executeQuery(sql);
 			long localId;
+			List<StackOverflowPost> addedPosts = new ArrayList<>();
 			while (rs.next()){
 				String tags = rs.getString("Tags");
-				if (isJavaPost(tags))
+				if (notJavaPost(tags))
                     continue;
-				StackOverflowPost post = addPostToQuestionsDB(rs);
+				addedPosts.addAll(addAllStackTracesToQuestionsDB(rs));
 			}
+			soRepo.save(addedPosts);
 			
 		}catch(SQLException se){
 			      //Handle errors for JDBC
@@ -76,22 +85,31 @@ public class DBFilter {
 	   }
 	}
 
-	private StackOverflowPost addPostToQuestionsDB(ResultSet ¢) throws SQLException {
-		StackOverflowPost $ = new StackOverflowPost();
-		$.setStackOverflowId(¢.getInt("Id"));
-		$.setPostTypeId(¢.getInt("PostTypeId"));
-		$.setParentId(¢.getInt("ParentId"));
-		$.setAcceptedAnswerId(¢.getInt("AcceptedAnswerId"));
-		$.setScore(¢.getInt("Score"));
-		$.setBody(¢.getString("Body"));
-		$.setTitle(¢.getString("Title"));
-		$.setTags(¢.getString("Tags"));
-		$.setAnswerCount(¢.getInt("AnswerCount"));
-		soRepo.save($);
-		return $;
+	private List<StackOverflowPost> addAllStackTracesToQuestionsDB(ResultSet ¢) throws SQLException {
+		String body = ¢.getString("Body");
+		List<StackOverflowPost> addedPosts = new ArrayList<StackOverflowPost>();
+		List<StackTrace> stackTraces = StackTraceExtractor.extract(body);
+		for (StackTrace stackTrace: stackTraces){
+			StackOverflowPost $ = new StackOverflowPost();
+			$.setStackOverflowId(¢.getInt("Id"));
+			$.setPostTypeId(¢.getInt("PostTypeId"));
+			$.setParentId(¢.getInt("ParentId"));
+			$.setAcceptedAnswerId(¢.getInt("AcceptedAnswerId"));
+			$.setScore(¢.getInt("Score"));
+			$.setBody(body);
+			$.setTitle(¢.getString("Title"));
+			$.setTags(¢.getString("Tags"));
+			$.setAnswerCount(¢.getInt("AnswerCount"));
+			$.setStackTrace(stackTrace);
+//			soRepo.save($);
+//			log.info("added");
+			addedPosts.add($);
+		}
+		
+		return addedPosts;
 	}
 
-	private boolean isJavaPost(String tags) {
+	private boolean notJavaPost(String tags) {
 		return tags == null || !tags.toLowerCase().contains("java");
 	}
 

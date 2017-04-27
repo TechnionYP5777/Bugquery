@@ -28,6 +28,8 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class,args);
 	}
+	@Autowired
+	StackOverflowPostRepository soRepo;
 	
 	
 	@Bean
@@ -37,7 +39,7 @@ public class Application {
 			if (args.length > 0) {
 				if ("--createDB".equals(args[0])){
 					log.info("Created DB");
-					(new DBFilter("localhost:4488/bugquery","root","root", true)).createTheQuestionsDatabase();
+					(new DBFilter("localhost:4488/bugquery","root","root", true,soRepo)).createTheQuestionsDatabase();
 				}
 					//create DB
 				if ("--updateDB".equals(args[0]))
