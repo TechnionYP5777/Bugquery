@@ -51,8 +51,10 @@ public class DBFilter {
 			Class.forName(JDBC_DRIVER_STRING);
 			conn = DriverManager.getConnection(srcAddress,srcUsername,srcPassword);
 			stmt = conn.createStatement();
+
 			String sql = "SELECT * FROM so_posts";
 			ResultSet rs = stmt.executeQuery(sql);
+
 			List<StackOverflowPost> addedPosts = new ArrayList<>();
 			while (rs.next()){
 				String tags = rs.getString("Tags");
@@ -63,10 +65,12 @@ public class DBFilter {
 			soRepo.save(addedPosts);
 			
 		}catch(SQLException se){
+
 			      se.printStackTrace();
 		}catch(Exception e){
 			      e.printStackTrace();
 	   }finally{
+
 		   try{
 	         if(stmt!=null)
 	            stmt.close();
