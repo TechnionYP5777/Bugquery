@@ -22,8 +22,8 @@ public class StackSearch {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long id;
-	
-	@Column(columnDefinition="Text")
+
+	@Column(columnDefinition = "Text")
 	private String trace;
 
 	// empty c'tor for the sake of JPA
@@ -34,7 +34,7 @@ public class StackSearch {
 		try {
 			trace = URLDecoder.decode(encodedTrace, "UTF-8");
 		} catch (@SuppressWarnings("unused") UnsupportedEncodingException e) {
-		  // TODO : handle this exception
+			// TODO : handle this exception
 			// TODO exception management policy? --yg
 		}
 	}
@@ -50,5 +50,9 @@ public class StackSearch {
 
 	public String getTrace() {
 		return trace;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
