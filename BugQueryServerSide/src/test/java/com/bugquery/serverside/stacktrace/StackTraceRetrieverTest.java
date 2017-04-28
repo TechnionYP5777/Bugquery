@@ -13,6 +13,8 @@ import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
+import com.bugquery.serverside.stacktrace.distance.WeightLinesSTDistancer;
 
 /**
  * 

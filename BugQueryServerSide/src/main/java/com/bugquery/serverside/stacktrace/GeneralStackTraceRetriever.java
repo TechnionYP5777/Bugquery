@@ -13,6 +13,8 @@ import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
+import com.bugquery.serverside.stacktrace.distance.StackTraceDistancer;
 
 /**
  * Utility class for getting relevant stack traces from the database

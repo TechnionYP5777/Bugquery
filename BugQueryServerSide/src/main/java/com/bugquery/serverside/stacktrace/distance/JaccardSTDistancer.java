@@ -1,4 +1,4 @@
-package com.bugquery.serverside.stacktrace;
+package com.bugquery.serverside.stacktrace.distance;
 
 import java.util.HashSet;
 import java.util.List;

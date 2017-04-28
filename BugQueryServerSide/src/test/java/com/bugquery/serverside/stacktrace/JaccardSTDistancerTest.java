@@ -2,6 +2,8 @@ package com.bugquery.serverside.stacktrace;
 
 import org.junit.Test;
 
+import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
+
 import junit.framework.TestCase;
 
 /**

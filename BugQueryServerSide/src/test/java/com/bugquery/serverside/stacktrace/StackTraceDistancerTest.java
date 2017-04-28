@@ -3,6 +3,8 @@ package com.bugquery.serverside.stacktrace;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import com.bugquery.serverside.stacktrace.distance.StackTraceDistancer;
+
 import java.util.List;
 
 /**
