@@ -6,6 +6,10 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author tony
+ *
+ */
 @Service
 public class StaticContextHolder implements BeanFactoryAware{
 
