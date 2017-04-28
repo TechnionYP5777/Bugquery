@@ -83,7 +83,7 @@ public class DBFilter {
 
 	private List<StackOverflowPost> addAllStackTracesToQuestionsDB(ResultSet ¢) throws SQLException {
 		String body = ¢.getString("Body");
-		List<StackOverflowPost> addedPosts = new ArrayList<StackOverflowPost>();
+		List<StackOverflowPost> addedPosts = new ArrayList<>();
 		List<StackTrace> stackTraces = StackTraceExtractor.extract(body);
 		for (StackTrace stackTrace: stackTraces){
 			StackOverflowPost $ = new StackOverflowPost();

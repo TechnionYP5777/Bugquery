@@ -3,15 +3,11 @@ package com.bugquery.serverside;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
 import com.bugquery.serverside.dbparsing.dbcreation.DBFilter;
-import com.bugquery.serverside.repositories.StackOverflowPostRepository;
 
 /**
  * here everything starts, default class for running spring boot application
@@ -32,8 +28,9 @@ public class Application {
 	}
 	
 	
-	
+	// Has to be non-static, doesn't work otherwise!
 	@Bean
+	@SuppressWarnings("static-method")
 	public CommandLineRunner checkDBargs() {
 		return (args) -> {
 			

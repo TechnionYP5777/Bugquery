@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import ch.qos.logback.classic.log4j.XMLLayout;
-
 public class DBXMLExporter {
 	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	String serverUrl = "jdbc:mysql://gpu7.cs.technion.ac.il:3306/bugquery";
@@ -17,7 +15,6 @@ public class DBXMLExporter {
 	
 	
 	public DBXMLExporter(String serverUrl, String serverUsername, String serverPassword, String xmlLocation) {
-		super();
 		this.serverUrl = serverUrl;
 		this.serverUsername = serverUsername;
 		this.serverPassword = serverPassword;
@@ -60,8 +57,8 @@ public class DBXMLExporter {
 	}
 	
 
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+	public static void main(String[] args) {
   			DBXMLExporter exporter = new DBXMLExporter("jdbc:mysql://gpu7.cs.technion.ac.il:3306", "root", "root", "D:\\\\BugQuery Project\\\\StackOverflow data\\\\Posts.xml");
   		
-		}
 	}
+}
