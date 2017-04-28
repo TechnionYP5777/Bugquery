@@ -1,6 +1,7 @@
 package com.bugquery.serverside.entities;
 
-/** TODO document --yg
+/** An entity which represents a minimal stackoverflow post. It contains only the question
+ * part of the post. This class should be replaced later with a general stack overflow post.
  * @author yonzarecki
  * @since 21.12.16
  */

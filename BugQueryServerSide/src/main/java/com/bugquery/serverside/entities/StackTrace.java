@@ -10,7 +10,9 @@ import javax.persistence.Embeddable;
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 /**
- * 
+ * An entity which represents a single stack trace. A StackTrace object can be built from 
+ * a string which contains a stack trace. The created object will contain more information
+ * about the stack trace, such as the exception type and stack of calls.
  * @author rodedzats
  * @since 14.12.2016
  */
