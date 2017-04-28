@@ -20,10 +20,10 @@ import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
- * Hook to handle {@link #REQUEST_FORMAT} 
+ * Hook to handle {@link #REQUEST_FORMAT}
+ * 
  * @author Amit
- * @since Dec 24, 2016
- * Controller for stack searches
+ * @since Dec 24, 2016 Controller for stack searches
  * 
  */
 @Controller
@@ -32,7 +32,7 @@ public class SearchController {
 	public static final String REQUEST_FORMAT = "/stacks/{id}";
 	@Autowired
 	private StackSearchRepository repository;
-	
+
 	@Autowired
 	private StackTraceRetriever retriever;
 
@@ -65,9 +65,5 @@ public class SearchController {
 
 	public List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
 		return retriever.getMostRelevantPosts(trace, 10);
-	}
-
-	public void setRepository(StackSearchRepository ¢) {
-		this.repository = ¢;
 	}
 }
