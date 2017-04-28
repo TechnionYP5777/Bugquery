@@ -8,8 +8,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.bugquery.serverside.Application;
-import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
 import com.bugquery.serverside.entities.StackOverflowPost;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.repositories.StackOverflowPostRepository;
@@ -21,20 +19,18 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Tony
  *
- */
+**/
 public class DBFilter {
 	private static final String JDBC_DRIVER_STRING = "com.mysql.jdbc.Driver";
 	String srcAddress;
 	String srcUsername;
 	String srcPassword;
 	boolean isCreation;
-	@Autowired
-	StackOverflowPostRepository soRepo;
+	StackOverflowPostRepository soRepo = StaticContextHolder.getBean(StackOverflowPostRepository.class);
 	private static final Logger log = LoggerFactory.getLogger(DBFilter.class);
 	
 	public DBFilter(String srcAddress,String srcUsername,String srcPassword, boolean isCreation) {
@@ -42,7 +38,6 @@ public class DBFilter {
 		this.isCreation = isCreation;
 		this.srcPassword = srcPassword;
 		this.srcUsername = srcUsername;
-//		this.soRepo = soRepo;
 	}
 
 	public void createTheQuestionsDatabase() {
@@ -53,7 +48,7 @@ public class DBFilter {
 			conn = DriverManager.getConnection(srcAddress,srcUsername,srcPassword);
 			stmt = conn.createStatement();
 
-			String sql = "SELECT * FROM so_posts LIMIT 20000";
+			String sql = "SELECT * FROM so_posts LIMIT 100000";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			List<StackOverflowPost> addedPosts = new ArrayList<>();
