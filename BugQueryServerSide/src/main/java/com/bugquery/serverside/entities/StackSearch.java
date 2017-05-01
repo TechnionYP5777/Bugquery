@@ -34,8 +34,8 @@ public class StackSearch {
 		try {
 			trace = URLDecoder.decode(encodedTrace, "UTF-8");
 		} catch (@SuppressWarnings("unused") UnsupportedEncodingException e) {
-			// TODO : handle this exception
-			// TODO exception management policy? --yg
+			// Happens when encoding is not recognized. Since we use hard-coded
+			// encoding "UTF-8", this cannot happen.
 		}
 	}
 
