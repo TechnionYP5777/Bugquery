@@ -37,4 +37,18 @@ public class LevenshteinDistanceTest {
 		d = getDistancerFromStrings("Sunday","Saturday");
 		assertEquals(d.getDistance(), 3.0, 0.001);
 	}
+	
+	@Test
+	public void levenshteinDistanceIsZeroForEqualString() {
+		assertEquals(getDistancerFromStrings("Lilwayne1", "Lilwayne1").getDistance(), 0.0, 0.001);
+	}
+	
+	/*
+	 * This test is based on
+	 * http://people.cs.pitt.edu/~kirk/cs1501/Pruhs/Spring2006/assignments/editdistance/Levenshtein%20Distance.htm
+	 */
+	@Test
+	public void levenshteinDistanceIsCorrectForSimpleExample2() {
+		assertEquals(getDistancerFromStrings("GUMBO", "GAMBOL").getDistance(), 2.0, 0.001);
+	}
 }

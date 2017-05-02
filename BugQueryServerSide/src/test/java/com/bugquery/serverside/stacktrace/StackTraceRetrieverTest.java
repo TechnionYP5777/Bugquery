@@ -15,6 +15,7 @@ import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
 import com.bugquery.serverside.stacktrace.distance.WeightLinesSTDistancer;
+import com.bugquery.serverside.stacktrace.distance.levenshtein.LevenshteinSTDistancer;
 
 /**
  * 
@@ -178,6 +179,8 @@ public class StackTraceRetrieverTest {
 			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts))
 					.getMostRelevantPosts(stackTrace1, 2));
 			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts))
+					.getMostRelevantPosts(stackTrace1, 2));
+			assertEquals(result, new GeneralStackTraceRetriever(new LevenshteinSTDistancer(), getDummyConnector(posts))
 					.getMostRelevantPosts(stackTrace1, 2));
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
