@@ -51,4 +51,12 @@ public class LevenshteinDistanceTest {
 	public void levenshteinDistanceIsCorrectForSimpleExample2() {
 		assertEquals(getDistancerFromStrings("GUMBO", "GAMBOL").getDistance(), 2.0, 0.001);
 	}
+	
+	@Test
+	public void levenshteinDistanceMatrixIsCorrect() {
+		LevenshteinDistance d = getDistancerFromStrings("ro","ru");
+		d.getDistance();
+		assert Arrays.deepEquals(new double[][] { { 0.0, 1.0, 2.0 }, { 1.0, 0.0, 1.0 }, { 2.0, 1.0, 1.0 } },
+				d.getDistanceMatrix());
+	}
 }

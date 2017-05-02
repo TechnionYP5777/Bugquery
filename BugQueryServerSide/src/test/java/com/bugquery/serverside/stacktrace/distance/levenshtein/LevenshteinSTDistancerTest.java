@@ -37,6 +37,7 @@ public class LevenshteinSTDistancerTest {
 	public void LevenshteinStackDistanceIsZeroForSameStacks() {
 		StackTrace st1 = new StackTrace(stackTrace1);
 		assertEquals((new LevenshteinSTDistancer()).distance(st1, st1), 0.0, 0.001);
+		assertEquals((new LevenshteinSTDistancer()).distance(stackTrace1, stackTrace1), 0.0, 0.001);
 	}
 	
 	@Test
