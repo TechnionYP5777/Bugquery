@@ -16,7 +16,7 @@ public class FromClipboard extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent ¢) {
-		new SendTrace(new GetTrace().fromClipboard2());
+		Dispatch.query(new GetTrace().fromClipboard2());
 		return null;
 	}
 }

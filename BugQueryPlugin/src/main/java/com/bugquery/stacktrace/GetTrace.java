@@ -10,11 +10,6 @@ import java.io.StringWriter;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.TextConsole;
 
 /**
  * GetTrace is a class for methods that return Strings with stack traces, using
@@ -35,50 +30,6 @@ public class GetTrace {
 		final StringWriter $ = new StringWriter();
 		exception.printStackTrace(new PrintWriter($));
 		return $ + "";
-	}
-
-	/**
-	 * @param console_name
-	 * @return a new console, named @console_name.
-	 */
-	private TextConsole emptyNewConsole(final String console_name) {
-		final MessageConsole $ = new MessageConsole(console_name, null);
-		ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { $ });
-		return $;
-	}
-
-	/**
-	 * @return first console within ConsoleManager, or an empty new one if it
-	 *         doesn't exist
-	 */
-	private TextConsole getFirstConsole() {
-		return ConsolePlugin.getDefault().getConsoleManager().getConsoles().length <= 0
-				? emptyNewConsole("BugQuery Error")
-				: (TextConsole) ConsolePlugin.getDefault().getConsoleManager().getConsoles()[0];
-	}
-
-	/**
-	 * @param name_str
-	 *            a substring of the console's name
-	 * @return a console with a name that has @name_str as a substring within
-	 *         ConsoleManager. if it doesn't exist, returns the first available
-	 *         console, or an empty new one (if it doesn't exist either)
-	 */
-	private TextConsole getConsoleNamed(final String name_str) {
-		final IConsole[] $ = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
-		for (int ¢ = 0; ¢ < $.length; ++¢)
-			if ($[¢].getName().indexOf(name_str) != -1)
-				return (TextConsole) $[¢];
-
-		// no console by that name exists yet
-		return getFirstConsole();
-	}
-
-	/**
-	 * @return console output
-	 */
-	public String fromConsole() {
-		return getConsoleNamed("<terminated>").getDocument().get();
 	}
 
 	/**
@@ -119,21 +70,6 @@ public class GetTrace {
 	public String fromClipboard2() {
 		final ClipboardDialog $ = new ClipboardDialog(Display.getCurrent().getActiveShell(), "BugQuery Input", "", null,
 				null);
-		return $.open() != Window.OK ? null : $.getValue();
-	}
-
-	/**
-	 * creates a new input dialog (ExtendedDialog)
-	 *
-	 * @param s,
-	 *            a shell for our dialog
-	 *
-	 * @return null if no window was opened, or if the window was closed without
-	 *         the OK button being clicked. otherwise, returns the input from
-	 *         the user.
-	 */
-	public String fromInputDialog(final Shell ¢) {
-		final ExtendedDialog $ = new ExtendedDialog(¢, "BugQuery Input", "Please Insert Your Output", null, null);
 		return $.open() != Window.OK ? null : $.getValue();
 	}
 

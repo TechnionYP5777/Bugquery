@@ -6,12 +6,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.core.resources.IFile;
+//import org.eclipse.core.resources.IFile;
 // import org.eclipse.core.resources.IMarker;
-// import org.eclipse.swt.program.Program;
+import org.eclipse.swt.program.Program;
 
-import com.bugquery.fixer.MarkerManager;
-import com.bugquery.fixer.ResourcesUtils;
+//import com.bugquery.fixer.MarkerManager;
+//import com.bugquery.fixer.ResourcesUtils;
 import com.bugquery.stacktrace.Extract;
 
 /**
@@ -22,7 +22,7 @@ import com.bugquery.stacktrace.Extract;
  * @since Dec 7, 2016
  *
  */
-public class SendTrace {
+public interface Dispatch {
 	/**
 	 * Not to be used clients constructor. Instantiates this class with a given
 	 * trace. If the parameter is not {#@code null} nor the empty string, input
@@ -31,10 +31,7 @@ public class SendTrace {
 	 *
 	 * @param trace
 	 */
-	// TOOD Cumbersome design. Why not just simple static function? See if you
-	// can imitate Extract.trace
-	// --yg
-	SendTrace(final String trace) {
+	public static void query(final String trace) {
 		if (trace != null && !trace.isEmpty())
 			sendBugQuery(Extract.trace(trace));
 	}
@@ -47,7 +44,7 @@ public class SendTrace {
 	 * @param trace
 	 *            - an extracted trace
 	 */
-	public void sendBugQuery(String trace) {
+	public static void sendBugQuery(String trace) {
 		final String urlStr = "http://localhost:8080/stacks";
 		URL url;
 		try {
@@ -77,9 +74,9 @@ public class SendTrace {
 			return;
 		}
 
-		// Program.launch(conn.getHeaderField("location"));
+		Program.launch(conn.getHeaderField("location"));
 		// This parameters should be extracted from the stack trace
-		final IFile file = ResourcesUtils.getFile("test", "src", "test.java");
-		MarkerManager.instance().addMarker(file, trace);
+		//final IFile file = ResourcesUtils.getFile("test", "src", "test.java");
+		//MarkerManager.instance().addMarker(file, trace);
 	}
 }
