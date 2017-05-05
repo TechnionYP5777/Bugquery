@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+
    <extension point="org.eclipse.ui.commands">
       <category name="BugQuery Commands" id="com.bugquery.commands" />
       <command name="Get Trace from Console" categoryId="com.bugquery.commands" id="com.bugquery.commands.fromconsole" />
@@ -8,14 +9,17 @@
       <command name="Get Trace from Input Window" categoryId="com.bugquery.commands" id="com.bugquery.commands.frominputdialog" />
       <command defaultHandler="com.bugquery.actions.FromConsole" categoryId="com.bugquery.commands" id="com.bugquery.commands.dropdownmenu" name="Get Trace From Console" />
    </extension>
+   
    <extension point="org.eclipse.ui.handlers">
       <handler commandId="com.bugquery.commands.fromconsole" class="com.bugquery.actions.FromConsole" />
       <handler commandId="com.bugquery.commands.fromclipboard" class="com.bugquery.actions.FromClipboard" />
       <handler commandId="com.bugquery.commands.frominputdialog" class="com.bugquery.actions.FromInputDialog" />
    </extension>
+   
    <extension point="org.eclipse.ui.bindings">
       <key commandId="com.bugquery.commands.fromconsole" contextId="org.eclipse.ui.contexts.window" sequence="M1+6" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
    </extension>
+   
    <extension point="org.eclipse.ui.menus">
       <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">
          <command commandId="com.bugquery.commands.fromconsole" icon="icons/bugquery_console.gif" label="Trace from Console" style="push" />
@@ -39,12 +43,22 @@
          </toolbar>
       </menuContribution>
    </extension>
-   <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
+   
+   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             id="com.bugquery.launchQuery"
             modes="run, debug"
             name="BugQuery Launch">
       </launchConfigurationType>
    </extension>
+ 
+   
+	<extension
+		point="org.eclipse.jdt.ui.javaEditorTextHovers">
+		<hover
+			activate="true"
+			class="com.bugquery.fixer.BQTextHover">
+		</hover>
+	</extension>
+   
 </plugin>
