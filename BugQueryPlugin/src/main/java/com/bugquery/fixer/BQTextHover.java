@@ -7,7 +7,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.jdt.ui.text.java.hover.IJavaEditorTextHover;
 
 /**
- * 
+ * Initial prototype for our window, it's harder then it looks...
  * @author Doron Meshulam
  * @since 05/05/2017
  */
