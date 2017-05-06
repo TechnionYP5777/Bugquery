@@ -30,8 +30,8 @@ public class StaticContextHolder implements BeanFactoryAware{
         return CONTEXT.getBean(tClass);
     }
 
-    public static Object getBean(String s, Object... objects) throws BeansException {
-        return CONTEXT.getBean(s, objects);
+    public static Object getBean(String s, Object... os) throws BeansException {
+        return CONTEXT.getBean(s, os);
     }
 
     public static boolean containsBean(String s) {

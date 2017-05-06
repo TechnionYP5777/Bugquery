@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.bugquery.serverside.dbparsing.dbcreation;
 
 import java.sql.Connection;

@@ -105,11 +105,11 @@ public class DataBaseSomethingRenameMe {
 	private static void insertQusetionToDB(Connection c, PrintWriter printer, ResultSet s) throws SQLException {
 		List<StackTrace> extract = new ArrayList<>();
 		String body = s.getString("Body");
-  	  	int id = s.getInt("Id");
-  	  	int postTypeId = s.getInt("PostTypeId");
-  	  	int parentId = s.getInt("ParentId");
-  	  	int acceptedAnswerId = s.getInt("AcceptedAnswerId");
-  	  	int score = s.getInt("Score");
+  	  	int id = s.getInt("Id"), 
+  	  		postTypeId = s.getInt("PostTypeId"), 
+  	  		parentId = s.getInt("ParentId"),
+			acceptedAnswerId = s.getInt("AcceptedAnswerId"), 
+			score = s.getInt("Score");
   	  	String title = s.getString("Title");
   	  	int answerCount = s.getInt("AnswerCount");
   	  	String tags = s.getString("Tags");

@@ -1,7 +1,5 @@
 package com.bugquery.serverside.stacktrace.distance.levenshtein;
 
-import java.util.List;
-
 import com.bugquery.serverside.entities.StackTrace;
 
 /**

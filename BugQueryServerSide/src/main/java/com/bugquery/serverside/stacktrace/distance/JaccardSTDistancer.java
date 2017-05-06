@@ -30,11 +30,10 @@ public class JaccardSTDistancer implements StackTraceDistancer {
      */
     @Override
     public double distance(String o1, String o2) {
-    	Set<String> line_set1 = extractLineTuples(o1);
-    	Set<String> line_set2 = extractLineTuples(o2);
-    	
-        Set<String> $ = new HashSet<>(line_set1); // acctually this is union
-        $.addAll(line_set2);
+    	Set<String> line_set1 = extractLineTuples(o1), 
+    				line_set2 = extractLineTuples(o2), 
+    				$ = new HashSet<>(line_set1); // actually this is union
+    	$.addAll(line_set2);
 
         Set<String> intersection =  new HashSet<>(line_set1);
         intersection.retainAll(line_set2); // keeps only the intersection of the two

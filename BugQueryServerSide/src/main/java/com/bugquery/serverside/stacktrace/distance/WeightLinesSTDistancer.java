@@ -12,10 +12,9 @@ public class WeightLinesSTDistancer implements StackTraceDistancer {
      */
     @Override
     public double distance(String o1, String o2) {
-    	List<String> st1 = StackTraceDistancer.splitByNewlines(o1);
-    	List<String> st2 = StackTraceDistancer.splitByNewlines(o2);
-    	double currentWeight = 1;
-    	double $ = 0;
+    	List<String> 	st1 = StackTraceDistancer.splitByNewlines(o1), 
+    					st2 = StackTraceDistancer.splitByNewlines(o2);
+    	double currentWeight = 1, $ = 0;
     	for(int ¢=0; ¢ < Math.max(st1.size(), st2.size()); ++¢) {
     		if(¢ >= st1.size() || ¢ >= st2.size() || 
     				!st1.get(¢).equalsIgnoreCase(st2.get(¢)))

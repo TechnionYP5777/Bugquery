@@ -12,6 +12,7 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
  * @author zivizhar
  */
 @Entity
+@SuppressWarnings("unused") // Fields are used by ORM
 public class StackOverflowPost extends Post {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id

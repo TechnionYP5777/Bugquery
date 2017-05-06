@@ -32,16 +32,14 @@ public class Application {
 	@Bean
 	@SuppressWarnings("static-method")
 	public CommandLineRunner checkDBargs() {
-		return (args) -> {
-			
+		return args -> {
 			if (args.length > 0) {
-				if ("--createDB".equals(args[0])){
+				if ("--createDB".equals(args[0])) {
 					log.info("Created DB");
-					(new DBFilter("localhost:4488/bugquery","root","root", true)).createTheQuestionsDatabase();
+					(new DBFilter("localhost:4488/bugquery", "root", "root", true)).createTheQuestionsDatabase();
 				}
-					//create DB
 				if ("--updateDB".equals(args[0]))
-				 log.info("Updated DB");
+					log.info("Updated DB");
 			}
 		};
 	}
