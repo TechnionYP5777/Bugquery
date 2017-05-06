@@ -1,0 +1,2 @@
+ignore:
+	-"BugqueryServerSide/src/main/java/com/bugquery/serverside/entities"
