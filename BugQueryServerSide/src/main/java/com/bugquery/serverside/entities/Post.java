@@ -5,17 +5,25 @@ import javax.persistence.Embedded;
 /**
  * @author zivizhar
  */
-public abstract class Post {
-	@Embedded
+public class Post {
+	Long id;
 	public StackTrace stackTrace;
-	public Post(){
-		
-	}
+	
 	public Post(StackTrace stackTrace) {
 		this.stackTrace = stackTrace;
 	}
 	
+	public Post(Long id, StackTrace stackTrace) {
+		this.id = id;
+		this.stackTrace = stackTrace;
+	}
+	
 	public Post(String stString) {
+		this.stackTrace = new StackTrace(stString);
+	}
+	
+	public Post(Long id, String stString) {
+		this.id = id;
 		this.stackTrace = new StackTrace(stString);
 	}
 	
