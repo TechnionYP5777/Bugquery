@@ -8,7 +8,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.bugquery.stacktrace.ExtendedDialog;
-import com.bugquery.stacktrace.GetTrace;
 
 /**
  * Handler of event 'trace supplied through via input dialog'
