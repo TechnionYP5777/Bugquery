@@ -9,6 +9,8 @@ public class Post {
 	Long id;
 	public StackTrace stackTrace;
 	
+	public Post() { }
+	
 	public Post(StackTrace stackTrace) {
 		this.stackTrace = stackTrace;
 	}
