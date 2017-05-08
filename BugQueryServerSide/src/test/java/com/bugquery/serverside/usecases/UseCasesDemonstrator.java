@@ -1,7 +1,13 @@
 package com.bugquery.serverside.usecases;
 
 import java.util.*;
+
+import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
+import com.bugquery.serverside.exceptions.GeneralDBException;
+import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.stacktrace.GeneralStackTraceRetriever;
+import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 import com.bugquery.serverside.stacktrace.distance.*;
 import com.bugquery.serverside.stacktrace.distance.levenshtein.LevenshteinSTDistancer;
 
@@ -13,8 +19,17 @@ import com.bugquery.serverside.stacktrace.distance.levenshtein.LevenshteinSTDist
  * @since 8.5.2017
  */
 public class UseCasesDemonstrator {
+	static final int numOfPosts = 10;
+	
 	private static List<Post> getRelevantPosts(StackTraceDistancer d, String stackTrace) {
-		return new ArrayList<Post>();
+		StackTraceRetriever retriever = new GeneralStackTraceRetriever(d, new SQLDBConnector());
+		
+		try {
+			return retriever.getMostRelevantPosts(stackTrace, numOfPosts);
+		} catch (GeneralDBException | InvalidStackTraceException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
 	}
 	
 	private static List<StackTraceDistancer> getDistancerList() {
