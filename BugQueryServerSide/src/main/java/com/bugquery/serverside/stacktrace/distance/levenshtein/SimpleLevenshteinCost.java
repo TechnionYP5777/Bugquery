@@ -12,13 +12,13 @@ public class SimpleLevenshteinCost implements LevenshteinCost {
 
 	@Override
 	@SuppressWarnings("unused")
-	public double insert(StackTrace t, int index) {
+	public double insert(StackTrace __, int index) {
 		return 1;
 	}
 
 	@Override
 	@SuppressWarnings("unused")
-	public double delete(StackTrace t, int index) {
+	public double delete(StackTrace __, int index) {
 		return 1;
 	}
 

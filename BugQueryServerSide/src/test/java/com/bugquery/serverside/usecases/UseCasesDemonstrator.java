@@ -26,30 +26,29 @@ public class UseCasesDemonstrator {
 	private static final String searchingMessage = "Searching stack trace: ";
 	
 	private static List<Post> getRelevantPosts(StackTraceDistancer d, String stackTrace) {
-		StackTraceRetriever retriever = new GeneralStackTraceRetriever(d, new SQLDBConnector());
+		StackTraceRetriever $ = new GeneralStackTraceRetriever(d, new SQLDBConnector());
 		try {
-			return retriever.getMostRelevantPosts(stackTrace, numOfPosts);
-		} catch (GeneralDBException | InvalidStackTraceException e) {
-			e.printStackTrace();
+			return $.getMostRelevantPosts(stackTrace, numOfPosts);
+		} catch (GeneralDBException | InvalidStackTraceException ¢) {
+			¢.printStackTrace();
 		}
 		return new ArrayList<>();
 	}
 	
 	private static List<StackTraceDistancer> getDistancerList() {
-		List<StackTraceDistancer> allDistancers = new ArrayList<>();
-		allDistancers.add(new JaccardSTDistancer());
-		allDistancers.add(new LevenshteinSTDistancer());
-		return allDistancers;
+		List<StackTraceDistancer> $ = new ArrayList<>();
+		$.add(new JaccardSTDistancer());
+		$.add(new LevenshteinSTDistancer());
+		return $;
 	}
 	
 	private static List<String> getStackTracesList() {
-		List<String> sampleStackTraces = new ArrayList<>();
-		String s1 = "Exception in thread \"main\" java.lang.NullPointerException\n" + 
-				"        at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
-				"        at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
-				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		sampleStackTraces.add(s1);
-		return sampleStackTraces;
+		List<String> $ = new ArrayList<>();
+		$.add("Exception in thread \"main\" java.lang.NullPointerException\n"
+				+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
+				+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
+				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)");
+		return $;
 	}
 	
 	public static void main(String[] args) {
@@ -66,18 +65,22 @@ public class UseCasesDemonstrator {
 		for(StackTraceDistancer d: allDistancers) {	
 			relevantPosts = new ArrayList<>();
 			relevantPosts.add(asteriskLine);
-			relevantPosts.add("Distancer: " + d.toString());
+			relevantPosts.add("Distancer: " + d);
 			for (String s : sampleStackTraces) {
 				relevantPosts.add(searchingMessage);
 				relevantPosts.add(s);
 				relevantPosts.add("Found: ");
 				result = getRelevantPosts(d, s);
-				for(Post p: result)
-					relevantPosts.add(((MinSOPost) p).questionString + "\n");
+				for(Post ¢: result){
+					relevantPosts.add("Stack trace: ");
+					relevantPosts.add(¢.stackTrace.getString());
+					relevantPosts.add("Question: ");
+					relevantPosts.add(((MinSOPost) ¢).questionString + "\n");
+				}
 				try {
 					Files.write(f, relevantPosts, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (IOException ¢) {
+					¢.printStackTrace();
 				}
 			}
 		}

@@ -23,8 +23,8 @@ public class LevenshteinDistanceTest {
 				new StackTrace("", "", splitStringToList(s2)), new SimpleLevenshteinCost());
 	}
 	
-	private List<String> splitStringToList(String s) {
-		return new ArrayList<>(Arrays.asList(s.split("")));
+	private List<String> splitStringToList(String ¢) {
+		return new ArrayList<>(Arrays.asList(¢.split("")));
 	}
 	
 	/*

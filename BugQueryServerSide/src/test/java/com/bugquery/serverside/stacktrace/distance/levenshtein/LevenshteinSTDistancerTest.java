@@ -55,9 +55,9 @@ public class LevenshteinSTDistancerTest {
 		StackTrace st1 = new StackTrace(stackTrace1), st2 = new StackTrace(stackTrace2), 
 				st3 = new StackTrace(stackTrace3), st4 = new StackTrace(stackTrace4);
 		LevenshteinSTDistancer d = new LevenshteinSTDistancer();
-		double distance12 = d.distance(st1, st2), distance13 = d.distance(st1, st3), distance14 = d.distance(st1, st4),
-				distance23 = d.distance(st2, st3), distance24 = d.distance(st2, st4);
-		assert distance12 < distance13;
+		double distance13 = d.distance(st1, st3), distance14 = d.distance(st1, st4), distance23 = d.distance(st2, st3),
+				distance24 = d.distance(st2, st4);
+		assert d.distance(st1, st2) < distance13;
 		assert distance13 < distance14;
 		assert distance23 < distance24;
 	}	

@@ -44,14 +44,14 @@ class LevenshteinDistance {
 	private void initializeDistances() {
 		distance[0][0] = 0;
 		int min = Math.min(size1, size2);
-		for(int i = 1; i <= min; ++i) {
-			distance[i][0] = i * cost.insert(s1, i);
-			distance[0][i] = i * cost.insert(s2, i);
+		for(int ¢ = 1; ¢ <= min; ++¢) {
+			distance[¢][0] = ¢ * cost.insert(s1, ¢);
+			distance[0][¢] = ¢ * cost.insert(s2, ¢);
 		}
-		for(int i = min + 1; i <= size1; ++i)
-			distance[i][0] = i * cost.insert(s1, i);
-		for(int i = min + 1; i <= size2; ++i)
-			distance[0][i] = i * cost.insert(s2, i);
+		for(int ¢ = min + 1; ¢ <= size1; ++¢)
+			distance[¢][0] = ¢ * cost.insert(s1, ¢);
+		for(int ¢ = min + 1; ¢ <= size2; ++¢)
+			distance[0][¢] = ¢ * cost.insert(s2, ¢);
 	}
 	
 	private void fillAllDistances(){

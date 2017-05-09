@@ -43,6 +43,6 @@ public class ExceptionHandlingControllerTest {
 		mockMvc.perform(get("/stacks/1"))
 				.andDo(print())
 				.andExpect(status().is(HttpStatus.OK.value()))
-				.andExpect(content().string(containsString(exception.toString())));
+				.andExpect(content().string(containsString(exception + "")));
 	}
 }
