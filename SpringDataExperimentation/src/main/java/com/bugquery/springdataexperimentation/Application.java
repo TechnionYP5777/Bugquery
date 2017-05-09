@@ -20,46 +20,36 @@ public class Application {
 		SpringApplication.run(Application.class);
 	}
 
-	@Bean
-	public CommandLineRunner demo(PostRepository repository) {
-		return (args) -> {
-			// save a couple of posts
-			repository.save(new Post("a stack trace"));
-			repository.save(new Post("another stack trace"));
-			repository.save(new Post("third stack trace!"));
-			repository.save(new Post("so many stack traces"));
-			repository.save(new Post("so many stack traces"));
-
-			// fetch all posts
-			log.info("Posts found with findAll():");
-			log.info("-------------------------------");
-			for (Post post : repository.findAll()) {
-				log.info(post.toString());
-			}
-			log.info("");
-
-			// fetch an individual post by ID
-			Post post = repository.findOne(1L);
-			log.info("Post found with findOne(1L):");
-			log.info("--------------------------------");
-			log.info(post.toString());
-			log.info("");
-
-			// fetch posts by stack trace
-			log.info("Post found with findByStackTrace('a stack trace'):");
-			log.info("--------------------------------------------");
-			for (Post p : repository.findByStackTrace("a stack trace")) {
-				log.info(p.toString());
-			}
-			log.info("");
-			
-			log.info("Post found with findByStackTrace('so many stack traces'):");
-			log.info("--------------------------------------------");
-			for (Post p : repository.findByStackTrace("so many stack traces")) {
-				log.info(p.toString());
-			}
-			log.info("");
-		};
-	}
+	// For demonstration purposes - commented out because messes with tests
+//	@Bean
+//	public CommandLineRunner demo(PostRepository r) {
+//		return args -> {
+//			r.save(new Post("a stack trace"));
+//			r.save(new Post("another stack trace"));
+//			r.save(new Post("third stack trace!"));
+//			r.save(new Post("so many stack traces"));
+//			r.save(new Post("so many stack traces"));
+//			log.info("Posts found with findAll():");
+//			log.info("-------------------------------");
+//			for (Post post : r.findAll())
+//				log.info(post.toString());
+//			log.info("");
+//			Post post = r.findOne(1L);
+//			log.info("Post found with findOne(1L):");
+//			log.info("--------------------------------");
+//			log.info(post.toString());
+//			log.info("");
+//			log.info("Post found with findByStackTrace('a stack trace'):");
+//			log.info("--------------------------------------------");
+//			for (Post p : r.findByStackTrace("a stack trace"))
+//				log.info(p.toString());
+//			log.info("");
+//			log.info("Post found with findByStackTrace('so many stack traces'):");
+//			log.info("--------------------------------------------");
+//			for (Post p : r.findByStackTrace("so many stack traces"))
+//				log.info(p.toString());
+//			log.info("");
+//		};
+//	}
 
 }
