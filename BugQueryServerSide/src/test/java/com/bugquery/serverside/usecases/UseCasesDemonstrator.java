@@ -48,7 +48,7 @@ public class UseCasesDemonstrator {
 				+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
 				+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
 				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)");
-		String s = "java.sql.SQLException\n" + 
+		$.add("java.sql.SQLException\n" + 
 				"        at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1055)\n" + 
 				"        at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:956)\n" + 
 				"        at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:926)\n" + 
@@ -83,7 +83,7 @@ public class UseCasesDemonstrator {
 				"        at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)\n" + 
 				"        at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)\n" + 
 				"        at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)\n" + 
-				"        at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)";
+				"        at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)");
 		return $;
 	}
 	
