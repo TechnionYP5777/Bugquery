@@ -51,5 +51,4 @@ public class Post extends AbstractPersistable<Long> {
 	public StackTrace getStackTrace() {
 		return stackTrace;
 	}	
-
 }

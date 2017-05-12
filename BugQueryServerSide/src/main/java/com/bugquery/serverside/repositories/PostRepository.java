@@ -1,6 +1,7 @@
 package com.bugquery.serverside.repositories;
 
 
+
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -18,5 +19,4 @@ import com.bugquery.serverside.entities.Post;
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long> {
 	public List<Post> findByStackTraceException(String exception);
-
 }
