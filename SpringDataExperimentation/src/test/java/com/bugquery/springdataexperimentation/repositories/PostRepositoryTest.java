@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ import com.bugquery.springdataexperimentation.entities.Post;
  * @since May 9, 2017
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 @Transactional
 public class PostRepositoryTest {
 	@Autowired
@@ -47,5 +48,6 @@ public class PostRepositoryTest {
 		assertThat(returnedList.size(), is(2));
 		assertThat(returnedList.get(0), is(insertedList.get(1)));
 		assertThat(returnedList.get(1), is(insertedList.get(2)));
+		System.out.println(repository.toString());
 	}
 }
