@@ -57,7 +57,10 @@
     <consolePageParticipant
           class="com.bugquery.console.ConsoleExtender"
           id="com.bugquery.console.ConsoleExtender">
-       <enablement></enablement>
+       <enablement>
+          <instanceof
+                value="org.eclipse.ui.console.TextConsole">
+          </instanceof></enablement>
     </consolePageParticipant>
  </extension>
    
