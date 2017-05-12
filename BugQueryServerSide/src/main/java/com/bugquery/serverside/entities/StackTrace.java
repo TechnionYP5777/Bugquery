@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 
 import com.bugquery.serverside.stacktrace.StackTraceExtractor;
@@ -19,11 +20,12 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 @Embeddable
 public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
-	private final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
-	private final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
-	private final int indexOfExceptionNameInCausedBy = 1;
+	private static final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
+	private static final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
+	private static final int indexOfExceptionNameInCausedBy = 1;
 	
 	private String exception; // exception type
+	@ElementCollection
 	private List<String> stackOfCalls;
 	private String content; // the whole stack-trace
 

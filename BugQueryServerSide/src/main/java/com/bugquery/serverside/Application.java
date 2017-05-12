@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+
+
 import com.bugquery.serverside.dbparsing.dbcreation.DBFilter;
 
 /**
@@ -38,8 +41,10 @@ public class Application {
 					log.info("Created DB");
 					(new DBFilter("localhost:4488/bugquery", "root", "root", true)).createTheQuestionsDatabase();
 				}
-				if ("--updateDB".equals(args[0]))
-					log.info("Updated DB");
+				if ("--updateDB".equals(args[0])) {
+//					PostDao postDao = 
+				}
+//					log.info("Updated DB");
 			}
 		};
 	}
