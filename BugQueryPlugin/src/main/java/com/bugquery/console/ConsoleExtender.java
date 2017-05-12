@@ -1,6 +1,6 @@
 package com.bugquery.console;
 
-import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.*;
 import org.eclipse.ui.console.*;
 import org.eclipse.ui.part.IPageBookViewPage;
 
@@ -20,8 +20,10 @@ public class ConsoleExtender implements IConsolePageParticipant {
 	@Override
 	public void init(IPageBookViewPage page, IConsole console) {
 		TextConsole textConsole = (TextConsole) console;
-		Action action = new ConsoleAction(textConsole);
-		page.getSite().getActionBars().getToolBarManager().appendToGroup(IConsoleConstants.LAUNCH_GROUP, action);
+		Action action = new ConsoleQuery(textConsole);
+        IToolBarManager toolBarManager = page.getSite().getActionBars().getToolBarManager();
+        toolBarManager.appendToGroup(IConsoleConstants.OUTPUT_GROUP, new Separator());
+		toolBarManager.appendToGroup(IConsoleConstants.OUTPUT_GROUP, action);
 	}
 
 	@Override
