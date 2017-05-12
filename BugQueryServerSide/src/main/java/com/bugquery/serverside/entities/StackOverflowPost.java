@@ -14,9 +14,9 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 @Entity
 @SuppressWarnings("unused") // Fields are used by ORM
 public class StackOverflowPost extends Post {
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Id
-	private Long localId;
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	private Long localId;
 	private int stackOvaerflowId;
 	private int postTypeId;
 	private int parentId;
