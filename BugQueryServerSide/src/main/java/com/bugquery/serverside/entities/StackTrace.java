@@ -29,6 +29,10 @@ public class StackTrace {
 	private List<String> stackOfCalls;
 	private String content; // the whole stack-trace
 
+	private StackTrace() {
+		// Empty c'tor for JPA
+	}
+	
 	public StackTrace(String content, String exception, List<String> stackOfCalls) {
 		this.exception = exception;
 		this.stackOfCalls = stackOfCalls;
