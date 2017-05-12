@@ -37,6 +37,7 @@ public class StackTrace {
 	private String content; // the whole stack-trace
 
 	@SuppressWarnings("unused")
+
 	private StackTrace() {
 		// Empty c'tor for JPA
 	}
