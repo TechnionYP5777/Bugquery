@@ -24,7 +24,7 @@ public class UseCasesDemonstrator {
 	private static final String filePath = "src/test/java/com/bugquery/serverside/usecases/usecases.txt";
 	private static final String asteriskLine = "\n*****************************************";
 	private static final String plusLine = "\n+++++++++++++++++++++++++++++++++++++++++";
-
+	private static final String percentLine = "\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
 	private static final String searchingMessage = "Searching stack trace: ";
 	
 	private static List<Post> getRelevantPosts(StackTraceDistancer d, String stackTrace) {
@@ -114,14 +114,14 @@ public class UseCasesDemonstrator {
 					relevantPosts.add(¢.stackTrace.getString());
 					relevantPosts.add("Question: ");
 					relevantPosts.add(((MinSOPost) ¢).questionString + "\n");
+					relevantPosts.add(percentLine);
 				}
 				relevantPosts.add(plusLine);
-				try {
-					Files.write(f, relevantPosts, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-				} catch (IOException ¢) {
-					¢.printStackTrace();
-				}
-				
+			}
+			try {
+				Files.write(f, relevantPosts, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			} catch (IOException ¢) {
+				¢.printStackTrace();
 			}
 		}
 	}
