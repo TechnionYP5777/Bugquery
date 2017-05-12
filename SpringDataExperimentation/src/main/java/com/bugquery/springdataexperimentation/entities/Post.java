@@ -1,11 +1,17 @@
 package com.bugquery.springdataexperimentation.entities;
 
+<<<<<<< 1e70f72dd672f7bb87cb1dcdb8afde7e7219cf24
 
+=======
+>>>>>>> Wrote test for PostRepository, currently not running #102
 import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
+<<<<<<< 1e70f72dd672f7bb87cb1dcdb8afde7e7219cf24
 
+=======
+>>>>>>> Wrote test for PostRepository, currently not running #102
 import javax.persistence.Entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -27,7 +33,10 @@ public class Post extends AbstractPersistable<Long> {
 	public Post() {
 		this.setId(null);
 		l = Arrays.asList("hi","shalom","kise","leyad","halon");
+<<<<<<< 1e70f72dd672f7bb87cb1dcdb8afde7e7219cf24
 
+=======
+>>>>>>> Wrote test for PostRepository, currently not running #102
 	}
 	
 	public Post(String stackTrace) {
@@ -40,6 +49,7 @@ public class Post extends AbstractPersistable<Long> {
 	 */
 	public Post(Long id) {
 		this.setId(id);
+		
 	}
 
 	/**

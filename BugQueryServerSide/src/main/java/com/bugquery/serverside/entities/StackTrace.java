@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import javax.persistence.Column;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 
@@ -28,6 +30,7 @@ public class StackTrace {
 	@Column(columnDefinition = "Text")
 	private String exception;
 	@Column(columnDefinition = "Text")
+
 	@ElementCollection
 	private List<String> stackOfCalls;
 	@Column(columnDefinition = "Text")
