@@ -44,15 +44,6 @@
       </menuContribution>
    </extension>
    
-   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            id="com.bugquery.launchQuery"
-            modes="run, debug"
-            name="BugQuery Launch">
-      </launchConfigurationType>
-   </extension>
- 
-   
 	<extension
 		point="org.eclipse.jdt.ui.javaEditorTextHovers">
 		<hover
@@ -60,5 +51,14 @@
 			class="com.bugquery.fixer.BQTextHover">
 		</hover>
 	</extension>
+	
+ <extension
+       point="org.eclipse.ui.console.consolePageParticipants">
+    <consolePageParticipant
+          class="com.bugquery.console.ConsoleExtender"
+          id="com.bugquery.console.ConsoleExtender">
+       <enablement></enablement>
+    </consolePageParticipant>
+ </extension>
    
 </plugin>
