@@ -5,14 +5,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
-import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.repositories.PostRepository;
 import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
 import com.bugquery.serverside.stacktrace.distance.StackTraceDistancer;
 
@@ -26,15 +26,20 @@ import com.bugquery.serverside.stacktrace.distance.StackTraceDistancer;
 public class GeneralStackTraceRetriever implements StackTraceRetriever {
 
 	private StackTraceDistancer d;
-	private DBConnector connector;
+	@Autowired
+	private PostRepository repo;
 
 	public GeneralStackTraceRetriever() {
-		this(new JaccardSTDistancer(), new SQLDBConnector());
+		this(new JaccardSTDistancer());
+	}
+	
+	public GeneralStackTraceRetriever(StackTraceDistancer d) {
+		this.d = d;
 	}
 
-	public GeneralStackTraceRetriever(StackTraceDistancer d, DBConnector connector) {
+	public GeneralStackTraceRetriever(StackTraceDistancer d, PostRepository repo) {
 		this.d = d;
-		this.connector = connector;
+		this.repo = repo;
 	}
 
 	/**
@@ -53,7 +58,7 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 		final Comparator<Post> comparator = new Comparator<Post>() {
 			@Override
 			public int compare(Post p1, Post p2) {
-				double $ = d.distance(p1.stackTrace, t), d_p2 = d.distance(p2.stackTrace, t);
+				double $ = d.distance(p1.getStackTrace(), t), d_p2 = d.distance(p2.getStackTrace(), t);
 				return $ > d_p2 ? 1 : $ < d_p2 ? -1 : 0; // distance twice
 			}
 		};
@@ -87,7 +92,7 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 			throw new InvalidStackTraceException("Illegal stack trace ");
 		List<Post> allPosts = new ArrayList<>();
 		try {
-			allPosts = connector.getAllQuestionsWithTheException($.getException());
+			allPosts = repo.findByStackTraceException($.getException());
 		} catch (Exception ¢) {
 			throw new GeneralDBException("General db error: " + ¢.getMessage());
 		}
