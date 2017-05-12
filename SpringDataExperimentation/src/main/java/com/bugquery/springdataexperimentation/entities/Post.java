@@ -1,5 +1,9 @@
 package com.bugquery.springdataexperimentation.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -14,9 +18,13 @@ public class Post extends AbstractPersistable<Long> {
 
 	private static final long serialVersionUID = -0x630A44B439FC66FAL;
 	private String stackTrace;
-
+	
+	@ElementCollection
+	private List<String> l;
+	
 	public Post() {
 		this.setId(null);
+		l = Arrays.asList("hi","shalom","kise","leyad","halon");
 	}
 	
 	public Post(String stackTrace) {
@@ -29,6 +37,7 @@ public class Post extends AbstractPersistable<Long> {
 	 */
 	public Post(Long id) {
 		this.setId(id);
+		
 	}
 
 	/**
