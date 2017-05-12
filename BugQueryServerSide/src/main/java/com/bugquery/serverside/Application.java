@@ -8,10 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-
-
-import com.bugquery.serverside.dbparsing.dbcreation.DBFilter;
-
 /**
  * here everything starts, default class for running spring boot application
  * 
@@ -38,13 +34,13 @@ public class Application {
 		return args -> {
 			if (args.length > 0) {
 				if ("--createDB".equals(args[0])) {
+					// TODO: create db
 					log.info("Created DB");
-					(new DBFilter("localhost:4488/bugquery", "root", "root", true)).createTheQuestionsDatabase();
 				}
 				if ("--updateDB".equals(args[0])) {
-//					PostDao postDao = 
+					// TODO: update db
+					log.info("Updated DB");
 				}
-//					log.info("Updated DB");
 			}
 		};
 	}
