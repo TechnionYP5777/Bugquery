@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 
@@ -24,11 +25,15 @@ public class StackTrace {
 	private static final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
 	private static final int indexOfExceptionNameInCausedBy = 1;
 	
-	private String exception; // exception type
+	@Column(columnDefinition = "Text")
+	private String exception;
+	@Column(columnDefinition = "Text")
 	@ElementCollection
 	private List<String> stackOfCalls;
+	@Column(columnDefinition = "Text")
 	private String content; // the whole stack-trace
 
+	@SuppressWarnings("unused")
 	private StackTrace() {
 		// Empty c'tor for JPA
 	}
@@ -44,7 +49,7 @@ public class StackTrace {
 			this.exception = StackTrace.noExceptionFound;
 			this.stackOfCalls = null;
 		} else {
-			this.exception = this.getException(content);
+			this.exception = StackTrace.getException(content);
 			this.stackOfCalls = StackTrace.getStackOfCalls(content);
 		}
 		this.content = content;
@@ -62,24 +67,24 @@ public class StackTrace {
 		return this.content;
 	}
 	
-	private String getExceptionNameFromExceptionLine(String exceptionLine) {
+	private static String getExceptionNameFromExceptionLine(String exceptionLine) {
 		if(exceptionLine.contains("Caused by:"))
 			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
 		String $ = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
 		return $.substring($.lastIndexOf(" ") + 1);
 	}
 	
-	private String getException(String stackTrace) {
+	private static String getException(String stackTrace) {
 		String $ = "";
 		if(stackTrace.contains("Caused by:")) {
-			Pattern p = Pattern.compile(this.causedByRegex);
+			Pattern p = Pattern.compile(StackTrace.causedByRegex);
 			for (Matcher ¢ = p.matcher(stackTrace); ¢.find();)
 				$ = ¢.group(0); 
 			$ = $.trim();
 		} else if (!stackTrace.contains("Exception in")) 
 			$ = stackTrace.split("\n")[0];
 		else {
-			Matcher m = Pattern.compile(this.exceptionRegex).matcher(stackTrace);
+			Matcher m = Pattern.compile(StackTrace.exceptionRegex).matcher(stackTrace);
 			if (!m.find())
 				return StackTrace.noExceptionFound;
 			$ = m.group(0).trim();

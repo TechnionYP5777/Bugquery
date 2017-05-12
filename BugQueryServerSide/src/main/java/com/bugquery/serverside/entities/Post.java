@@ -1,5 +1,6 @@
 package com.bugquery.serverside.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
@@ -11,9 +12,13 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class Post extends AbstractPersistable<Long> {
 
-	private static final long serialVersionUID = -4506932932029542426L;
+	private static final long serialVersionUID = 0x76130BBB704F3901L;
 	@Embedded
-	public StackTrace stackTrace;
+	private StackTrace stackTrace;
+	@Column(columnDefinition = "Text")
+	private String question;
+	@Column(columnDefinition = "Text")
+	private String answer; 
 	
 	public Post() { 
 		this.setId(null);
@@ -41,4 +46,8 @@ public class Post extends AbstractPersistable<Long> {
 	public void setStackTrace(StackTrace ¢) {
 		this.stackTrace = ¢;
 	}
+	
+	public StackTrace getStackTrace() {
+		return stackTrace;
+	}	
 }
