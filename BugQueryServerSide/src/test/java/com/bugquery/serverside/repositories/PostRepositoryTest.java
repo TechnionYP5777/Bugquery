@@ -1,9 +1,11 @@
-package com.bugquey.serverside.repositories;
+package com.bugquery.serverside.repositories;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +19,18 @@ import com.bugquery.serverside.repositories.PostRepository;
 
 
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
+@RunWith(SpringRunner.class)
 @Transactional
 public class PostRepositoryTest {
 	@Autowired
 	PostRepository repository;
-	
-	public void test() {
-		repository.save(new Post(new StackTrace("hi")));
-		for (Post p: repository.findAll()){
-			System.out.println(p.stackTrace.getString());
-		}
-			
-	}
 
+	@Test
+	public void test() {
+		Post p = repository.save(new Post(new StackTrace("hi")));
+		List<Post> returnedPosts = Lists.newArrayList(repository.findAll());
+		assertThat(returnedPosts.size(), is(1));
+		assertThat(returnedPosts.get(0), is(p));
+	}
 }
