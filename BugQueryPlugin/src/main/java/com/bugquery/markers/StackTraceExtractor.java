@@ -1,4 +1,4 @@
-package com.bugquery.fixer;
+package com.bugquery.markers;
 
 import java.util.ArrayList;
 import java.util.List;

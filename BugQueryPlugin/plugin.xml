@@ -44,7 +44,7 @@
       </menuContribution>
    </extension>
    
-   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+   <!--<extension point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             id="com.bugquery.launchQuery"
             modes="run, debug"
@@ -59,6 +59,38 @@
 			activate="true"
 			class="com.bugquery.fixer.BQTextHover">
 		</hover>
+	</extension>-->
+	
+	<extension point="org.eclipse.core.resources.markers" id="com.bugquery.markers.tracemarker"
+	  name="Trace Marker">
+	    <super type="org.eclipse.core.resources.textmarker"/>
+	    <super type="org.eclipse.core.resources.marker"/>
+	    <super type="org.eclipse.core.resources.problemmarker"/>
+	    <persistent value="true"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
+        id="myannotationspecification" name="MyAnnotation">
+	    <specification annotationType="com.bugquery.markers.traceannotation"
+	            label="MyAnnotation"
+	            icon="icons/bugquery_annotation.png"
+	            overviewRulerPreferenceKey="clruler"
+	            overviewRulerPreferenceValue="true"
+	            colorPreferenceKey="clcolor"
+	            colorPreferenceValue="255,255,0"
+	            textPreferenceKey="cltext"
+	            textPreferenceValue="true"
+	            verticalRulerPreferenceKey="clvertical"
+	            verticalRulerPreferenceValue="true"
+	            textStylePreferenceKey="clstyle"
+	            textStylePreferenceValue="BOX">
+	    </specification>
+	</extension>
+
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+        <type markerSeverity="0"
+            super="org.eclipse.ui.workbench.texteditor.info"
+            name="com.bugquery.markers.traceannotation" markerType="com.bugquery.markers.tracemarker"/>
 	</extension>
    
 </plugin>

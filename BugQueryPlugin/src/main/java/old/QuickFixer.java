@@ -1,4 +1,4 @@
-package com.bugquery.fixer;
+package old;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;

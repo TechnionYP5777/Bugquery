@@ -6,12 +6,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eclipse.core.resources.IFile;
 //import org.eclipse.core.resources.IFile;
 // import org.eclipse.core.resources.IMarker;
 import org.eclipse.swt.program.Program;
 
-//import com.bugquery.fixer.MarkerManager;
-//import com.bugquery.fixer.ResourcesUtils;
+import com.bugquery.markers.*;
 import com.bugquery.stacktrace.Extract;
 
 /**
@@ -45,6 +45,8 @@ public interface Dispatch {
 	 *            - an extracted trace
 	 */
 	public static void sendBugQuery(String trace) {
+		markersInit(trace);
+		
 		final String urlStr = "http://localhost:8080/stacks";
 		URL url;
 		try {
@@ -73,10 +75,17 @@ public interface Dispatch {
 		} catch (final IOException e) {
 			return;
 		}
-
+		
 		Program.launch(conn.getHeaderField("location"));
-		// This parameters should be extracted from the stack trace
-		//final IFile file = ResourcesUtils.getFile("test", "src", "test.java");
-		//MarkerManager.instance().addMarker(file, trace);
+	}
+	
+	/**
+	 * 
+	 */
+	public static void markersInit(String trace) {
+		MarkerFactory m = MarkerFactory.instance();
+		m.deleteAllKnownMarkers();
+		final IFile file = ResourcesUtils.getFile("test", "src", "Main.java");
+		m.addMarker(file, trace);
 	}
 }

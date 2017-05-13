@@ -1,4 +1,4 @@
-package com.bugquery.fixer;
+package old;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IRegion;
@@ -22,7 +22,7 @@ public class BQTextHover implements IJavaEditorTextHover {
 	public String getHoverInfo(ITextViewer textViewer, IRegion hoverRegion) {
 		try {
 			String text = textViewer.getDocument().get(hoverRegion.getOffset(), hoverRegion.getLength());
-			return text + "\n" + text;
+			return text + "<br> <b>" + text +"</b>";
 		} catch (BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
