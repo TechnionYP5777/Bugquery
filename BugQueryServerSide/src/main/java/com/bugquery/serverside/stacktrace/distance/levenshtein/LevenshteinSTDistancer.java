@@ -27,7 +27,9 @@ public class LevenshteinSTDistancer implements StackTraceDistancer {
 	
 	@Override
 	public double distance(StackTrace st1, StackTrace st2) {
-		return (new LevenshteinDistance(st1, st2, cost)).getDistance()
-				/ Math.max(st1.getStackOfCalls().size(), st2.getStackOfCalls().size());
+		return st1 == null || st2 == null || st1.getException() == StackTrace.noExceptionFound
+				|| st2.getException() == StackTrace.noExceptionFound ? 1
+						: (new LevenshteinDistance(st1, st2, cost)).getDistance()
+								/ Math.max(st1.getStackOfCalls().size(), st2.getStackOfCalls().size());
 	}
 }
