@@ -104,12 +104,12 @@
     </consolePageParticipant>
  </extension>
  
- <extension point="org.eclipse.ui.editors.markerUpdaters"> 
+ <!--<extension point="org.eclipse.ui.editors.markerUpdaters"> 
    <updater
      id="com.bugquery.markers.MarkerUpdater"
      class="com.bugquery.markers.tracemarker.MarkerUpdater"
      markerType="com.bugquery.markers.tracemarker">
    </updater>
  </extension>
-   
+   -->
 </plugin>
