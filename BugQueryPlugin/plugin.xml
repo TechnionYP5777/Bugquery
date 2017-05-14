@@ -60,36 +60,29 @@
 		</hover>
 	</extension>-->
 	
-	<extension point="org.eclipse.core.resources.markers" id="com.bugquery.markers.tracemarker"
-	  name="Trace Marker">
-	    <super type="org.eclipse.core.resources.textmarker"/>
-	    <super type="org.eclipse.core.resources.marker"/>
+	<extension point="org.eclipse.core.resources.markers" 
+			id="com.bugquery.markers.tracemarker"
+	  		name="Trace Marker">
 	    <super type="org.eclipse.core.resources.problemmarker"/>
 	    <persistent value="true"/>
 	</extension>
-	
-	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
-        id="myannotationspecification" name="MyAnnotation">
-	    <specification annotationType="com.bugquery.markers.traceannotation"
-	            label="MyAnnotation"
-	            icon="icons/bugquery_annotation.png"
-	            overviewRulerPreferenceKey="clruler"
-	            overviewRulerPreferenceValue="true"
-	            colorPreferenceKey="clcolor"
-	            colorPreferenceValue="255,255,0"
-	            textPreferenceKey="cltext"
-	            textPreferenceValue="true"
-	            verticalRulerPreferenceKey="clvertical"
-	            verticalRulerPreferenceValue="true"
-	            textStylePreferenceKey="clstyle"
-	            textStylePreferenceValue="BOX">
-	    </specification>
-	</extension>
 
 	<extension point="org.eclipse.ui.editors.annotationTypes">
-        <type markerSeverity="0"
-            super="org.eclipse.ui.workbench.texteditor.info"
-            name="com.bugquery.markers.traceannotation" markerType="com.bugquery.markers.tracemarker"/>
+        <type
+            super="org.eclipse.ui.workbench.texteditor.warning"
+            markerType="com.bugquery.markers.tracemarker"
+            name="com.bugquery.markers.traceannotation" 
+            markerSeverity = "1"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+	    <specification annotationType="com.bugquery.markers.traceannotation"
+	            label="TraceAnnotation"
+	            icon="icons/bugquery_main.gif"
+	            verticalRulerPreferenceKey="clvertical"
+	            verticalRulerPreferenceValue="true"
+	            textPreferenceValue="true">
+	    </specification>
 	</extension>
 	
  <extension
@@ -104,12 +97,13 @@
     </consolePageParticipant>
  </extension>
  
- <!--<extension point="org.eclipse.ui.editors.markerUpdaters"> 
+ <!--
+ <extension point="org.eclipse.ui.editors.markerUpdaters"> 
    <updater
      id="com.bugquery.markers.MarkerUpdater"
-     class="com.bugquery.markers.tracemarker.MarkerUpdater"
+     class="com.bugquery.markers.MarkerUpdater"
      markerType="com.bugquery.markers.tracemarker">
-   </updater>
+	</updater>
  </extension>
    -->
 </plugin>

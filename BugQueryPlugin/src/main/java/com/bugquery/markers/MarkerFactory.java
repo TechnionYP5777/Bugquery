@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.text.*;
+import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.jface.viewers.*;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.*;
 
 /**
  * Singleton for managing our IMarker's
@@ -20,6 +22,7 @@ import org.eclipse.ui.PlatformUI;
 public class MarkerFactory {
 
 	public static final String MARKER = "com.bugquery.markers.tracemarker";
+	public static final String ANNOTATION = "com.bugquery.markers.traceannotation";
 	private static MarkerFactory instance = new MarkerFactory();
 	List<IMarker> markers;
 
@@ -36,23 +39,38 @@ public class MarkerFactory {
 	 * 
 	 * @param res
 	 *            resource the marker will be on
-	 * @param msg
-	 *            message the marker will show
 	 * @param line
 	 *            line number in the resource
+	 * @param msg
+	 *            message the marker will show
 	 * @return the new marker
 	 * @throws CoreException
 	 */
-	public static IMarker createMarker(IResource res, String msg, int line)
+	public static IMarker createMarker(IResource res, int line, String msg)
 			throws CoreException {
 		IMarker marker = null;
-		marker = res.createMarker("com.bugquery.markers.tracemarker");
+		if (line == -1)
+			return marker;
+		marker = res.createMarker(MARKER);
 		marker.setAttribute(IMarker.MESSAGE, msg);
 		marker.setAttribute("description", "this is one of my markers");
-		marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
-		if (line == -1)
-			line = 1;
 		marker.setAttribute(IMarker.LINE_NUMBER, line);
+		marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
+		return marker;
+	}
+
+	public static IMarker createMarker(IResource res, Position position, String msg)
+			throws CoreException {
+		IMarker marker = null;
+		if (position.isDeleted)
+			return null;
+		marker = res.createMarker(MARKER);
+		marker.setAttribute(IMarker.MESSAGE, msg);
+		int start = position.getOffset();
+		int end = position.getOffset() + position.getLength();
+		marker.setAttribute(IMarker.CHAR_START, start);
+		marker.setAttribute(IMarker.CHAR_END, end);
+		marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 		return marker;
 	}
 
@@ -67,7 +85,7 @@ public class MarkerFactory {
 	 */
 	public IMarker addMarker(final IResource res, final String msg, int line) {
 		try {
-			IMarker m = createMarker(res, msg, line);
+			IMarker m = createMarker(res, line, msg);
 			markers.add(m);
 			return m;
 		} catch (final CoreException e) {
@@ -136,5 +154,33 @@ public class MarkerFactory {
 			return (TreeSelection) selection;
 		}
 		return null;
+	}
+
+	public static void addAnnotation(IMarker marker, ITextSelection selection,
+			ITextEditor editor) {
+		// The DocumentProvider enables to get the document currently loaded in
+		// the editor
+		IDocumentProvider idp = editor.getDocumentProvider();
+
+		// This is the document we want to connect to. This is taken from
+		// the current editor input.
+		IDocument document = idp.getDocument(editor.getEditorInput());
+
+		// The IAnnotationModel enables to add/remove/change annotation to a
+		// Document
+		// loaded in an Editor
+		IAnnotationModel iamf = idp.getAnnotationModel(editor.getEditorInput());
+
+		// Note: The annotation type id specify that you want to create one of
+		// your
+		// annotations
+		SimpleMarkerAnnotation ma = new SimpleMarkerAnnotation(ANNOTATION,
+				marker);
+
+		// Finally add the new annotation to the model
+		iamf.connect(document);
+		iamf.addAnnotation(ma,
+				new Position(selection.getOffset(), selection.getLength()));
+		iamf.disconnect(document);
 	}
 }
