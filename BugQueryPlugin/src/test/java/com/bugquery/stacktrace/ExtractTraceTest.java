@@ -115,5 +115,14 @@ public class ExtractTraceTest {
 		expected.add("main.java:7");
 		assertLists(expected, res);
 	}
+	
+	@Test
+	public void linksInOutput() {
+		ArrayList<String> res = Extract.links("Sometimes traces appear after some text, (Makesure:122)\nException in thread \"main\" java.lang.NullPointerException: Message\n\tat test.Fail.karma(Fail.java:5)\n\tat test.main.main(main.java:7)");
+		ArrayList<String> expected = new ArrayList<>();
+		expected.add("Fail.java:5");
+		expected.add("main.java:7");
+		assertLists(expected, res);		
+	}
 
 }

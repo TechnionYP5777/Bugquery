@@ -12,11 +12,11 @@ import java.util.regex.*;
  *
  */
 public interface Extract {
-	Pattern tracePattern = Pattern.compile(
+	static final Pattern tracePattern = Pattern.compile(
 			"(([ \t\n\f\r])*Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)");
-	Pattern linkPattern = Pattern.compile("\\([\\w\\.]+:\\d+\\)");
+	static final Pattern linkPattern = Pattern.compile("\\([\\w\\.]+:\\d+\\)");
 
-	String notFound = "No stack trace detected.";
+	public String notFound = "No stack trace detected.";
 
 	/**
 	 * @param ¢
@@ -43,16 +43,16 @@ public interface Extract {
 		return $.length() > 0 ? $ : notFound;
 	}
 
-	static ArrayList<String> links(String trace) {
+	public static ArrayList<String> links(String ¢) {
 		ArrayList<String> $ = new ArrayList<>();
-		if (trace == null)
+		if (¢ == null)
 			return $;
 
-		for (final Matcher ¢ = linkPattern.matcher(trace); ¢.find();) {
-			String tmp = ¢.group(0);
+		¢ = trace(¢);
+		for (final Matcher m = linkPattern.matcher(¢); m.find();) {
+			String tmp = m.group(0);
 			$.add(tmp.substring(1, tmp.length()-1));
 		}
-		
 		return $;
 	}
 }
