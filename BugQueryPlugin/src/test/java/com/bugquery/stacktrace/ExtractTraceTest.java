@@ -2,7 +2,11 @@ package com.bugquery.stacktrace;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 /**
  * Unit tests of {@link Extract}
@@ -12,6 +16,8 @@ import org.junit.Test;
  *
  */
 public class ExtractTraceTest {
+	
+	// Tests for trace()
 
 	/** parsing of null object is be @no_trace */
 	@Test
@@ -76,6 +82,25 @@ public class ExtractTraceTest {
 				"Exception in thread \"main\" java.lang.IllegalStateException: A book has a null property\r\n        at com.example.myproject.Author.getBookIds(Author.java:38)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\nCaused by: java.lang.NullPointerException\r\n        at com.example.myproject.Book.getId(Book.java:22)\r\n        at com.example.myproject.Author.getBookIds(Author.java:35)",
 				Extract.trace(
 						"Exception in thread \"main\" java.lang.IllegalStateException: A book has a null property\r\n        at com.example.myproject.Author.getBookIds(Author.java:38)\r\n        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)\r\nCaused by: java.lang.NullPointerException\r\n        at com.example.myproject.Book.getId(Book.java:22)\r\n        at com.example.myproject.Author.getBookIds(Author.java:35)\r\n\r\n"));
+	}
+	
+	// Tests for links()
+	/**
+	 * parsing of null trace returns an empty links() list
+	 */
+	@Test
+	public void linksInvalid() {
+		ArrayList<String> res = Extract.links(null);
+		assertEquals(res.size(), 0);
+	}
+	
+	/**
+	 * parsing of an empty trace returns an empty links() list
+	 */
+	@Test
+	public void linksEmpty() {
+		ArrayList<String> res = Extract.links("");
+		assertEquals(res.size(), 0);
 	}
 
 }

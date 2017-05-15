@@ -1,7 +1,7 @@
 package com.bugquery.stacktrace;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.regex.*;
 
 /**
  * offers {@link #trace(String)} which gets some output and (given that the
@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
  *
  */
 public interface Extract {
-	static final Pattern tracePattern = Pattern.compile(
+	Pattern tracePattern = Pattern.compile(
 			"(([ \t\n\f\r])*Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)");
 
-	public String notFound = "No stack trace detected.";
+	String notFound = "No stack trace detected.";
 
 	/**
 	 * @param ¢
@@ -40,5 +40,9 @@ public interface Extract {
 		for (final Matcher m = tracePattern.matcher(¢); m.find();)
 			$ += m.group(0);
 		return $.length() > 0 ? $ : notFound;
+	}
+	
+	static ArrayList<String> links(String trace) {
+		return new ArrayList<>();		
 	}
 }
