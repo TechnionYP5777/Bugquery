@@ -14,6 +14,7 @@ import java.util.regex.*;
 public interface Extract {
 	Pattern tracePattern = Pattern.compile(
 			"(([ \t\n\f\r])*Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)");
+	Pattern linkPattern = Pattern.compile("\\([\\w\\.]+:\\d+\\)");
 
 	String notFound = "No stack trace detected.";
 
@@ -41,8 +42,17 @@ public interface Extract {
 			$ += m.group(0);
 		return $.length() > 0 ? $ : notFound;
 	}
-	
+
 	static ArrayList<String> links(String trace) {
-		return new ArrayList<>();		
+		ArrayList<String> $ = new ArrayList<>();
+		if (trace == null)
+			return $;
+
+		for (final Matcher ¢ = linkPattern.matcher(trace); ¢.find();) {
+			String tmp = ¢.group(0);
+			$.add(tmp.substring(1, tmp.length()-1));
+		}
+		
+		return $;
 	}
 }

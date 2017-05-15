@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import junit.framework.Assert;
-
 /**
  * Unit tests of {@link Extract}
  *
@@ -90,8 +88,7 @@ public class ExtractTraceTest {
 	 */
 	@Test
 	public void linksInvalid() {
-		ArrayList<String> res = Extract.links(null);
-		assertEquals(res.size(), 0);
+		assertEquals(Extract.links(null).size(), 0);
 	}
 	
 	/**
@@ -99,8 +96,24 @@ public class ExtractTraceTest {
 	 */
 	@Test
 	public void linksEmpty() {
-		ArrayList<String> res = Extract.links("");
-		assertEquals(res.size(), 0);
+		assertEquals(Extract.links("").size(), 0);
+	}
+	
+	void assertLists(ArrayList<String> expected, ArrayList<String> actual) {
+		// sizes should be the same
+		assertEquals(expected.size(), actual.size());
+		// contents too:
+		for(int i = 0; i < expected.size(); i++)
+			assertEquals(expected.get(i), actual.get(i));		
+	}
+	
+	@Test
+	public void linksInTrace() {
+		ArrayList<String> res = Extract.links("Exception in thread \"main\" java.lang.NullPointerException: Message\n\tat test.Fail.karma(Fail.java:5)\n\tat test.main.main(main.java:7)");
+		ArrayList<String> expected = new ArrayList<>();
+		expected.add("Fail.java:5");
+		expected.add("main.java:7");
+		assertLists(expected, res);
 	}
 
 }
