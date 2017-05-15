@@ -43,6 +43,12 @@ public interface Extract {
 		return $.length() > 0 ? $ : notFound;
 	}
 
+	/**
+	 * 
+	 * @param ¢
+	 *            - a String that includes a trace with links
+	 * @return list of links in ¢, in "filename:line_number" format
+	 */
 	public static ArrayList<String> links(String ¢) {
 		ArrayList<String> $ = new ArrayList<>();
 		if (¢ == null)
@@ -51,8 +57,12 @@ public interface Extract {
 		¢ = trace(¢);
 		for (final Matcher m = linkPattern.matcher(¢); m.find();) {
 			String tmp = m.group(0);
-			$.add(tmp.substring(1, tmp.length()-1));
+			$.add(tmp.substring(1, tmp.length() - 1));
 		}
 		return $;
+	}
+
+	static int lineNumber(String link) {
+		return Integer.parseInt(link.substring(link.indexOf(':') + 1));
 	}
 }

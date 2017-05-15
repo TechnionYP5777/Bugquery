@@ -3,6 +3,7 @@ package com.bugquery.stacktrace;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -123,6 +124,15 @@ public class ExtractTraceTest {
 		expected.add("Fail.java:5");
 		expected.add("main.java:7");
 		assertLists(expected, res);		
+	}
+	
+
+	@Test
+	public void lineNumberTest() {
+		assertEquals(0, Extract.lineNumber("test.java:0"));
+		int rnd = new Random().nextInt();
+		rnd = (rnd > 0) ? rnd : -rnd;
+		assertEquals(rnd, Extract.lineNumber("test.java:" + rnd));
 	}
 
 }
