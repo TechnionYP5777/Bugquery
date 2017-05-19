@@ -2,8 +2,10 @@
 	<h1>BugQuery Search</h1>
 	<form name="Search BugQuery" method="post" action="/stacks"
 		enctype="application/x-www-form-urlencoded">
-		<p>Please insert your stack trace below:</p>
-		<p><textarea name="trace" class="bugquery-search" required=""></textarea></p>
-		<input class="button" type="submit" value="Submit Trace" />
+		  <div class="form-group">
+    <label id="textarea">Please insert your stack trace below</label>
+			<textarea id="textarea" name="trace" class="form-control" rows="5" required=""></textarea>
+  </div>
+		<button type="submit" class="btn btn-primary" aria-label="Submit Trace">Submit</button>
 	</form>
 </div>

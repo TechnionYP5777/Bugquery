@@ -1,0 +1,77 @@
+@import
+	url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Libre+Franklin:400,600')
+	;
+	
+html {
+	overflow: -moz-scrollbars-vertical;
+	overflow-y: scroll;
+}
+	
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.navbar-brand svg {
+	fill: #777;
+	transition-duration: 0.4s;
+	-webkit-transition-duration: 0.4s;	
+}
+
+.code-wrapper {
+	margin: 15px 0;
+	padding: 10px 15px;
+	background-color: #f8f8f8;
+	border-radius: 4px;
+	border: 1px solid #cfcfcf;
+}
+
+.bugquery-result {
+	margin: 2em 0;
+	padding: 0 20px 10px;
+	border-radius: 4px;
+	border: 1px solid #cfcfcf;
+}
+
+.bugquery-result-label {
+	font-weight: bold;
+	display: inline-block;
+	background-color: white;
+	border-radius: 4px;
+	border: 1px solid #cfcfcf;
+	padding: 2px 15px;
+	margin: -6px 0 0;
+}
+
+code {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	padding: 0 3px;
+	font-family: 'Inconsolata', 'Space Mono', Consolas, monospace;
+	background: none;
+}
+
+.navbar-brand svg:hover {
+	fill: #333;
+}
+
+.footer {
+	margin: 35px 0 0;
+	padding: 10px 0;
+	border-top: 1px solid #cfcfcf;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
