@@ -23,11 +23,14 @@ public class TemplateController {
 	private static final String SUBMIT = "submit";
 	private static final String TITLE = "title";
 	private static final String VIEW = "view";
-
+	private static final String DESCRIPTION = "description";
+	
 	@RequestMapping(value = ("/" + GUIDE), method = RequestMethod.GET)
 	public static String getGuide(Model ¢) {
 		¢.addAttribute(VIEW, GUIDE);
 		¢.addAttribute(TITLE, "BugQuery Essentials");
+		¢.addAttribute(DESCRIPTION, "This guide provides the essential information you need in " + 
+				"order to debug your code with BugQuery");
 		return LAYOUT;
 	}
 
@@ -35,6 +38,8 @@ public class TemplateController {
 	public static String getHome(Model ¢) {
 		¢.addAttribute(VIEW, HOME);
 		¢.addAttribute(TITLE, "Welcome to BugQuery");
+		¢.addAttribute(DESCRIPTION, "BugQuery is a search engine for stack traces. It helps " + 
+				"programmers solve bugs in their code in a quick and efficient way.");
 		return LAYOUT;
 	}
 
@@ -42,6 +47,8 @@ public class TemplateController {
 	public static String getSubmit(Model ¢) {
 		¢.addAttribute(VIEW, SUBMIT);
 		¢.addAttribute(TITLE, "Submit to BugQuery");
+		¢.addAttribute(DESCRIPTION, "Submit your stack trace to BugQuery and get quick solution " + 
+		"for your bugs.");
 		return LAYOUT;
 	}
 }
