@@ -43,14 +43,14 @@
 			<h3>BugQuery ran into an issue.</h3>
 			<p th:text="${exception}"></p>
 			<a class="btn btn-default" href="/">Return to Home Page</a>
-			<button data-toggle="collapse"  class="btn btn-info" data-target="#errortrace">Show
-				Trace</button>
+			<button th:if="${errortrace}" data-toggle="collapse"
+				class="btn btn-info" data-target="#errortrace">Show Trace</button>
 
-		<div th:if="${errortrace}" class="collapse" id="errortrace">
-			<div class="code-wrapper">
-				<code th:text="${errortrace}"></code>
+			<div th:if="${errortrace}" class="collapse" id="errortrace">
+				<div class="code-wrapper">
+					<code th:text="${errortrace}"></code>
+				</div>
 			</div>
-		</div>
 		</div>
 	</div>
 	<div th:replace="fragments/footer"></div>
