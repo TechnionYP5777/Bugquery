@@ -5,8 +5,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 //import org.eclipse.core.resources.IFile;
 // import org.eclipse.core.resources.IMarker;
 import org.eclipse.swt.program.Program;
@@ -85,7 +90,11 @@ public interface Dispatch {
 	public static void markersInit(String trace) {
 		MarkerFactory m = MarkerFactory.instance();
 		m.deleteAllKnownMarkers();
-		final IFile file = ResourcesUtils.getFile("test", "src", "Main.java");
-		m.addMarker(file, trace);
+		Map<String, Integer> lines = Extract.lines(trace);
+		String exception = StackTrace.of(trace).getException();
+		for (String f : Extract.files(trace)) {
+			final IFile file = ResourcesUtils.getFile("Test", "src", f);
+			m.addMarker(file, "This line causes " + exception,  lines.get(f));	
+		}
 	}
 }

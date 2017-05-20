@@ -129,10 +129,10 @@ public class ExtractTraceTest {
 
 	@Test
 	public void lineNumberTest() {
-		assertEquals(0, Extract.lineNumber("test.java:0"));
+		assertEquals(0, Extract.line("test.java:0"));
 		int rnd = new Random().nextInt();
 		rnd = (rnd > 0) ? rnd : -rnd;
-		assertEquals(rnd, Extract.lineNumber("test.java:" + rnd));
+		assertEquals(rnd, Extract.line("test.java:" + rnd));
 	}
 
 }

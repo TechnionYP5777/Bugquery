@@ -1,6 +1,9 @@
 package com.bugquery.stacktrace;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.*;
 
 /**
@@ -44,7 +47,6 @@ public interface Extract {
 	}
 
 	/**
-	 * 
 	 * @param ¢
 	 *            - a String that includes a trace with links
 	 * @return list of links in ¢, in "filename:line_number" format
@@ -62,7 +64,30 @@ public interface Extract {
 		return $;
 	}
 
-	static int lineNumber(String link) {
+	static int line(String link) {
 		return Integer.parseInt(link.substring(link.indexOf(':') + 1));
+	}
+	
+	static String filename(String link) {
+		return link.substring(0, link.indexOf(':'));
+	}
+	
+	public static List<String> files(String trace) {
+		ArrayList<String> $ = new ArrayList<String>();
+		for (String l : Extract.links(trace)) {
+			$.add(filename(l));
+		}
+		return $;
+	}
+	/**
+	 * @param trace a String that includes a trace with links
+	 * @return a list of line numbers in which we need to put our markers
+	 */
+	public static Map<String, Integer> lines(String trace) {
+		HashMap<String, Integer> $ = new HashMap<String, Integer>();
+		for (String l : Extract.links(trace)) {
+			$.put(filename(l), line(l));
+		}
+		return $;
 	}
 }

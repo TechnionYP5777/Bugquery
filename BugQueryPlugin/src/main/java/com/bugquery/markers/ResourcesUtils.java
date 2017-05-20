@@ -1,12 +1,10 @@
 package com.bugquery.markers;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-
+import org.eclipse.core.resources.*;
+import org.eclipse.core.runtime.*;
+import org.eclipse.jface.viewers.*;
+import org.eclipse.ui.*;
+import org.eclipse.ui.views.navigator.*;
 /**
  * Helps with getting project objects
  * 
@@ -21,6 +19,22 @@ public class ResourcesUtils {
 
 	public static IWorkspaceRoot getRoot() {
 		return getWorkspace().getRoot();
+	}
+	
+	public static String getActiveProjectName() {
+	    IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+	    if (window != null)
+	    {
+	        IStructuredSelection selection = (IStructuredSelection) window.getSelectionService().getSelection();
+	        Object firstElement = selection.getFirstElement();
+	        if (firstElement instanceof IAdaptable)
+	        {
+	            IProject project = (IProject)((IAdaptable)firstElement).getAdapter(IProject.class);
+	            IPath path = project.getFullPath();
+	            return path.toString();
+	        }
+	    }
+		return "";
 	}
 
 	public static IProject getProject(final String myProject) {

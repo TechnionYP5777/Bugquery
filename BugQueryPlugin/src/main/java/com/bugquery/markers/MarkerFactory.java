@@ -21,7 +21,7 @@ import org.eclipse.ui.texteditor.*;
 
 public class MarkerFactory {
 
-	public static final String MARKER = "com.bugquery.markers.tracemarker";
+	public static final String MARKER = "org.eclipse.core.resources.problemmarker"; //"com.bugquery.markers.tracemarker";
 	public static final String ANNOTATION = "com.bugquery.markers.traceannotation";
 	private static MarkerFactory instance = new MarkerFactory();
 	List<IMarker> markers;
