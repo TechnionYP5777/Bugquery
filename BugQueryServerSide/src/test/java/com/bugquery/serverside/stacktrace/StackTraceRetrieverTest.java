@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.bugquery.serverside.dbparsing.dbretrieval.DBConnector;
+
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.exceptions.GeneralDBException;
@@ -33,14 +33,6 @@ public class StackTraceRetrieverTest {
 			+ "at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
 			+ "at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
 
-	private DBConnector getDummyConnector(List<Post> ps) {
-		return new DBConnector() {
-			@Override
-			public List<Post> getAllQuestionsWithTheException(@SuppressWarnings("unused") String __) {
-				return ps;
-			}
-		};
-	}
 
 	@Test
 	public void retrieverThrowsExceptionForIllegalConstructorParameters1() {
@@ -50,7 +42,7 @@ public class StackTraceRetrieverTest {
 			List<Post> posts = new ArrayList<>();
 			posts.add(p1);
 			// should throw
-			new GeneralStackTraceRetriever(null, getDummyConnector(posts)).getMostRelevantPosts(stackTrace, 1);
+			new GeneralStackTraceRetriever(null).getMostRelevantPosts(stackTrace, 1);
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}
@@ -142,9 +134,9 @@ public class StackTraceRetrieverTest {
 		List<Post> result = new ArrayList<>();
 		result.add(p1);
 		try {
-			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts))
+			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer())
 					.getMostRelevantPosts(stackTrace1, 1));
-			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts))
+			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer())
 					.getMostRelevantPosts(stackTrace1, 1));
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
@@ -176,11 +168,11 @@ public class StackTraceRetrieverTest {
 		result.add(p1);
 		result.add(p2);
 		try {
-			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer(), getDummyConnector(posts))
+			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer())
 					.getMostRelevantPosts(stackTrace1, 2));
-			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer(), getDummyConnector(posts))
+			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer())
 					.getMostRelevantPosts(stackTrace1, 2));
-			assertEquals(result, new GeneralStackTraceRetriever(new LevenshteinSTDistancer(), getDummyConnector(posts))
+			assertEquals(result, new GeneralStackTraceRetriever(new LevenshteinSTDistancer())
 					.getMostRelevantPosts(stackTrace1, 2));
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
