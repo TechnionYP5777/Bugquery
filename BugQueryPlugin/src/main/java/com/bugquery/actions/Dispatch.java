@@ -90,11 +90,6 @@ public interface Dispatch {
 	public static void markersInit(String trace) {
 		MarkerFactory m = MarkerFactory.instance();
 		m.deleteAllKnownMarkers();
-		Map<String, Integer> lines = Extract.lines(trace);
-		String exception = StackTrace.of(trace).getException();
-		for (String f : Extract.files(trace)) {
-			final IFile file = ResourcesUtils.getFile("Test", "src", f);
-			m.addMarker(file, "This line causes " + exception,  lines.get(f));	
-		}
+		m.addMarkers(trace);
 	}
 }

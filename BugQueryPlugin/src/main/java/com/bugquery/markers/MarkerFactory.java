@@ -3,6 +3,7 @@ package com.bugquery.markers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
@@ -11,6 +12,8 @@ import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.*;
+
+import com.bugquery.stacktrace.Extract;
 
 /**
  * Singleton for managing our IMarker's
@@ -21,7 +24,7 @@ import org.eclipse.ui.texteditor.*;
 
 public class MarkerFactory {
 
-	public static final String MARKER = "org.eclipse.core.resources.problemmarker"; //"com.bugquery.markers.tracemarker";
+	public static final String MARKER = "org.eclipse.core.resources.problemmarker"; // "com.bugquery.markers.tracemarker";
 	public static final String ANNOTATION = "com.bugquery.markers.traceannotation";
 	private static MarkerFactory instance = new MarkerFactory();
 	List<IMarker> markers;
@@ -59,8 +62,8 @@ public class MarkerFactory {
 		return marker;
 	}
 
-	public static IMarker createMarker(IResource res, Position position, String msg)
-			throws CoreException {
+	public static IMarker createMarker(IResource res, Position position,
+			String msg) throws CoreException {
 		IMarker marker = null;
 		if (position.isDeleted)
 			return null;
@@ -83,7 +86,7 @@ public class MarkerFactory {
 	 * @param severity
 	 * @return
 	 */
-	public IMarker addMarker(final IResource res, final String msg, int line) {
+	public IMarker addMarker(final IResource res, int line, final String msg) {
 		try {
 			IMarker m = createMarker(res, line, msg);
 			markers.add(m);
@@ -93,9 +96,18 @@ public class MarkerFactory {
 		}
 	}
 
+	public void addMarkers(String trace) {
+		Map<String, Integer> lines = Extract.lines(trace);
+		String exception = StackTrace.of(trace).getException();
+		for (String f : Extract.files(trace)) {
+			final IFile file = ResourcesUtils.getFile("Test", "src", f);
+			addMarker(file, lines.get(f), "This line causes " + exception);
+		}
+	}
+
 	public IMarker addMarker(final IResource res, final String trace) {
-		return addMarker(res, "Fix: " + StackTrace.of(trace).getException(),
-				StackTrace.of(trace).getLine());
+		return addMarker(res, StackTrace.of(trace).getLine(),
+				"Fix: " + StackTrace.of(trace).getException());
 	}
 
 	public void deleteMarkerFrom(final IResource i) {
