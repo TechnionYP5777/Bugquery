@@ -50,5 +50,13 @@ public class Post extends AbstractPersistable<Long> {
 	
 	public StackTrace getStackTrace() {
 		return stackTrace;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
 	}	
 }
