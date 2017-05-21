@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
@@ -31,6 +33,7 @@ public class StackTrace {
 	@ElementCollection
 	private List<String> stackOfCalls;
 	@Column(columnDefinition = "Text")
+	@Access(value = AccessType.PROPERTY)
 	private String content; // the whole stack-trace
 
 	@SuppressWarnings("unused")
@@ -45,6 +48,18 @@ public class StackTrace {
 	}
 	
 	public StackTrace(String content) {
+		this.setContent(content);
+	}
+	
+	public String getException() {
+		return this.exception;
+	}
+	
+	public List<String> getStackOfCalls() {
+		return this.stackOfCalls;
+	}
+	
+	public void setContent(String content){
 		if (!StackTraceExtractor.isStackTrace(content)) {
 			this.exception = StackTrace.noExceptionFound;
 			this.stackOfCalls = null;
@@ -55,12 +70,8 @@ public class StackTrace {
 		this.content = content;
 	}
 	
-	public String getException() {
-		return this.exception;
-	}
-	
-	public List<String> getStackOfCalls() {
-		return this.stackOfCalls;
+	public String getContent(){
+		return content;
 	}
 	
 	public String getString() {
