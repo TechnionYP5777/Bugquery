@@ -5,7 +5,6 @@ import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.*;
 
-import com.bugquery.serverside.dbparsing.dbretrieval.SQLDBConnector;
 import com.bugquery.serverside.entities.*;
 import com.bugquery.serverside.exceptions.*;
 import com.bugquery.serverside.stacktrace.*;
