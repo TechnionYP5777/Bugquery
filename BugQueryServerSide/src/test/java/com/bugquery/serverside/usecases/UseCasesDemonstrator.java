@@ -27,7 +27,7 @@ public class UseCasesDemonstrator {
 	private static final String searchingMessage = "Searching stack trace: ";
 	
 	private static List<Post> getRelevantPosts(StackTraceDistancer d, String stackTrace) {
-		StackTraceRetriever $ = new GeneralStackTraceRetriever(d, new SQLDBConnector());
+		StackTraceRetriever $ = new GeneralStackTraceRetriever(d);
 		try {
 			return $.getMostRelevantPosts(stackTrace, numOfPosts);
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
@@ -110,9 +110,9 @@ public class UseCasesDemonstrator {
 				result = getRelevantPosts(d, s);
 				for(Post ¢: result){
 					relevantPosts.add("Stack trace: ");
-					relevantPosts.add(¢.stackTrace.getString());
+					relevantPosts.add(¢.getStackTrace().getString());
 					relevantPosts.add("Question: ");
-					relevantPosts.add(((MinSOPost) ¢).questionString + "\n");
+					relevantPosts.add(¢.getQuestion() + "\n");
 					relevantPosts.add(percentLine);
 				}
 				relevantPosts.add(plusLine);
