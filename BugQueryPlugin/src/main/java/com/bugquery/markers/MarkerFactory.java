@@ -97,13 +97,12 @@ public class MarkerFactory {
 	}
 
 	public void addMarkers(String trace) {
-		Map<String, List<Integer>> lines = Extract.lines(trace);
 		String exception = StackTrace.of(trace).getException();
-		for (String f : Extract.files(trace)) {
-			for (Integer i : lines.get(f)) {
-				final IFile file = ResourcesUtils.getFile("Test", "src", f);
-				addMarker(file, i, "This line causes " + exception);
-			}
+		ArrayList<Triple<String, String, Integer>> markerInfo = Extract
+				.markersInfo(trace);
+		for (Triple<String, String, Integer> t : markerInfo) {
+			final IFile file = ResourcesUtils.getFile("Test", "src/"+t.getFirst(), t.getSecond());
+			addMarker(file, t.getThird(), "This line causes " + exception);
 		}
 	}
 

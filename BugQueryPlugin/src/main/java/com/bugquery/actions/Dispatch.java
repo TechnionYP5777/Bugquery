@@ -88,7 +88,6 @@ public interface Dispatch {
 	 * 
 	 */
 	public static void markersInit(String trace) {
-		ArrayList<String> as = Extract.packages(trace);
 		MarkerFactory m = MarkerFactory.instance();
 		m.deleteAllKnownMarkers();
 		m.addMarkers(trace);

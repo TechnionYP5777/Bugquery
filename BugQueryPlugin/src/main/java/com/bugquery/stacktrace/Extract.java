@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
 
+import com.bugquery.markers.Triple;
+
 /**
  * offers {@link #trace(String)} which gets some output and (given that the
  * output contains one) extracts a stack trace from it.
  *
  * @author Yosef
  * @since Dec 5, 2016
- *
  */
 public interface Extract {
 	static final Pattern tracePattern = Pattern.compile(
 			"(([ \t\n\f\r])*Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)");
-	static final Pattern linkPattern = Pattern.compile("\\([\\w\\.]+:\\d+\\)");
-	static final Pattern packagePattern = Pattern.compile("at [^(]*\\(");
+	static final Pattern linkPattern = Pattern
+			.compile("at [^(]*\\([\\w\\.]+:\\d+\\)");
 	public String notFound = "No stack trace detected.";
 
 	/**
@@ -63,18 +64,30 @@ public interface Extract {
 		}
 		return $;
 	}
-	
-	public static ArrayList<String> packages(String ¢) {
-		ArrayList<String> $ = new ArrayList<>();
+
+	public static ArrayList<Triple<String, String, Integer>> markersInfo(
+			String ¢) {
+		ArrayList<Triple<String, String, Integer>> $ = new ArrayList<>();
 		if (¢ == null)
 			return $;
 
 		¢ = trace(¢);
-		for (final Matcher m = packagePattern.matcher(¢); m.find();) {
+		for (final Matcher m = linkPattern.matcher(¢); m.find();) {
 			String tmp = m.group(0);
-			String packageWithFun = tmp.substring(3, tmp.length() - 1);
-			String toAdd = packageWithFun.substring(0, packageWithFun.lastIndexOf('.'));
-			$.add(toAdd);
+			tmp = tmp.substring(3, tmp.length());
+			String tmpLink = tmp.substring(tmp.indexOf('(') + 1,
+					tmp.length() - 1);
+			String tmpPackage = tmp.substring(0, tmp.indexOf('('));
+			tmpPackage = tmpPackage.substring(0, tmpPackage.lastIndexOf('.'));
+			int idx = tmpPackage.lastIndexOf('.');
+			if (idx == -1)
+				tmpPackage = "";
+			else
+				tmpPackage = tmpPackage.substring(0, idx);
+
+			tmpPackage = toFolder(tmpPackage);
+			$.add(new Triple<String, String, Integer>(tmpPackage,
+					filename(tmpLink), line(tmpLink)));
 		}
 		return $;
 	}
@@ -82,11 +95,11 @@ public interface Extract {
 	static int line(String link) {
 		return Integer.parseInt(link.substring(link.indexOf(':') + 1));
 	}
-	
+
 	static String filename(String link) {
 		return link.substring(0, link.indexOf(':'));
 	}
-	
+
 	public static List<String> files(String trace) {
 		ArrayList<String> $ = new ArrayList<String>();
 		for (String l : Extract.links(trace)) {
@@ -94,11 +107,13 @@ public interface Extract {
 		}
 		return $;
 	}
+
 	/**
-	 * @param trace a String that includes a trace with links
+	 * @param trace
+	 *            a String that includes a trace with links
 	 * @return a list of line numbers in which we need to put our markers
 	 */
-	public static Map<String, List<Integer>> lines(String trace) {
+	public static Map<String, List<Integer>> filesToLines(String trace) {
 		HashMap<String, List<Integer>> $ = new HashMap<String, List<Integer>>();
 		for (String l : Extract.links(trace)) {
 			if (!$.containsKey(filename(l))) {
@@ -111,5 +126,9 @@ public interface Extract {
 			}
 		}
 		return $;
+	}
+
+	static String toFolder(String packageString) {
+		return packageString.replace(".", "\\");
 	}
 }
