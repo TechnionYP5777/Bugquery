@@ -25,8 +25,7 @@ public class PostTest {
 				"        at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
 				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
 		Post post = new Post(trace);
-		assertEquals(trace,post.getStackTrace().getString());
-		assertEquals(trace,post + "");
+		assertEquals(trace,post.getStackTrace().getContent());
 	}
 
 }

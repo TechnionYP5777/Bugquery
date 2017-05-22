@@ -79,10 +79,6 @@ public class StackTrace {
 		return content;
 	}
 	
-	public String getString() {
-		return this.content;
-	}
-	
 	private static String getExceptionNameFromExceptionLine(String exceptionLine) {
 		if(exceptionLine.contains("Caused by:"))
 			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
