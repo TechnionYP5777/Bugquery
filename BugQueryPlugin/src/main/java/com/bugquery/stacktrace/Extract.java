@@ -18,7 +18,7 @@ public interface Extract {
 	static final Pattern tracePattern = Pattern.compile(
 			"(([ \t\n\f\r])*Caused by|Exception)(.*)(\n|\r\n)(([ \t\f\r])*at(.*)(\n|\r\n))*([ \t\f\r])*at(.*)");
 	static final Pattern linkPattern = Pattern.compile("\\([\\w\\.]+:\\d+\\)");
-
+	static final Pattern packagePattern = Pattern.compile("at [^(]*\\(");
 	public String notFound = "No stack trace detected.";
 
 	/**
@@ -63,6 +63,21 @@ public interface Extract {
 		}
 		return $;
 	}
+	
+	public static ArrayList<String> packages(String ¢) {
+		ArrayList<String> $ = new ArrayList<>();
+		if (¢ == null)
+			return $;
+
+		¢ = trace(¢);
+		for (final Matcher m = packagePattern.matcher(¢); m.find();) {
+			String tmp = m.group(0);
+			String packageWithFun = tmp.substring(3, tmp.length() - 1);
+			String toAdd = packageWithFun.substring(0, packageWithFun.lastIndexOf('.'));
+			$.add(toAdd);
+		}
+		return $;
+	}
 
 	static int line(String link) {
 		return Integer.parseInt(link.substring(link.indexOf(':') + 1));
@@ -83,10 +98,17 @@ public interface Extract {
 	 * @param trace a String that includes a trace with links
 	 * @return a list of line numbers in which we need to put our markers
 	 */
-	public static Map<String, Integer> lines(String trace) {
-		HashMap<String, Integer> $ = new HashMap<String, Integer>();
+	public static Map<String, List<Integer>> lines(String trace) {
+		HashMap<String, List<Integer>> $ = new HashMap<String, List<Integer>>();
 		for (String l : Extract.links(trace)) {
-			$.put(filename(l), line(l));
+			if (!$.containsKey(filename(l))) {
+				List<Integer> lineList = new ArrayList<Integer>();
+				lineList.add(line(l));
+				$.put(filename(l), lineList);
+			} else {
+				List<Integer> lineList = $.get(filename(l));
+				lineList.add(line(l));
+			}
 		}
 		return $;
 	}
