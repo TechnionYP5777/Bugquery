@@ -19,4 +19,5 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.108.1",
  org.eclipse.ui.views;bundle-version="3.8.102"
 Bundle-Vendor: bugquery.com
 Import-Package: org.eclipse.ui,
+ org.eclipse.ui.internal.ide,
  org.eclipse.ui.texteditor

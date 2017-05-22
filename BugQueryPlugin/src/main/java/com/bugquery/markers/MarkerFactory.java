@@ -24,7 +24,7 @@ import com.bugquery.stacktrace.Extract;
 
 public class MarkerFactory {
 
-	public static final String MARKER = "org.eclipse.core.resources.problemmarker"; // "com.bugquery.markers.tracemarker";
+	public static final String MARKER = "com.bugquery.markers.tracemarker"; // "com.bugquery.markers.tracemarker";
 	public static final String ANNOTATION = "com.bugquery.markers.traceannotation";
 	private static MarkerFactory instance = new MarkerFactory();
 	List<IMarker> markers;
@@ -166,33 +166,5 @@ public class MarkerFactory {
 			return (TreeSelection) selection;
 		}
 		return null;
-	}
-
-	public static void addAnnotation(IMarker marker, ITextSelection selection,
-			ITextEditor editor) {
-		// The DocumentProvider enables to get the document currently loaded in
-		// the editor
-		IDocumentProvider idp = editor.getDocumentProvider();
-
-		// This is the document we want to connect to. This is taken from
-		// the current editor input.
-		IDocument document = idp.getDocument(editor.getEditorInput());
-
-		// The IAnnotationModel enables to add/remove/change annotation to a
-		// Document
-		// loaded in an Editor
-		IAnnotationModel iamf = idp.getAnnotationModel(editor.getEditorInput());
-
-		// Note: The annotation type id specify that you want to create one of
-		// your
-		// annotations
-		SimpleMarkerAnnotation ma = new SimpleMarkerAnnotation(ANNOTATION,
-				marker);
-
-		// Finally add the new annotation to the model
-		iamf.connect(document);
-		iamf.addAnnotation(ma,
-				new Position(selection.getOffset(), selection.getLength()));
-		iamf.disconnect(document);
 	}
 }

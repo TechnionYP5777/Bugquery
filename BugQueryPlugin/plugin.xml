@@ -63,27 +63,19 @@
 	<extension point="org.eclipse.core.resources.markers" 
 			id="com.bugquery.markers.tracemarker"
 	  		name="Trace Marker">
-	    <super type="org.eclipse.core.resources.problemmarker"/>
-	    <persistent value="true"/>
+	    <super type="org.eclipse.core.resources.textmarker"/>
+	    <persistent value="false"/>
 	</extension>
 
-	<extension point="org.eclipse.ui.editors.annotationTypes">
-        <type
-            super="org.eclipse.ui.workbench.texteditor.warning"
-            markerType="com.bugquery.markers.tracemarker"
-            name="com.bugquery.markers.traceannotation" 
-            markerSeverity = "1"/>
-	</extension>
+  <extension
+         point="org.eclipse.ui.ide.markerImageProviders">
+      <imageprovider
+            markertype="com.bugquery.markers.tracemarker"
+            icon="icons/bugquery_main.gif"
+            id="com.bugquery.markers.MarkerImageProvider">
+      </imageprovider>
+   </extension>	
 	
-	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
-	    <specification annotationType="com.bugquery.markers.traceannotation"
-	            label="TraceAnnotation"
-	            icon="icons/bugquery_main.gif"
-	            verticalRulerPreferenceKey="clvertical"
-	            verticalRulerPreferenceValue="true"
-	            textPreferenceValue="true">
-	    </specification>
-	</extension>
 	
  <extension
        point="org.eclipse.ui.console.consolePageParticipants">
@@ -96,6 +88,8 @@
           </instanceof></enablement>
     </consolePageParticipant>
  </extension>
+ 
+
  
  <!--
  <extension point="org.eclipse.ui.editors.markerUpdaters"> 
