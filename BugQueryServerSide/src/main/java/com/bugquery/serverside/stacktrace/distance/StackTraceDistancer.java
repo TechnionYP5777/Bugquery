@@ -16,7 +16,7 @@ public interface StackTraceDistancer {
 	double distance(String o1, String o2);
 	
 	default double distance(StackTrace st1, StackTrace st2) {
-		return this.distance(st1.getString(), st2.getString());
+		return this.distance(st1.getContent(), st2.getContent());
 	}
 	
 	static List<String> splitByNewlines(String ¢) {
