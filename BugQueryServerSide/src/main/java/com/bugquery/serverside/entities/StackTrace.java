@@ -113,7 +113,7 @@ public class StackTrace {
 	}
 	
 	@Override public boolean equals(Object ¢) {
-		return ¢ instanceof StackTrace && (¢ == this || this.getString().equals(((StackTrace) ¢).getString()));
+		return ¢ instanceof StackTrace && (¢ == this || this.getContent().equals(((StackTrace) ¢).getContent()));
 	}
 
 	@Override public int hashCode() {

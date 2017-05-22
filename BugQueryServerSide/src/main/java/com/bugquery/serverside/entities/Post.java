@@ -41,7 +41,7 @@ public class Post extends AbstractPersistable<Long> {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nStack Trace:" + stackTrace.getString();
+		return super.toString() + "\nStack Trace:" + stackTrace.getContent();
 	}
 	
 	public void setStackTrace(StackTrace ¢) {

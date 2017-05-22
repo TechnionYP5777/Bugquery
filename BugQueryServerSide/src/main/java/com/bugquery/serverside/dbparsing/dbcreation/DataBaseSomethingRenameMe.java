@@ -136,7 +136,7 @@ public class DataBaseSomethingRenameMe {
 	  			uniqueId += 1;
 	  			ps2.setInt(2, id);
 	  			ps2.setString(3, ex);
-	  			ps2.setString(4, ¢1.getString());
+	  			ps2.setString(4, ¢1.getContent());
 	  			ps2.setString(5, body);
 	  			ps2.setInt(6, postTypeId);
 	  			ps2.setInt(7, parentId);

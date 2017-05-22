@@ -110,7 +110,7 @@ public class UseCasesDemonstrator {
 				result = getRelevantPosts(d, s);
 				for(Post ¢: result){
 					relevantPosts.add("Stack trace: ");
-					relevantPosts.add(¢.getStackTrace().getString());
+					relevantPosts.add(¢.getStackTrace().getContent());
 					relevantPosts.add("Question: ");
 					relevantPosts.add(¢.getQuestion() + "\n");
 					relevantPosts.add(percentLine);
