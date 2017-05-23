@@ -1,6 +1,7 @@
 <div th:fragment="content">
 	<ul class="list-group" th:each="extype: ${extypelist}">
-		<li class="list-group-item" th:text="${extype}" th:href="'/ + ${extype}">
+		<li>
+		<a th:href="'/' + ${extype}"><p th:text="${extype}"></p></a>
 		</li>
 	</ul>
 </div>
