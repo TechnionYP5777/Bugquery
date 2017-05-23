@@ -57,5 +57,13 @@ public class Post extends AbstractPersistable<Long> {
 
 	public void setQuestion(String question) {
 		this.question = question;
+	}
+
+	public String getAnswerId() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}	
 }
