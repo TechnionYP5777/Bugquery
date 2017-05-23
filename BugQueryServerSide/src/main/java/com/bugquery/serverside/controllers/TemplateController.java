@@ -1,5 +1,8 @@
 package com.bugquery.serverside.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,8 @@ public class TemplateController {
 	private static final String TITLE = "title";
 	private static final String VIEW = "view";
 	private static final String DESCRIPTION = "description";
+	private static final String EXAMPLES = "examples";
+	private static final String EXTYPELIST = "extypelist";
 	
 	@RequestMapping(value = ("/" + GUIDE), method = RequestMethod.GET)
 	public static String getGuide(Model ¢) {
@@ -49,6 +54,18 @@ public class TemplateController {
 		¢.addAttribute(TITLE, "Submit to BugQuery");
 		¢.addAttribute(DESCRIPTION, "Submit your stack trace to BugQuery and get quick solution " + 
 		"for your bugs.");
+		return LAYOUT;
+	}
+	
+	@RequestMapping(value = ("/" + "examples"), method = RequestMethod.GET)
+	public static String getExamples(Model ¢) {
+		¢.addAttribute(VIEW, EXAMPLES);
+		¢.addAttribute(TITLE, "Examples");
+		List<String> l = new ArrayList<>();
+		//Temp list adding, will fix to the real exception type list
+		l.add("NullPointer");
+		l.add("Ziv izhar");
+		¢.addAttribute(EXTYPELIST, l);
 		return LAYOUT;
 	}
 }
