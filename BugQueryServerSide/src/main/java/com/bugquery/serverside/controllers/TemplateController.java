@@ -13,8 +13,8 @@ import com.bugquery.serverside.examplesparser.ExamplesParser;
 /**
  * Hooks to handle miscellaneous requests
  * 
- * @author Yosef
- * @since Dec 28, 2016
+ * @author yosefraisman
+ * @since 28.12.2016
  *
  */
 @Controller
