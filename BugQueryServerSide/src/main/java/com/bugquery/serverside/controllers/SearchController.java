@@ -22,8 +22,9 @@ import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 /**
  * Hook to handle {@link #REQUEST_FORMAT}
  * 
- * @author Amit
- * @since Dec 24, 2016 Controller for stack searches
+ * @author AmitOhayon
+ * @since 24.12.2016
+ * Controller for stack searches
  * 
  */
 @Controller
