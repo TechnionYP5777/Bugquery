@@ -1,5 +1,14 @@
 package com.bugquery.markers;
 
+/**
+ * 
+ * @author Doron
+ * @since 24 05 2017
+ * @param <T>
+ * @param <U>
+ * @param <V>
+ */
+
 public class Triple<T, U, V> {
 
     private final T first;

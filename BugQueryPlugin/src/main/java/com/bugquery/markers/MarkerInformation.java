@@ -1,5 +1,10 @@
 package com.bugquery.markers;
 
+/**
+ * @author Doron
+ * @since 24 05 2017
+ */
+
 public class MarkerInformation {
 	private String packageName;
 	private String fileName;

@@ -12,7 +12,7 @@ import com.bugquery.markers.MarkerInformation;
  * offers {@link #trace(String)} which gets some output and (given that the
  * output contains one) extracts a stack trace from it.
  *
- * @author Yosef
+ * @author Yosef, Doron
  * @since Dec 5, 2016
  */
 public interface Extract {
