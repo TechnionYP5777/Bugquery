@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
  * @author rodedzats
  * @since 14.12.2016
  */
@@ -22,8 +21,8 @@ public class StackTrace {
 	private final String content; // the whole stack-trace
 	private int line; // line of the exception
 
-	public StackTrace(final String stackTrace, final String exception, final List<String> stackOfCalls,
-			final int line) {
+	public StackTrace(final String stackTrace, final String exception,
+			final List<String> stackOfCalls, final int line) {
 		this.exception = exception;
 		this.stackOfCalls = stackOfCalls;
 		content = stackTrace;
@@ -63,10 +62,13 @@ public class StackTrace {
 		return content;
 	}
 
-	private String getExceptionNameFromExceptionLine(final String exceptionLine) {
+	private String getExceptionNameFromExceptionLine(
+			final String exceptionLine) {
 		if (exceptionLine.contains("Caused by:"))
-			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
-		final String $ = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
+			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy]
+					.trim();
+		final String $ = !exceptionLine.contains(":") ? exceptionLine
+				: exceptionLine.split(":")[0].trim();
 		return $.substring($.lastIndexOf(" ") + 1);
 	}
 
@@ -80,7 +82,8 @@ public class StackTrace {
 		} else if (!stackTrace.contains("Exception in"))
 			$ = stackTrace.split("\n")[0];
 		else {
-			final Matcher m = Pattern.compile(exceptionRegex).matcher(stackTrace);
+			final Matcher m = Pattern.compile(exceptionRegex)
+					.matcher(stackTrace);
 			if (!m.find())
 				return StackTrace.noExceptionFound;
 			$ = m.group(0).trim();
@@ -98,10 +101,8 @@ public class StackTrace {
 
 	// TODO: Doron, finish implementing
 	/**
-	 * ATTENTION: This function is on hold
-	 * 
-	 * Maybe this should give us List<Integer> of line numbers and List<String>
-	 * of files
+	 * ATTENTION: This function is on hold Maybe this should give us
+	 * List<Integer> of line numbers and List<String> of files
 	 */
 	private int getLine(final String stackTrace) {
 		final Matcher m = Pattern.compile(atRegex).matcher(stackTrace);
@@ -115,12 +116,14 @@ public class StackTrace {
 		int i = exceptionLine.length() - 1;
 		while (exceptionLine.charAt(i) >= '0' && exceptionLine.charAt(i) <= '9')
 			--i;
-		return Integer.parseInt(exceptionLine.substring(i + 1, exceptionLine.length()));
+		return Integer.parseInt(
+				exceptionLine.substring(i + 1, exceptionLine.length()));
 	}
 
 	@Override
 	public boolean equals(final Object ¢) {
-		return ¢ instanceof StackTrace && (¢ == this || getString().equals(((StackTrace) ¢).getString()));
+		return ¢ instanceof StackTrace && (¢ == this
+				|| getString().equals(((StackTrace) ¢).getString()));
 	}
 
 	@Override
