@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
 
-import com.bugquery.markers.Triple;
+import com.bugquery.markers.MarkerInformation;
 
 /**
  * offers {@link #trace(String)} which gets some output and (given that the
@@ -65,9 +65,9 @@ public interface Extract {
 		return $;
 	}
 
-	public static ArrayList<Triple<String, String, Integer>> markersInfo(
+	public static ArrayList<MarkerInformation> markersInfo(
 			String ¢) {
-		ArrayList<Triple<String, String, Integer>> $ = new ArrayList<>();
+		ArrayList<MarkerInformation> $ = new ArrayList<>();
 		if (¢ == null)
 			return $;
 
@@ -86,7 +86,7 @@ public interface Extract {
 				tmpPackage = tmpPackage.substring(0, idx);
 
 			tmpPackage = toFolder(tmpPackage);
-			$.add(new Triple<String, String, Integer>(tmpPackage,
+			$.add(new MarkerInformation(tmpPackage,
 					filename(tmpLink), line(tmpLink)));
 		}
 		return $;

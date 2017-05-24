@@ -3,16 +3,11 @@ package com.bugquery.markers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.*;
-import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.texteditor.*;
-
 import com.bugquery.stacktrace.Extract;
 
 /**
@@ -98,11 +93,11 @@ public class MarkerFactory {
 
 	public void addMarkers(String trace) {
 		String exception = StackTrace.of(trace).getException();
-		ArrayList<Triple<String, String, Integer>> markerInfo = Extract
+		ArrayList<MarkerInformation> markerInfo = Extract
 				.markersInfo(trace);
-		for (Triple<String, String, Integer> t : markerInfo) {
-			final IFile file = ResourcesUtils.getFile("Test", "src/"+t.getFirst(), t.getSecond());
-			addMarker(file, t.getThird(), "This line causes " + exception);
+		for (MarkerInformation t : markerInfo) {
+			final IFile file = ResourcesUtils.getFile("Test", "src/"+t.getPackageName(), t.getFileName());
+			addMarker(file, t.getLineNumber(), "This line causes " + exception);
 		}
 	}
 
