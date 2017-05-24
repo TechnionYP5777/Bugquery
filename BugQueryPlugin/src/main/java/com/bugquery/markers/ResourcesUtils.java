@@ -4,7 +4,6 @@ import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.ui.*;
-import org.eclipse.ui.views.navigator.*;
 /**
  * Helps with getting project objects
  * 
