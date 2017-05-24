@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bugquery.serverside.examplesparser.ExamplesParser;
+
 /**
  * Hooks to handle miscellaneous requests
  * 
@@ -61,10 +63,7 @@ public class TemplateController {
 	public static String getExamples(Model ¢) {
 		¢.addAttribute(VIEW, EXAMPLES);
 		¢.addAttribute(TITLE, "Examples");
-		List<String> l = new ArrayList<>();
-		//Temp list adding, will fix to the real exception type list
-		l.add("NullPointer");
-		l.add("Ziv izhar");
+		List<String> l = new ExamplesParser().getExceptionTypes();
 		¢.addAttribute(EXTYPELIST, l);
 		return LAYOUT;
 	}
