@@ -22,9 +22,6 @@ import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 @SpringBootApplication
 public class Application {
 	
-	@Autowired
-	private AnswerAdder c;
-	
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
 	
@@ -42,11 +39,11 @@ public class Application {
 			
 			if (args.length > 0) {
 				if ("--createDB".equals(args[0])) {
-//					ChangeMe c = new ChangeMe();
-					c.importAnswersFromStackOverflow();
+				
 					// TODO: create db
 					log.info("Created DB");
 				}
+				
 				if ("--updateDB".equals(args[0])) {
 					// TODO: update db
 					log.info("Updated DB");
