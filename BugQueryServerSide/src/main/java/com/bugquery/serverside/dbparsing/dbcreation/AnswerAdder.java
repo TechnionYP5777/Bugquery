@@ -23,15 +23,17 @@ public class AnswerAdder {
 	@Autowired
 	private PostRepository repo;
 	
-	private static String address = "localhost:4499";
+	private static String address = "localhost:4488";
 	Connection conn;
 	public AnswerAdder(){
 		try {
 			Class.forName(COM_MYSQL_JDBC_DRIVER).newInstance();
 			conn = DriverManager.getConnection("jdbc:mysql://"+address+"/bugquery?user=root&password=root");
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -39,7 +41,7 @@ public class AnswerAdder {
 	public void importAnswersFromStackOverflow()  {
 
 		int c = (int) repo.count();
-		for (int i = 1; i <= c; ++i){
+		for (int i = 60; i <= c; ++i){
 			Post p = repo.findOne((long) i);
 			String answer  = getAnswerFromAnswerId(p.getAnswerId());
 			p.setAnswer(answer);
