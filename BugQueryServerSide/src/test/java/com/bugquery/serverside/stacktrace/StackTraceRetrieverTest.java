@@ -7,12 +7,15 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.PostStub;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.repositories.PostRepository;
 import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
 import com.bugquery.serverside.stacktrace.distance.WeightLinesSTDistancer;
 import com.bugquery.serverside.stacktrace.distance.levenshtein.LevenshteinSTDistancer;
@@ -23,7 +26,10 @@ import com.bugquery.serverside.stacktrace.distance.levenshtein.LevenshteinSTDist
  * @since 11.12.2016
  */
 @SuppressWarnings("static-method")
+@RunWith(SpringRunner.class)
 public class StackTraceRetrieverTest {
+	@MockBean
+	PostRepository repo;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
