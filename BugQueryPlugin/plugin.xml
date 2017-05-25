@@ -7,13 +7,18 @@
       <command name="Get Trace from Console" categoryId="com.bugquery.commands" id="com.bugquery.commands.fromconsole" />
       <command name="Get Trace from Clipboard" categoryId="com.bugquery.commands" id="com.bugquery.commands.fromclipboard" />
       <command name="Get Trace from Input Window" categoryId="com.bugquery.commands" id="com.bugquery.commands.frominputdialog" />
-      <command defaultHandler="com.bugquery.actions.FromConsole" categoryId="com.bugquery.commands" id="com.bugquery.commands.dropdownmenu" name="Get Trace From Console" />
+      <command name="Choose project..." categoryId="com.bugquery.commands" id="com.bugquery.commands.dynamicitem" />
+      <command name="Choose project..." categoryId="com.bugquery.commands" id="com.bugquery.commands.dynamicitem2" />
+      <command defaultHandler="com.bugquery.actions.DynamicItem" categoryId="com.bugquery.commands" id="com.bugquery.commands.dropdownmenu" name="Choose project..." />
    </extension>
+   
    
    <extension point="org.eclipse.ui.handlers">
       <handler commandId="com.bugquery.commands.fromconsole" class="com.bugquery.actions.FromConsole" />
       <handler commandId="com.bugquery.commands.fromclipboard" class="com.bugquery.actions.FromClipboard" />
       <handler commandId="com.bugquery.commands.frominputdialog" class="com.bugquery.actions.FromInputDialog" />
+      <handler commandId="com.bugquery.commands.dynamicitem" class="com.bugquery.actions.DynamicItem" />
+            <handler commandId="com.bugquery.commands.dynamicitem2" class="com.bugquery.actions.DynamicItem" />
    </extension>
    
    <extension point="org.eclipse.ui.bindings">
@@ -21,9 +26,19 @@
    </extension>
    
    <extension point="org.eclipse.ui.menus">
-      <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">
-         <command commandId="com.bugquery.commands.fromconsole" icon="icons/bugquery_console.gif" label="Trace from Console" style="push" />
+     
+      <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">            
+            <dynamic 
+            	class="com.bugquery.actions.DynamicItem"
+                id="com.bugquery.commands.dynamicitem" >
+            </dynamic> 	   
+            
+            <dynamic 
+            	class="com.bugquery.actions.DynamicItem"
+                id="com.bugquery.commands.dynamicitem2" >
+            </dynamic> 	         
       </menuContribution>
+      
       <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar id="toolbarmenu">
             <command commandId="com.bugquery.commands.dropdownmenu" icon="icons/bugquery_main.gif" label="BugQuery Toolbar" style="pulldown" />
@@ -39,7 +54,11 @@
                   label="Trace from Clipboard"
                   style="push">
             </command>
-            <command commandId="com.bugquery.commands.frominputdialog" icon="icons/bugquery_dialog.gif" label="Trace from User Dialog" style="push" />
+            <command 
+            	  commandId="com.bugquery.commands.frominputdialog"
+				  icon="icons/bugquery_dialog.gif"
+				  label="Trace from User Dialog"
+				  style="push" />
          </toolbar>
       </menuContribution>
    </extension>
