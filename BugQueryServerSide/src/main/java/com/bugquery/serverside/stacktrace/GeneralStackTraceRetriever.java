@@ -34,11 +34,13 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 	}
 	
 	public GeneralStackTraceRetriever(StackTraceDistancer d) {
+		if (d == null)
+			throw new IllegalArgumentException();
 		this.d = d;
 	}
 
 	public GeneralStackTraceRetriever(StackTraceDistancer d, PostRepository repo) {
-		this.d = d;
+		this(d);
 		this.repo = repo;
 	}
 
