@@ -9,10 +9,6 @@ import java.util.regex.Pattern;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
-
-
-
-
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 

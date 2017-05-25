@@ -52,5 +52,9 @@ public class Application {
 //		};
 //	}
 
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> d67083d9cc89197652f98a8033596039e85ca8bd

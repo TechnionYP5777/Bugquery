@@ -28,7 +28,6 @@ public class Post extends AbstractPersistable<Long> {
 		this();
 		this.stackTrace = stackTrace;
 	}
-
 		
 	public Post(String stackContent) {
 		this();
