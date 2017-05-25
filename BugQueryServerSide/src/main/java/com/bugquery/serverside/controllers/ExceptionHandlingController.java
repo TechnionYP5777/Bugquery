@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 
 /** Sink: all exception go here
- * @author Yosef
- * @since Jan 2, 2017
+ * @author yosefraisman
+ * @since 2.1.2017
  *
  */
 @ControllerAdvice
