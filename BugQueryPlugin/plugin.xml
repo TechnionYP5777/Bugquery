@@ -27,11 +27,7 @@
       <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">            
             <dynamic 
             	class="com.bugquery.actions.DynamicItem"
-                id="com.bugquery.commands.dynamicitem" >
-                <commandParameter
-				    name="commandParameterID" >
-				</commandParameter>
-                
+                id="com.bugquery.commands.dynamicitem" >                
             </dynamic> 	          
       </menuContribution>
       

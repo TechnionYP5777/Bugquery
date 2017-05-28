@@ -5,9 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.text.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.ui.PlatformUI;
+import org.osgi.service.prefs.Preferences;
+
 import com.bugquery.stacktrace.Extract;
 
 /**
@@ -95,8 +98,11 @@ public class MarkerFactory {
 		String exception = StackTrace.of(trace).getException();
 		ArrayList<MarkerInformation> markerInfo = Extract
 				.markersInfo(trace);
+		Preferences prefs = InstanceScope.INSTANCE.getNode(
+				"com.bugquery.preferences");
+		String projectName = prefs.get("projectname", "default");
 		for (MarkerInformation t : markerInfo) {
-			final IFile file = ResourcesUtils.getFile("Test", "src/"+t.getPackageName(), t.getFileName());
+			final IFile file = ResourcesUtils.getFile(projectName, "src/"+t.getPackageName(), t.getFileName());
 			addMarker(file, t.getLineNumber(), "This line causes " + exception);
 		}
 	}
