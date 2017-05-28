@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.bugquery.serverside.examplesparser.ExamplesXMLCreator;
+import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
@@ -24,7 +25,8 @@ public class Application {
 	
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
-	
+	@Autowired
+	private StackTraceRetriever retriever;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class,args);
@@ -50,7 +52,7 @@ public class Application {
 				}
 				
 				if ("--createExamples".equals(args[0])){
-					new ExamplesXMLCreator().createExamplesXML();
+					new ExamplesXMLCreator(retriever).createExamplesXML();
 					log.info("Created Examples");
 				}
 			}

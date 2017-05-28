@@ -1,6 +1,7 @@
 package com.bugquery.serverside.examplesparser;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -13,6 +14,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,9 +25,14 @@ import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
+@Component
 public class ExamplesXMLCreator {	
-	@Autowired
-	private static StackTraceRetriever retriever;
+
+	StackTraceRetriever retriever;
+	
+	public ExamplesXMLCreator(StackTraceRetriever ret){
+		retriever = ret;
+	}
 	
 	public void createExamplesXML(){
 		List<String> exTypes = new ExamplesParser().getExceptionTypes();
@@ -94,7 +101,7 @@ public class ExamplesXMLCreator {
 		
 	}
 
-	public static List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
+	public List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
 		return retriever.getMostRelevantPosts(trace, 10);
 	}
 }
