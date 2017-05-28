@@ -29,7 +29,7 @@ import com.bugquery.serverside.entities.StackTrace;
  */
 public class ExamplesParser {
 	private static final String exceptionTypesFile = "examples/ExceptionTypes.xml";
-	private static final String postsPath = "examples/posts/";
+	public static final String postsPath = "examples/posts/";
 	private Document getDocFromXmlFile(String xmlName) {
 		ClassLoader classLoader = getClass().getClassLoader();		
 		File fXmlFile = new File(classLoader.getResource(xmlName).getFile());

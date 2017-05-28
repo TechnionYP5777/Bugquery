@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.bugquery.serverside.examplesparser.ExamplesXMLCreator;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
@@ -49,7 +50,7 @@ public class Application {
 				}
 				
 				if ("--createExamples".equals(args[0])){
-					// TODO: create examples
+					new ExamplesXMLCreator().createExamplesXML();
 					log.info("Created Examples");
 				}
 			}
