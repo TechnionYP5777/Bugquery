@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exceptionlist>
-<type>NullPointerException</type>
-<type>NumberFormatException</type>
-<type>IllegalArgumentException</type>
-<type>RuntimeException</type>
-<type>IllegalStateException</type>
+<type id="NullPointerException">stack trace 1</type>
+<type id="NumberFormatException">stack trace 2</type>
+<type id="IllegalArgumentException">stack trace 3</type>
+<type id="RuntimeException">stack trace 4</type>
+<type id="IllegalStateException">stack trace 5</type>
 </exceptionlist>
