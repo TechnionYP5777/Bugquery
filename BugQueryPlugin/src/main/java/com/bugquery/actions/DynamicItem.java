@@ -23,21 +23,21 @@ public class DynamicItem extends CompoundContributionItem {
 		super(id);
 	}
 
-	@Override
-	public void fill(Menu menu, int index) {
-		// Here you could get selection and decide what to do
-		// You can also simply return if you do not want to show a menu
-
-		// create the menu item
-		MenuItem menuItem = new MenuItem(menu, SWT.RADIO, index);
-		menuItem.setText(
-				ResourcesUtils.getOpenedProjects().get(index).getName());
-		menuItem.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Dynamic menu selected");
-			}
-		});
-	}
+	// @Override
+	// public void fill(Menu menu, int index) {
+	// // Here you could get selection and decide what to do
+	// // You can also simply return if you do not want to show a menu
+	//
+	// // create the menu item
+	// MenuItem menuItem = new MenuItem(menu, SWT.RADIO, index);
+	// menuItem.setText(
+	// ResourcesUtils.getOpenedProjects().get(index).getName());
+	// menuItem.addSelectionListener(new SelectionAdapter() {
+	// public void widgetSelected(SelectionEvent e) {
+	// System.out.println("Dynamic menu selected");
+	// }
+	// });
+	// }
 
 	@Override
 	protected IContributionItem[] getContributionItems() {
@@ -55,9 +55,10 @@ public class DynamicItem extends CompoundContributionItem {
 				PlatformUI.getWorkbench(), null,
 				"com.bugquery.commands.dynamicitem",
 				CommandContributionItem.STYLE_PUSH);
-		param.parameters = new HashMap<String, String>();
-		param.parameters.put("com.bugquery.commands.dynamicitem",
-				ResourcesUtils.getOpenedProjects().get(index).getName());
+//		param.parameters = new HashMap<String, String>();
+//		param.parameters.put("commandParameterID", "TheValue");
+		param.visibleEnabled = true;
+		param.label = ResourcesUtils.getOpenedProjects().get(index).getName(); 
 
 		return new CommandContributionItem(param);
 	}

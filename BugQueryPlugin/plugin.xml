@@ -7,9 +7,7 @@
       <command name="Get Trace from Console" categoryId="com.bugquery.commands" id="com.bugquery.commands.fromconsole" />
       <command name="Get Trace from Clipboard" categoryId="com.bugquery.commands" id="com.bugquery.commands.fromclipboard" />
       <command name="Get Trace from Input Window" categoryId="com.bugquery.commands" id="com.bugquery.commands.frominputdialog" />
-      <command name="Choose project..." categoryId="com.bugquery.commands" id="com.bugquery.commands.dynamicitem" />
-      <command name="Choose project..." categoryId="com.bugquery.commands" id="com.bugquery.commands.dynamicitem2" />
-      <command defaultHandler="com.bugquery.actions.DynamicItem" categoryId="com.bugquery.commands" id="com.bugquery.commands.dropdownmenu" name="Choose project..." />
+      <command defaultHandler="com.bugquery.actions.ChooseProjectHandler" categoryId="com.bugquery.commands" id="com.bugquery.commands.dropdownmenu" name="Choose project..." />
    </extension>
    
    
@@ -17,8 +15,7 @@
       <handler commandId="com.bugquery.commands.fromconsole" class="com.bugquery.actions.FromConsole" />
       <handler commandId="com.bugquery.commands.fromclipboard" class="com.bugquery.actions.FromClipboard" />
       <handler commandId="com.bugquery.commands.frominputdialog" class="com.bugquery.actions.FromInputDialog" />
-      <handler commandId="com.bugquery.commands.dynamicitem" class="com.bugquery.actions.DynamicItem" />
-            <handler commandId="com.bugquery.commands.dynamicitem2" class="com.bugquery.actions.DynamicItem" />
+      <handler commandId="com.bugquery.commands.dynamicitem" class="com.bugquery.actions.DynamicItemHandler" />
    </extension>
    
    <extension point="org.eclipse.ui.bindings">
@@ -31,12 +28,11 @@
             <dynamic 
             	class="com.bugquery.actions.DynamicItem"
                 id="com.bugquery.commands.dynamicitem" >
-            </dynamic> 	   
-            
-            <dynamic 
-            	class="com.bugquery.actions.DynamicItem"
-                id="com.bugquery.commands.dynamicitem2" >
-            </dynamic> 	         
+                <commandParameter
+				    name="commandParameterID" >
+				</commandParameter>
+                
+            </dynamic> 	          
       </menuContribution>
       
       <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
