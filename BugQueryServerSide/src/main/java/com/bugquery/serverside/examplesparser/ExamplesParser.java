@@ -2,6 +2,7 @@ package com.bugquery.serverside.examplesparser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -32,7 +33,10 @@ public class ExamplesParser {
 	public static final String postsPath = "examples/posts/";
 	private Document getDocFromXmlFile(String xmlName) {
 		ClassLoader classLoader = getClass().getClassLoader();		
-		File fXmlFile = new File(classLoader.getResource(xmlName).getFile());
+		URL xmlURL = classLoader.getResource(xmlName);
+		if(xmlURL == null)
+			return null;
+		File fXmlFile = new File(xmlURL.getFile());
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = null;
 		try {
