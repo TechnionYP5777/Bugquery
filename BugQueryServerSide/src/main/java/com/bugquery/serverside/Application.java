@@ -4,12 +4,16 @@ package com.bugquery.serverside;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import com.bugquery.serverside.examplesparser.ExamplesXMLCreator;
+import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
@@ -23,13 +27,13 @@ import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 public class Application {
 	
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
-	
-	
-	
+	private static ConfigurableApplicationContext context;
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class,args);
+		if (args.length > 0 && "--createExamples".equals(args[0])){
+			ExamplesXMLCreator.activate();
+		}
+		context = SpringApplication.run(Application.class,args);
 	}
-	
 	
 	// Has to be non-static, doesn't work otherwise!
 	@Bean
@@ -47,11 +51,6 @@ public class Application {
 				if ("--updateDB".equals(args[0])) {
 					// TODO: update db
 					log.info("Updated DB");
-				}
-				
-				if ("--createExamples".equals(args[0])){
-					new ExamplesXMLCreator().createExamplesXML();
-					log.info("Created Examples");
 				}
 			}
 		};

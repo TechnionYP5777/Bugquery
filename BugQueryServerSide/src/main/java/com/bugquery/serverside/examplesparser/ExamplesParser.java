@@ -97,4 +97,9 @@ public class ExamplesParser {
 			}
 		return posts;
 	}
+	
+	public String getLocation(String exceptionType){
+		ClassLoader classLoader = getClass().getClassLoader();		
+		return classLoader.getResource(ExamplesParser.postsPath + exceptionType + ".xml").getFile();
+	}
 }
