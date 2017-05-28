@@ -47,6 +47,11 @@ public class Application {
 					// TODO: update db
 					log.info("Updated DB");
 				}
+				
+				if ("--createExamples".equals(args[0])){
+					// TODO: create examples
+					log.info("Created Examples");
+				}
 			}
 		};
 	}
