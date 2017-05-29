@@ -1,4 +1,4 @@
-package com.bugquery.serverside.examplesparser;
+package com.bugquery.serverside.examples;
 
 import java.io.File;
 import java.util.List;

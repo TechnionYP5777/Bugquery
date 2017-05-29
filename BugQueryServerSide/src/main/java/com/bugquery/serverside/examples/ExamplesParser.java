@@ -1,4 +1,4 @@
-package com.bugquery.serverside.examplesparser;
+package com.bugquery.serverside.examples;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,7 +99,8 @@ public class ExamplesParser {
 	}
 	
 	public String getLocation(String exceptionType){
-		ClassLoader classLoader = getClass().getClassLoader();		
-		return classLoader.getResource(ExamplesParser.postsPath + exceptionType + ".xml").getFile();
+		ClassLoader classLoader = getClass().getClassLoader();
+		URL xmlURL = classLoader.getResource(ExamplesParser.postsPath + exceptionType + ".xml");
+		return xmlURL == null ? null : xmlURL.getFile();
 	}
 }

@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import com.bugquery.serverside.examplesparser.ExamplesXMLCreator;
+import com.bugquery.serverside.examples.ExamplesXMLCreator;
 import com.bugquery.serverside.repositories.StackSearchRepository;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 

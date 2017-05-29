@@ -1,14 +1,12 @@
 package com.bugquery.serverside.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bugquery.serverside.examplesparser.ExamplesParser;
+import com.bugquery.serverside.examples.ExamplesParser;
 
 /**
  * Hooks to handle miscellaneous requests
@@ -28,9 +26,9 @@ public class TemplateController {
 	private static final String SUBMIT = "submit";
 	private static final String TITLE = "title";
 	private static final String VIEW = "view";
-	private static final String DESCRIPTION = "description";
 	private static final String EXAMPLES = "examples";
 	private static final String EXTYPELIST = "extypelist";
+	public static final String DESCRIPTION = "description";
 	
 	@RequestMapping(value = ("/" + GUIDE), method = RequestMethod.GET)
 	public static String getGuide(Model ¢) {
@@ -65,6 +63,10 @@ public class TemplateController {
 		¢.addAttribute(TITLE, "Examples");
 		List<String> l = new ExamplesParser().getExceptionTypes();
 		¢.addAttribute(EXTYPELIST, l);
+		¢.addAttribute(DESCRIPTION, "Examples page with stacktraces for " +
+				"the most common Java exception types: java.lang.NullPointerException," +
+				 " java.lang.NumberFormatException, " +
+				"java.lang.IllegalArgumentException, java.lang.RuntimeException, java.lang.IllegalStateException");
 		return LAYOUT;
 	}
 }
