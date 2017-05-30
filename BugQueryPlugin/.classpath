@@ -23,14 +23,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/Desktop/eclipse/plugins/org.eclipse.ui.ide_3.12.3.v20170119-0935.jar" sourcepath="C:/Users/User/Desktop/eclipse/plugins/org.eclipse.ui.ide.source_3.12.3.v20170119-0935.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/User/Desktop/eclipse/plugins/org.eclipse.platform.doc.isv_4.6.2.v20170221-1001.jar!/reference/api"/>
-		</attributes>
-		<accessrules>
-			<accessrule kind="accessible" pattern="org/eclipse/ui/*"/>
-			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
-		</accessrules>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
