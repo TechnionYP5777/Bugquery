@@ -45,7 +45,7 @@ public interface Dispatch {
 	public static void sendBugQuery(String trace) {
 		markersInit(trace);
 		
-		final String urlStr = "http://localhost:8080/stacks";
+		final String urlStr = "http://yonilx.ddns.net:2017/stacks";
 		URL url;
 		try {
 			url = new URL(urlStr);
