@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.bugquery.feature"
+      label="BugQuery"
+      version="0.1.0"
+      provider-name="BugQuery">
+
+   <description url="http://yonilx.ddns.net:2017">
+      BugQuery is a search engine for stack traces. It helps you fix your code in a quick and efficient way, using an index of questions and answers extracted from web services like StackOverflow. BugQuery includes this plug-in for Eclipse, alongside a Q/A index and a website.
+   </description>
+
+   <copyright url="http://yonilx.ddns.net:2017">
+      Copyright 2017 BugQuery
+   </copyright>
+
+   <license url="http://yonilx.ddns.net:2017">
+      Copyright 2017 BugQuery
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   </license>
+
+   <url>
+      <discovery label="Official Website" url="http://yonilx.ddns.net:2017"/>
+      <discovery label="BugQuery on GitHub" url="https://github.com/TechnionYP5777/Bugquery"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui" version="3.108.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.console" version="3.6.201" match="greaterOrEqual"/>
+      <import plugin="org.junit" version="4.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.core.runtime" version="3.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface.text" version="3.11.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.launching" version="3.8.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor" version="3.10.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt" version="3.12.3" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.debug.ui" version="3.7.201" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.views" version="3.8.102" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.12.3" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors"/>
+   </requires>
+
+   <plugin
+         id="com.bugquery.plugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
