@@ -5,7 +5,7 @@
 		BugQuery offers online and as a plug-in for Eclipse.</p>
 	<h2>Eclipse Plug-in</h2>
 	<p>
-		<img src="./img/guide/bugquery_window.png"></img>
+		<img src="./img/guide/bugquery_window.png" class="img-responsive"></img>
 	</p>
 	<p>BugQuery's Eclipse plug-in collects your program's stack trace,
 		and helps you debug by automatically finding a relevant solution
@@ -15,53 +15,60 @@
 	<h3>Set Up</h3>
 	<p>
 		To use this plug-in you must have Eclipse installed on your machine.
-		The plug-in is supported in Eclipse Neon, which you can download from
+		The plug-in is supported in Eclipse Neon (which you can download from
 		the <a href="http://www.eclipse.org/downloads/">Eclipse Foundation
-			website</a>.
-	</p>
-	<p>
-		To download the latest version of the BugQuery plug-in itself, please
-		visit <a href="https://github.com/TechnionYP5777/Bugquery">BugQuery's
-			GitHub repository</a>. Locate and download
-		<code>BugQuery.jar</code>
-		, then move it to the folder named
-		<code>dropins</code>
-		in your Eclipse installation directory. If Eclipse is open, you'll
-		need to restart the workspace for changes to take effect.
+			website</a>). To install the latest version of the BugQuery plug-in
+		please follow the directions in our <a class="internal present"
+			href="https://github.com/TechnionYP5777/Bugquery/wiki/Client-Game-Plug-in-Installation">Client
+			Game Plug in Installation</a> wiki. In the future, the plug-in will be
+		available in the Eclipse marketplace.
 	</p>
 	<h3>Quickly Solve Bugs</h3>
 	<p>
-		First, locate BugQuery's toolbar in the Eclipse toolbar. Click the
-		arrow next to the main icon (<img src="./img/guide/bugquery_main.gif"></img>)
-		to open the drop-down menu, which lists several stack trace extraction
-		methods supported by the plug-in.
+		<img src="./img/guide/bugquery_window_select.png"
+			class="img-responsive"></img>
 	</p>
 	<p>
-		<img src="./img/guide/bugquery_window_select.png"></img>
+		First, locate BugQuery's toolbar in the Eclipse toolbar. Click the
+		arrow next to the main icon (<img src="./img/guide/bugquery_main.gif"></img>)
+		to select the project you want BugQuery to debug from the drop-down
+		menu.
 	</p>
-	<p>To debug your program with BugQuery, select the method you
-		prefer from the drop-down menu, or click the matching button in the
-		toolbar. The plug-in will then use that method to retrive the stack
-		trace (which includes the details of your execution), and search our
-		database for a solution. The results will be presented in your default
-		browser.</p>
+	<p>
+		<img src="./img/guide/bugquery_dropdown.png" class="img-responsive"></img>
+	</p>
+	<p>There are several methods you can use to debug with BugQuery.
+		The plug-in will use the method you choose to retrieve the stack trace
+		(which includes details about your execution), and then will display
+		search results from our database in your default browser. BugQuery
+		Markers will be added to the relevant lines in your code.</p>
 	<p>With the BugQuery plug-in installed, you can choose from this
 		selection of stack extraction methods:</p>
-	<ul>
-		<li><p>
-				<b>Extract the trace from console output.</b> After an unsuccessful
+	<div class="row">
+		<div class="col-md-6">
+			<p>
+				<img src="./img/guide/bugquery_in_console.png"
+					class="img-responsive"></img>
+			</p>
+			<p>
+				<b>Extract the trace from a console.</b> After an unsuccessful
 				execution in Eclipse, the BugQuery plug-in can automatically isolate
-				your program's stack trace from the console output. Extract the
-				trace using this method by selecting
-				<code>Trace from Console</code>
-				from the drop-down menu, or by using the keyboard shortcut
+				your program's stack trace from the console output. You can either
+				press the BugQuery button shown above your console, or select the
+				command's icon (<img src="./img/guide/bugquery_console.gif"></img>)
+				in the toolbar. You can also use the keyboard shortcut
 				<code>ctrl+6</code>
 				(or
-				<code>&#8984;+6</code>
-				in macOS). You can also click on the command's icon (<img
-					src="./img/guide/bugquery_console.gif"></img>) in the toolbar.
-			</p></li>
-		<li><p>
+				<code>⌘+6</code>
+				in macOS).
+			</p>
+		</div>
+		<div class="col-md-6">
+			<p>
+				<img src="./img/guide/bugquery_in_dialog.png" class="img-responsive"></img>
+			</p>
+
+			<p>
 				<b>Input the trace yourself.</b> If other methods fail, you can
 				always initiate a BugQuery search with your own input. Add your
 				query (your stack trace) to the system clipboard using your default
@@ -75,6 +82,18 @@
 				You don't have to worry about formatting or adding unnecessary
 				information - the plug-in faithfully extracts the important parts of
 				your input.
-			</p></li>
-	</ul>
+			</p>
+		</div>
+	</div>
+
+	<h2>Website</h2>
+	<p>
+		<img src="./img/guide/bugquery_website.png" class="img-responsive"></img>
+	</p>
+	<p>
+		Temporarily available at <a href="http://yonilx.ddns.net:2017">http://yonilx.ddns.net:2017</a>,
+		the website lets you interact with BugQuery online. Most notably, you
+		can query the database with traces in our <a href="/submit">Submit</a>
+		page.
+	</p>
 </div>
