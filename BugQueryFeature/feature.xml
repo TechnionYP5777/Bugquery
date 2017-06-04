@@ -2,7 +2,7 @@
 <feature
       id="com.bugquery.feature"
       label="BugQuery"
-      version="0.1.0"
+      version="0.1.1"
       provider-name="BugQuery">
 
    <description url="http://yonilx.ddns.net:2017">
