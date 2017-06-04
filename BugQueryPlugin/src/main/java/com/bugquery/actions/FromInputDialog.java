@@ -30,7 +30,7 @@ public class FromInputDialog extends AbstractHandler {
 	 *         the user.
 	 */
 	public String fromInputDialog(final Shell ¢) {
-		final ExtendedDialog $ = new ExtendedDialog(¢, "BugQuery Input", "Please Insert Your Output", null, null);
+		final ExtendedDialog $ = new ExtendedDialog(¢, "BugQuery Input", "Insert your stack trace below:", null, null);
 		return $.open() != Window.OK ? null : $.getValue();
 	}
 
