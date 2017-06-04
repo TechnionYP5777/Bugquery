@@ -6,6 +6,10 @@ import java.util.List;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.ui.PlatformUI;
@@ -101,8 +105,21 @@ public class MarkerFactory {
 		Preferences prefs = InstanceScope.INSTANCE.getNode(
 				"com.bugquery.preferences");
 		String projectName = prefs.get("projectname", "default");
+		String src = "src/";
+		IJavaProject p = JavaCore.create(ResourcesUtils.getProject(projectName));
+		try {
+			IPackageFragmentRoot[] ipfr = p.getAllPackageFragmentRoots();
+			for (IPackageFragmentRoot i : ipfr) {
+				if ( i.getKind() == IPackageFragmentRoot.K_SOURCE ) {
+					src = i.getElementName();
+					break;
+				}
+			}
+		} catch (JavaModelException e) {
+			
+		}
 		for (MarkerInformation t : markerInfo) {
-			final IFile file = ResourcesUtils.getFile(projectName, "src/"+t.getPackageName(), t.getFileName());
+			final IFile file = ResourcesUtils.getFile(projectName, src+"/"+t.getPackageName(), t.getFileName());
 			addMarker(file, t.getLineNumber(), "This line causes " + exception);
 		}
 	}
