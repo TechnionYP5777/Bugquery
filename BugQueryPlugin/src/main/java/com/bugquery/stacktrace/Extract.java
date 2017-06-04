@@ -71,7 +71,7 @@ public interface Extract {
 		if (¢ == null)
 			return $;
 
-		¢ = trace(¢);
+		//¢ = trace(¢);
 		for (final Matcher m = linkPattern.matcher(¢); m.find();) {
 			String tmp = m.group(0);
 			tmp = tmp.substring(3, tmp.length());

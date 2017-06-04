@@ -30,6 +30,7 @@ public interface Dispatch {
 	 * @param trace
 	 */
 	public static void query(final String trace) {
+		markersInit(trace);
 		if (trace != null && !trace.isEmpty())
 			sendBugQuery(Extract.trace(trace));
 	}
@@ -43,8 +44,6 @@ public interface Dispatch {
 	 *            - an extracted trace
 	 */
 	public static void sendBugQuery(String trace) {
-		markersInit(trace);
-		
 		final String urlStr = "http://yonilx.ddns.net:2017/stacks";
 		URL url;
 		try {
