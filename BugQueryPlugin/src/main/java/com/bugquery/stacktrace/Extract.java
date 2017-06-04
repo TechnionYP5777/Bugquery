@@ -129,6 +129,6 @@ public interface Extract {
 	}
 
 	static String toFolder(String packageString) {
-		return packageString.replace(".", "\\");
+		return packageString.replace(".", "/");
 	}
 }

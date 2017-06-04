@@ -111,7 +111,9 @@ public class MarkerFactory {
 			IPackageFragmentRoot[] ipfr = p.getAllPackageFragmentRoots();
 			for (IPackageFragmentRoot i : ipfr) {
 				if ( i.getKind() == IPackageFragmentRoot.K_SOURCE ) {
-					src = i.getElementName();
+					src = i.getPath().toString();
+					src = src.substring(src.indexOf("/")+1);
+					src = src.substring(src.indexOf("/")+1);
 					break;
 				}
 			}
@@ -119,7 +121,9 @@ public class MarkerFactory {
 			
 		}
 		for (MarkerInformation t : markerInfo) {
-			final IFile file = ResourcesUtils.getFile(projectName, src+"/"+t.getPackageName(), t.getFileName());
+			String folder =  src+"/"+t.getPackageName();
+//			folder = folder.replace("/", "\\");
+			final IFile file = ResourcesUtils.getFile(projectName, folder, t.getFileName());
 			addMarker(file, t.getLineNumber(), "This line causes " + exception);
 		}
 	}
