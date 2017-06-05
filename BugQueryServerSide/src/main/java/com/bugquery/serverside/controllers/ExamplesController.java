@@ -28,10 +28,11 @@ public class ExamplesController {
 		List<Post> $ = new ArrayList<>();
 		ExamplesParser e = new ExamplesParser();
 		$ = e.getPosts(exclass);
+		m.addAttribute("exceptiontype", exclass);
 		m.addAttribute("trace", e.getStackTraceByExceptionType(exclass));
 		m.addAttribute("results", $);
 		m.addAttribute(TemplateController.DESCRIPTION, "Example search result for a " +
 		"stacktrace from the type: " + exclass);
-		return "result";
+		return "exampleresult";
 	}
 }
