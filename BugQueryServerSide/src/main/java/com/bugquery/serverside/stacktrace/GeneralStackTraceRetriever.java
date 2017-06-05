@@ -91,7 +91,7 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 			throw new IllegalArgumentException();
 		StackTrace $ = new StackTrace(stackTrace);
 		if ($.getException() == StackTrace.noExceptionFound)
-			throw new InvalidStackTraceException("Illegal stack trace ");
+			throw new InvalidStackTraceException("Illegal stack trace - no exception was found.");
 		List<Post> allPosts = new ArrayList<>();
 		try {
 			allPosts = repo.findByStackTraceException($.getException());

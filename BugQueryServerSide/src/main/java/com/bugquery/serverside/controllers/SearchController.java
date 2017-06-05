@@ -38,7 +38,7 @@ public class SearchController {
 	private StackTraceRetriever retriever;
 
 	@RequestMapping(value = REQUEST_FORMAT, method = RequestMethod.GET)
-	public String getSearchResults(@PathVariable Long id, Model m) {
+	public String getSearchResults(@PathVariable Long id, Model m) throws InvalidStackTraceException {
 		StackSearch ss = repository.findOne(id);
 		if (ss == null)
 			throw new ResourceNotFoundException("Search id \"" + id + "\" could not be found.");
@@ -47,7 +47,7 @@ public class SearchController {
 		List<Post> $;
 		try {
 			$ = getResults(trace);
-		} catch (GeneralDBException | InvalidStackTraceException ¢) {
+		} catch (GeneralDBException ¢) {
 			throw new InternalServerException(¢);
 		}
 
