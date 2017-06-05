@@ -44,7 +44,7 @@ public interface Dispatch {
 	 *            - an extracted trace
 	 */
 	public static void sendBugQuery(String trace) {
-		final String urlStr = "http://yonilx.ddns.net:2017/stacks";
+		final String urlStr = "http://ssdlbugquery.cs.technion.ac.il/stacks";
 		URL url;
 		try {
 			url = new URL(urlStr);

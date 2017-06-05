@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.bugquery.feature_0.1.1.jar" id="com.bugquery.feature" version="0.1.1">
+   <feature url="features/com.bugquery.feature_0.1.5.jar" id="com.bugquery.feature" version="0.1.5">
       <category name="com.bugquery.tools"/>
    </feature>
    <category-def name="com.bugquery.tools" label="BugQuery Tools"/>
