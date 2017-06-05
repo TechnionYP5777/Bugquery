@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="utf-8"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" th:content="${description}"></meta>
+<meta name="author" content=""></meta>
+<link rel="icon" th:href="@{/favicon.ico}"></link>
+
+<title>BugQuery - Search Results</title>
+
+<!-- Bootstrap core CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+<!-- Bootstrap theme -->
+<link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet"></link>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<link th:href="@{/css/ie10-viewport-bug-workaround.css}"
+	rel="stylesheet"></link>
+
+<!-- Custom styles for this template -->
+<link th:href="@{/css/theme.css}" rel="stylesheet"></link>
+
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="/js/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div th:replace="fragments/header"></div>
+	<div class="container" role="main">
+		<h3>
+    		<span th:text="'BugQuery searched the following stacktrace of type '"></span>
+    		<b th:text="${exceptiontype}+':'" ></b>
+		</h3>
+		<div class="code-wrapper">
+			<code th:text="${trace}"></code>
+		</div>
+		<h3
+			th:text="'And found ' + ${#lists.size(results)} + ' results:'"></h3>
+		<div class="bugquery-result" th:each="result, iterStat : ${results}">
+			<a class="bugquery-result-label"
+				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Result</a>
+			<div class="code-wrapper">
+				<code th:text="${result}"></code>
+			</div>
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse"
+								th:href="'#question-' + ${iterStat.count}">Original Question</a>
+						</h4>
+					</div>
+					<div th:id="'question-' + ${iterStat.count}"
+						class="panel-collapse collapse">
+						<div class="panel-body" th:utext="${result.question}">Panel
+							Body</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer"></div>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+		if (typeof jQuery == 'undefined') {
+			document
+					.write(unescape("%3Cscript src='/js/vendor/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+		}
+	</script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/docs.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
