@@ -55,11 +55,11 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
-	public String addStackSearch(@RequestBody String input) {
+	public String addStackSearch(@RequestBody String input, Model m) {
 		String trace = input.substring("trace=".length());
 		StackSearch $ = new StackSearch(trace);
-		repository.save($);
-		return "redirect:stacks/" + $.getId();
+		m.addAttribute("stackId", repository.save($).getId());
+		return "loading";
 	}
 
 	public List<Post> getResults(StackSearch s) {
