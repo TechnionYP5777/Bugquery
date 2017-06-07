@@ -100,4 +100,15 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 		}
 		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, $, d, numOfPosts);
 	}
+
+	/**
+	 * Get posts from db by posts ids (keeps order)
+	 */
+	@Override
+	public List<Post> getPostsByIds(List<Long> postIds) {
+		List<Post> $ = new ArrayList<>();
+		for (Long id : postIds)
+			$.add(repo.findOne(id));
+		return $;
+	}
 }

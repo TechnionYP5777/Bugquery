@@ -5,25 +5,23 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	var stackId = /*[[${stackId}]]*/null;
-		
-	(function poll(){
-		setTimeout(function() {
-			$.ajax({
-				url: "stacks/" + stackId, 
-				success: function(data){
-						window.location = "stacks/" + stackId;
-						poll();
-					},
-				error: function(data){
-						poll();
-					}
-			});
-		}, 1000)
+
+	(function poll() {
+		$.ajax({
+			url : "stacks/" + stackId,
+			success : function(data) {
+				window.location = "stacks/" + stackId;
+			},
+			error : function(data) {
+				poll();
+			}
+		});
 	})();
 	/*]]>*/
 </script>
 </head>
-<body>BlaBla
+<body>
+	<img src="http://blog.teamtreehouse.com/wp-content/uploads/2015/05/InternetSlowdown_Day.gif" />
 </body>
 </html>
 

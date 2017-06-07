@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackSearch;
+import com.bugquery.serverside.entities.StackSearch.Status;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
@@ -42,17 +43,14 @@ public class SearchController {
 		StackSearch ss = repository.findOne(id);
 		if (ss == null)
 			throw new ResourceNotFoundException("Search id \"" + id + "\" could not be found.");
+		if (ss.status == Status.NEW) {
+			ss.getReady(retriever);
+			repository.save(ss);
+		}
 		String trace = ss.getTrace();
 
-		List<Post> $;
-		try {
-			$ = getResults(trace);
-		} catch (GeneralDBException ¢) {
-			throw new InternalServerException(¢);
-		}
-
 		m.addAttribute("trace", trace);
-		m.addAttribute("results", $);
+		m.addAttribute("results", getResults(ss));
 		return "result";
 	}
 
@@ -64,7 +62,7 @@ public class SearchController {
 		return "redirect:stacks/" + $.getId();
 	}
 
-	public List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
-		return retriever.getMostRelevantPosts(trace, 10);
+	public List<Post> getResults(StackSearch s) {
+		return retriever.getPostsByIds(s.getRelatedPostsIds());
 	}
 }

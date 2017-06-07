@@ -7,4 +7,5 @@ import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 public interface StackTraceRetriever {
 	List<Post> getMostRelevantPosts(String stackTrace, int numOfPosts) throws GeneralDBException, InvalidStackTraceException;
+	List<Post> getPostsByIds(List<Long> postIds);
 }
