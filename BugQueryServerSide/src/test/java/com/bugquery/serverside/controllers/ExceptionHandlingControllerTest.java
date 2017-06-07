@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.bugquery.serverside.exceptions.ResourceNotFoundException;
+
 /**
  * 
  * @author Amit
@@ -36,13 +38,13 @@ public class ExceptionHandlingControllerTest {
 	@Test
 	@SuppressWarnings("boxing")
 	public void searchIdShouldNotBeFound() throws Exception {
-		Exception exception = new RuntimeException("Test"); 
+		Exception exception = new ResourceNotFoundException("Test Message"); 
 		Mockito.when(controller.getSearchResults(anyLong(), any()))
 				.thenThrow(exception);
 
 		mockMvc.perform(get("/stacks/1"))
 				.andDo(print())
 				.andExpect(status().is(HttpStatus.OK.value()))
-				.andExpect(content().string(containsString(exception + "")));
+				.andExpect(content().string(containsString(exception.getMessage())));
 	}
 }
