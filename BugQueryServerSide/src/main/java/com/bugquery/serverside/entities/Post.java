@@ -16,10 +16,20 @@ public class Post extends AbstractPersistable<Long> {
 	@Embedded
 	private StackTrace stackTrace;
 	@Column(columnDefinition = "Text")
+	private String title;
+	@Column(columnDefinition = "Text")
 	private String question;
 	@Column(columnDefinition = "Text")
 	private String answer; 
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Post() { 
 		this.setId(null);
 	}
