@@ -48,7 +48,7 @@
 			<a class="bugquery-result-label"
 				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Result</a>
 			<div class="code-wrapper">
-				<code th:text="${result}"></code>
+				<code th:text="${result.getStackTrace().getContent()}"></code>
 			</div>
 			<div class="panel-group">
 				<div class="panel panel-default">

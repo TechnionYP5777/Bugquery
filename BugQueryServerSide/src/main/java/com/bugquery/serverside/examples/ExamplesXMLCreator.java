@@ -24,13 +24,12 @@ import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 
 @Component
 public class ExamplesXMLCreator {	
-	
-	
 	private static StackTraceRetriever retriever;
 	private static boolean run = false;
 	
@@ -39,14 +38,12 @@ public class ExamplesXMLCreator {
 	}
 	
 	@Autowired
-	public void createExamplesXML(StackTraceRetriever ret){	
-		if(run){
-			retriever = ret;
-			List<String> exTypes = new ExamplesParser().getExceptionTypes();
-			for (String exceptionType : exTypes){
-				createXML(exceptionType);
-			}
-		}
+	public void createExamplesXML(StackTraceRetriever r){	
+		if (!run)
+			return;
+		retriever = r;
+		for (String exceptionType : new ExamplesParser().getExceptionTypes())
+			createXML(exceptionType);
 	}
 	
 	private void createXML(String exceptionType){
@@ -78,17 +75,17 @@ public class ExamplesXMLCreator {
 					
 					// set stacktrace
 					Attr stacktrace = doc.createAttribute("stacktrace");
-					stacktrace.setValue(p.getStackTrace().getContent());
+					stacktrace.setValue(StackTraceExtractor.removeHtmlTags(p.getStackTrace().getContent()));
 					post.setAttributeNode(stacktrace);
 					
 					// set question
 					Attr question = doc.createAttribute("question");
-					question.setValue(p.getQuestion());
+					question.setValue(StackTraceExtractor.removeHtmlTags(p.getQuestion()));
 					post.setAttributeNode(question);
 					
 					// set answer
 					Attr answer = doc.createAttribute("answer");
-					answer.setValue(p.getAnswerId());
+					answer.setValue(StackTraceExtractor.removeHtmlTags(p.getAnswerId()));
 					post.setAttributeNode(answer);
 				}
 				
@@ -96,19 +93,14 @@ public class ExamplesXMLCreator {
 				LoggerFactory.getLogger(Application.class).info(exceptionType);
 				String filePath = new ExamplesParser().getLocation(exceptionType);
 				LoggerFactory.getLogger(Application.class).info(filePath);
-				File fXmlFile = new File(filePath);
-				TransformerFactory transformerFactory = TransformerFactory.newInstance();
-				Transformer transformer = transformerFactory.newTransformer();
-				DOMSource source = new DOMSource(doc);
-				StreamResult result = new StreamResult(fXmlFile);
-				transformer.transform(source, result);
+				TransformerFactory.newInstance().newTransformer().transform(new DOMSource(doc),
+						new StreamResult(new File(filePath)));
 
 		  } catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
 		  } catch (TransformerException tfe) {
 			tfe.printStackTrace();
-		  }
-		
+		  }	
 	}
 
 	public List<Post> getResults(String trace) throws GeneralDBException, InvalidStackTraceException {
