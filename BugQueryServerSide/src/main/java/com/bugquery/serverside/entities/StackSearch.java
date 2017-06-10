@@ -44,13 +44,15 @@ public class StackSearch {
 	protected StackSearch() {
 	}
 
-	public StackSearch(String encodedTrace) {
+	public StackSearch(String encodedTrace) throws InvalidStackTraceException {
 		try {
 			trace = URLDecoder.decode(encodedTrace, "UTF-8");
 		} catch (@SuppressWarnings("unused") UnsupportedEncodingException e) {
 			// Happens when encoding is not recognized. Since we use hard-coded
 			// encoding "UTF-8", this cannot happen.
 		}
+		if (StackTrace.getException(trace) == StackTrace.noExceptionFound)
+			throw new InvalidStackTraceException("Could not find exception in trace");
 		status = Status.NEW;
 		relatedPostsIds = new ArrayList<>();
 	}

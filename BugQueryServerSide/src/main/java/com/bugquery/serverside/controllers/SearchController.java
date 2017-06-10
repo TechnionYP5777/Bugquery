@@ -55,7 +55,7 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
-	public String addStackSearch(@RequestBody String input, Model m) {
+	public String addStackSearch(@RequestBody String input, Model m) throws InvalidStackTraceException {
 		String trace = input.substring("trace=".length());
 		StackSearch $ = new StackSearch(trace);
 		m.addAttribute("stackId", repository.save($).getId());

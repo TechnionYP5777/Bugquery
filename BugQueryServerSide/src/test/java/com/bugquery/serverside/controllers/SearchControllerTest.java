@@ -86,7 +86,7 @@ public class SearchControllerTest {
 				return null;
 			}
 		});
-		mockMvc.perform(post("/stacks").content("trace=check")).andExpect(status().is(HttpStatus.FOUND.value()));
+		mockMvc.perform(post("/stacks").content("trace="+trace)).andExpect(status().is(HttpStatus.OK.value()));
 		Mockito.verify(repo, Mockito.times(1)).save(Matchers.any(StackSearch.class));
 	}
 }

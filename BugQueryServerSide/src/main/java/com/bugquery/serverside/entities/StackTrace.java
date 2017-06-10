@@ -82,7 +82,7 @@ public class StackTrace {
 		return $.substring($.lastIndexOf(" ") + 1);
 	}
 	
-	private static String getException(String stackTrace) {
+	static String getException(String stackTrace) {
 		String $ = "";
 		if(stackTrace.contains("Caused by:")) {
 			Pattern p = Pattern.compile(StackTrace.causedByRegex);
