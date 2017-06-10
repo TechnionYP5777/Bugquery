@@ -25,8 +25,10 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
 	private static final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
-	private static final String exceptionRegex = "([ \\\\t\\\\n\\\\f\\\\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
+	private static final String exceptionRegex = "([ \t\n\f\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
 	private static final int indexOfExceptionNameInCausedBy = 1;
+	private static final Pattern causedByPattern = Pattern.compile(StackTrace.causedByRegex);
+	private static final Pattern exceptionPattern = Pattern.compile(StackTrace.exceptionRegex);
 	
 	@Column(columnDefinition = "Text")
 	private String exception;
@@ -85,14 +87,13 @@ public class StackTrace {
 	static String getException(String stackTrace) {
 		String $ = "";
 		if(stackTrace.contains("Caused by:")) {
-			Pattern p = Pattern.compile(StackTrace.causedByRegex);
-			for (Matcher ¢ = p.matcher(stackTrace); ¢.find();)
+			for (Matcher ¢ = StackTrace.causedByPattern.matcher(stackTrace); ¢.find();)
 				$ = ¢.group(0); 
 			$ = $.trim();
 		} else if (!stackTrace.contains("Exception in")) 
 			$ = stackTrace.split("\n")[0];
 		else {
-			Matcher m = Pattern.compile(StackTrace.exceptionRegex).matcher(stackTrace);
+			Matcher m = StackTrace.exceptionPattern.matcher(stackTrace);
 			if (!m.find())
 				return StackTrace.noExceptionFound;
 			$ = m.group(0).trim();
