@@ -52,7 +52,8 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 	 */
 	private static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d,
 			int numOfPosts) {
-		if (allPosts == null || d == null || numOfPosts <= 0 || t == null || allPosts.size() <= numOfPosts) // lazy
+		numOfPosts = Math.min(numOfPosts,allPosts.size());
+		if (allPosts == null || d == null || numOfPosts <= 0 || t == null) // lazy
 			throw new IllegalArgumentException();
 
 		// Can't use lambda function since we need the value to be int!
