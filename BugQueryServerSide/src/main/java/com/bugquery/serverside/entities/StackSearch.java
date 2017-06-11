@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
+import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
@@ -51,7 +52,7 @@ public class StackSearch {
 			// Happens when encoding is not recognized. Since we use hard-coded
 			// encoding "UTF-8", this cannot happen.
 		}
-		if (StackTrace.getException(trace) == StackTrace.noExceptionFound)
+		if (!StackTraceExtractor.isStackTrace(trace))
 			throw new InvalidStackTraceException("Could not find exception in trace");
 		status = Status.NEW;
 		relatedPostsIds = new ArrayList<>();

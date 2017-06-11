@@ -84,7 +84,7 @@ public class StackTrace {
 		return $.substring($.lastIndexOf(" ") + 1);
 	}
 	
-	static String getException(String stackTrace) {
+	private static String getException(String stackTrace) {
 		String $ = "";
 		if(stackTrace.contains("Caused by:")) {
 			for (Matcher ¢ = StackTrace.causedByPattern.matcher(stackTrace); ¢.find();)
