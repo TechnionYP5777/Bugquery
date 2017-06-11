@@ -93,15 +93,23 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 		StackTrace $ = new StackTrace(stackTrace);
 		if ($.getException() == StackTrace.noExceptionFound)
 			throw new InvalidStackTraceException("Illegal stack trace - no exception was found.");
+		return GeneralStackTraceRetriever.getMostRelevantStackTraces(getAllPostsByType($.getException()), $, d,
+				numOfPosts);
+	}
+	
+	@Override
+	public List<Post> getAllPostsByType(String exceptionType) throws GeneralDBException {
+		if(exceptionType == null || exceptionType.isEmpty())
+			throw new IllegalArgumentException();
 		List<Post> allPosts = new ArrayList<>();
 		try {
-			allPosts = repo.findByStackTraceException($.getException());
+			allPosts = repo.findByStackTraceException(exceptionType);
 		} catch (Exception ¢) {
 			throw new GeneralDBException("General db error: " + ¢.getMessage());
 		}
-		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, $, d, numOfPosts);
+		return allPosts;
 	}
-
+	
 	/**
 	 * Get posts from db by posts ids (keeps order)
 	 */
