@@ -15,10 +15,10 @@ import com.bugquery.serverside.exceptions.InvalidStackTraceException;
  * @since Jan 19, 2017
  *
  */
+@SuppressWarnings("static-method")
 public class StackSearchTest {
 
 	@Test
-	@SuppressWarnings("static-method")
 	public void shouldDecodeTrace() throws Exception {
 		assertThat(getEncodedStackSearch("Exception in thread \"main\" java.lang.NullPointerException\n"
 				+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
@@ -35,7 +35,7 @@ public class StackSearchTest {
 		getEncodedStackSearch("hi");
 	}
 
-	private StackSearch getEncodedStackSearch(String content) throws InvalidStackTraceException {
+	private static StackSearch getEncodedStackSearch(String content) throws InvalidStackTraceException {
 		try {
 			return new StackSearch(URLEncoder.encode(content, "UTF-8"));
 		} catch (UnsupportedEncodingException e) {

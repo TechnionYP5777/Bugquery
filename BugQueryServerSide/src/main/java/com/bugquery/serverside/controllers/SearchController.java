@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackSearch;
 import com.bugquery.serverside.entities.StackSearch.Status;
-import com.bugquery.serverside.exceptions.GeneralDBException;
-import com.bugquery.serverside.exceptions.InternalServerException;
 import com.bugquery.serverside.exceptions.InvalidStackTraceException;
 import com.bugquery.serverside.exceptions.ResourceNotFoundException;
 import com.bugquery.serverside.repositories.StackSearchRepository;
