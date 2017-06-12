@@ -3,6 +3,9 @@ package com.bugquery.serverside.repositories;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.assertj.core.util.Lists;
@@ -33,5 +36,17 @@ public class PostRepositoryTest {
 		List<Post> returnedPosts = Lists.newArrayList(repository.findAll());
 		assertThat(returnedPosts.size(), is(1));
 		assertThat(returnedPosts.get(0), is(p));
+	}
+	
+	@Test
+	public void ShouldReturnDistinctExceptions() {
+		List<Post> posts = new ArrayList<>();
+		List<String> exceptions = Arrays.asList("Exception1", "Exception1", "Exception 2", "Exception 3");
+		for (String exception : exceptions)
+			posts.add(new Post(new StackTrace("", exception, null)));
+
+		repository.save(posts);
+		List<String> returnedExceptions = repository.findDistinctExceptions();
+		assertThat(new HashSet<>(returnedExceptions), is(new HashSet<>(exceptions)));
 	}
 }

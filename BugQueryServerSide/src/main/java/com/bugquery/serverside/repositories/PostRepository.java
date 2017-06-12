@@ -4,6 +4,7 @@ package com.bugquery.serverside.repositories;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,6 @@ import com.bugquery.serverside.entities.Post;
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long> {
 	public List<Post> findByStackTraceException(String exception);
+	@Query("SELECT DISTINCT p.stackTrace.exception FROM Post p")
+	public List<String> findDistinctExceptions();
 }
