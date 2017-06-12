@@ -52,7 +52,8 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 	 */
 	private static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d,
 			int numOfPosts) {
-		if (allPosts == null || d == null || numOfPosts <= 0 || t == null || allPosts.size() <= numOfPosts) // lazy
+		numOfPosts = Math.min(numOfPosts,allPosts.size());
+		if (allPosts == null || d == null || numOfPosts <= 0 || t == null) // lazy
 			throw new IllegalArgumentException();
 
 		// Can't use lambda function since we need the value to be int!
@@ -92,15 +93,23 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 		StackTrace $ = new StackTrace(stackTrace);
 		if ($.getException() == StackTrace.noExceptionFound)
 			throw new InvalidStackTraceException("Illegal stack trace - no exception was found.");
+		return GeneralStackTraceRetriever.getMostRelevantStackTraces(getAllPostsByType($.getException()), $, d,
+				numOfPosts);
+	}
+	
+	@Override
+	public List<Post> getAllPostsByType(String exceptionType) throws GeneralDBException {
+		if(exceptionType == null || exceptionType.isEmpty())
+			throw new IllegalArgumentException();
 		List<Post> allPosts = new ArrayList<>();
 		try {
-			allPosts = repo.findByStackTraceException($.getException());
+			allPosts = repo.findByStackTraceException(exceptionType);
 		} catch (Exception ¢) {
 			throw new GeneralDBException("General db error: " + ¢.getMessage());
 		}
-		return GeneralStackTraceRetriever.getMostRelevantStackTraces(allPosts, $, d, numOfPosts);
+		return allPosts;
 	}
-
+	
 	/**
 	 * Get posts from db by posts ids (keeps order)
 	 */

@@ -1,5 +1,6 @@
 package com.bugquery.serverside.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +22,15 @@ public class TemplateController {
 	private static final String INDEX = "index";
 	private static final String GUIDE = "guide";
 	private static final String HOME = "home";
-	private static final String LAYOUT = "layout";
 	private static final String ROOT = "/";
 	private static final String SUBMIT = "submit";
-	private static final String TITLE = "title";
-	private static final String VIEW = "view";
 	private static final String EXAMPLES = "examples";
+	private static final String ALLTRACES = "alltraces";
 	private static final String EXTYPELIST = "extypelist";
 	public static final String DESCRIPTION = "description";
+	public static final String VIEW = "view";
+	public static final String LAYOUT = "layout";
+	public static final String TITLE = "title";
 	
 	@RequestMapping(value = ("/" + GUIDE), method = RequestMethod.GET)
 	public static String getGuide(Model ¢) {
@@ -67,6 +69,18 @@ public class TemplateController {
 				"the most common Java exception types: java.lang.NullPointerException," +
 				 " java.lang.NumberFormatException, " +
 				"java.lang.IllegalArgumentException, java.lang.RuntimeException, java.lang.IllegalStateException");
+		return LAYOUT;
+	}
+	
+	@RequestMapping(value = ("/" + "alltraces"), method = RequestMethod.GET)
+	public static String getAllTraces(Model ¢) {
+		¢.addAttribute(VIEW, ALLTRACES);
+		¢.addAttribute(TITLE, "Available Exception Types");
+		¢.addAttribute(DESCRIPTION, "All Java stack traces from all exception types in our database");
+		List<String> l = new ArrayList<>();
+		l.add("java.lang.NullPointerException");
+		l.add("java.lang.NumberFormatException");
+		¢.addAttribute(EXTYPELIST, l);
 		return LAYOUT;
 	}
 }
