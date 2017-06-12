@@ -63,8 +63,7 @@ public class TemplateController {
 	public static String getExamples(Model ¢) {
 		¢.addAttribute(VIEW, EXAMPLES);
 		¢.addAttribute(TITLE, "Examples");
-		List<String> l = new ExamplesParser().getExceptionTypes();
-		¢.addAttribute(EXTYPELIST, l);
+		¢.addAttribute(EXTYPELIST, new ExamplesParser().getExceptionTypes());
 		¢.addAttribute(DESCRIPTION, "Examples page with stacktraces for " +
 				"the most common Java exception types: java.lang.NullPointerException," +
 				 " java.lang.NumberFormatException, " +

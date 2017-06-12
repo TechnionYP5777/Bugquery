@@ -35,8 +35,8 @@ public class StackTrace {
 	@Column(columnDefinition = "Text")
 	@ElementCollection
 	private List<String> stackOfCalls;
+	@Access(AccessType.PROPERTY)
 	@Column(columnDefinition = "Text")
-	@Access(value = AccessType.PROPERTY)
 	private String content; // the whole stack-trace
 
 	@SuppressWarnings("unused")

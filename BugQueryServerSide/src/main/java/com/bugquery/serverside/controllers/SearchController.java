@@ -47,9 +47,7 @@ public class SearchController {
 			ss.getReady(retriever);
 			repository.save(ss);
 		}
-		String trace = ss.getTrace();
-
-		m.addAttribute("trace", trace);
+		m.addAttribute("trace", ss.getTrace());
 		m.addAttribute("results", getResults(ss));
 		return "result";
 	}
@@ -57,8 +55,7 @@ public class SearchController {
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
 	public String addStackSearch(@RequestBody String input, Model m) throws InvalidStackTraceException {
 		String trace = input.substring("trace=".length());
-		StackSearch $ = new StackSearch(trace);
-		m.addAttribute("stackId", repository.save($).getId());
+		m.addAttribute("stackId", repository.save(new StackSearch(trace)).getId());
 		return "loading";
 	}
 

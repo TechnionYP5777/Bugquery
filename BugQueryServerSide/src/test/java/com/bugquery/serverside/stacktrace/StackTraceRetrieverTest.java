@@ -21,50 +21,43 @@ import com.bugquery.serverside.stacktrace.distance.WeightLinesSTDistancer;
 import com.bugquery.serverside.stacktrace.distance.levenshtein.LevenshteinSTDistancer;
 
 /**
- * 
- * @author rodedzats
- * @since 11.12.2016
+ * @author  rodedzats
+ * @since  11.12.2016
  */
-@SuppressWarnings("static-method")
 @RunWith(SpringRunner.class)
+@SuppressWarnings("static-method")
 public class StackTraceRetrieverTest {
 	@MockBean
 	PostRepository repo;
-
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
-
 	String stackTrace = "Exception in thread \"main\" java.lang.NullPointerException\n"
 			+ "at com.example.myproject.Book.getTitle(Book.java:16)\n"
 			+ "at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
 			+ "at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-
 
 	@Test
 	public void retrieverThrowsExceptionForIllegalConstructorParameters1() {
 		thrown.expect(IllegalArgumentException.class);
 		try {
 			Post p1 = new PostStub(stackTrace);
-			List<Post> posts = new ArrayList<>();
-			posts.add(p1);
-			// should throw
+			new ArrayList<>().add(p1);
 			new GeneralStackTraceRetriever(null).getMostRelevantPosts(stackTrace, 1);
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void retrieverThrowsExceptionForIllegalConstructorParameters2() throws GeneralDBException {
 		thrown.expect(GeneralDBException.class);
 		try {
-			// should throw
 			new GeneralStackTraceRetriever(new JaccardSTDistancer(), null).getMostRelevantPosts(stackTrace, 1);
 		} catch (InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void retrieverThrowsExceptionForIllegalParameters1() {
 		thrown.expect(IllegalArgumentException.class);
@@ -85,9 +78,6 @@ public class StackTraceRetrieverTest {
 		}
 	}
 
-	/*
-	 * This test was created after discussion on whatsapp group
-	 */
 	@Test
 	public void retrieverThrowsExceptionForIllegalStackTrace() throws InvalidStackTraceException {
 		thrown.expect(InvalidStackTraceException.class);
@@ -97,7 +87,7 @@ public class StackTraceRetrieverTest {
 			¢.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void retrieverThrowsExceptionForIllegalStackTrace2() throws InvalidStackTraceException {
 		thrown.expect(InvalidStackTraceException.class);
@@ -107,7 +97,7 @@ public class StackTraceRetrieverTest {
 			¢.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void retrieverThrowsExceptionForIllegalStackTrace3() throws InvalidStackTraceException {
 		thrown.expect(InvalidStackTraceException.class);
@@ -140,10 +130,10 @@ public class StackTraceRetrieverTest {
 		List<Post> result = new ArrayList<>();
 		result.add(p1);
 		try {
-			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer())
-					.getMostRelevantPosts(stackTrace1, 1));
-			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer())
-					.getMostRelevantPosts(stackTrace1, 1));
+			assertEquals(result,
+					new GeneralStackTraceRetriever(new JaccardSTDistancer()).getMostRelevantPosts(stackTrace1, 1));
+			assertEquals(result,
+					new GeneralStackTraceRetriever(new WeightLinesSTDistancer()).getMostRelevantPosts(stackTrace1, 1));
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}
@@ -174,12 +164,12 @@ public class StackTraceRetrieverTest {
 		result.add(p1);
 		result.add(p2);
 		try {
-			assertEquals(result, new GeneralStackTraceRetriever(new JaccardSTDistancer())
-					.getMostRelevantPosts(stackTrace1, 2));
-			assertEquals(result, new GeneralStackTraceRetriever(new WeightLinesSTDistancer())
-					.getMostRelevantPosts(stackTrace1, 2));
-			assertEquals(result, new GeneralStackTraceRetriever(new LevenshteinSTDistancer())
-					.getMostRelevantPosts(stackTrace1, 2));
+			assertEquals(result,
+					new GeneralStackTraceRetriever(new JaccardSTDistancer()).getMostRelevantPosts(stackTrace1, 2));
+			assertEquals(result,
+					new GeneralStackTraceRetriever(new WeightLinesSTDistancer()).getMostRelevantPosts(stackTrace1, 2));
+			assertEquals(result,
+					new GeneralStackTraceRetriever(new LevenshteinSTDistancer()).getMostRelevantPosts(stackTrace1, 2));
 		} catch (GeneralDBException | InvalidStackTraceException ¢) {
 			¢.printStackTrace();
 		}

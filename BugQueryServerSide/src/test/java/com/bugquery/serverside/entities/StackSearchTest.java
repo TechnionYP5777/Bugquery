@@ -20,19 +20,21 @@ public class StackSearchTest {
 	@Test
 	@SuppressWarnings("static-method")
 	public void shouldDecodeTrace() throws Exception {
-		String legalTrace = "Exception in thread \"main\" java.lang.NullPointerException\n" + 
-				"        at com.example.myproject.Book.getTitle(Book.java:16)\n" + 
-				"        at com.example.myproject.Author.getBookTitles(Author.java:25)\n" + 
-				"        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)";
-		assertThat(getEncodedStackSearch(legalTrace).getTrace())
-				.isEqualTo(legalTrace);
+		assertThat(getEncodedStackSearch("Exception in thread \"main\" java.lang.NullPointerException\n"
+				+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
+				+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
+				+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)").getTrace())
+						.isEqualTo("Exception in thread \"main\" java.lang.NullPointerException\n"
+								+ "        at com.example.myproject.Book.getTitle(Book.java:16)\n"
+								+ "        at com.example.myproject.Author.getBookTitles(Author.java:25)\n"
+								+ "        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)");
 	}
-	
-	@Test(expected=InvalidStackTraceException.class)
+
+	@Test(expected = InvalidStackTraceException.class)
 	public void shouldThrowForInvalidTrace() throws Exception {
 		getEncodedStackSearch("hi");
 	}
-	
+
 	private StackSearch getEncodedStackSearch(String content) throws InvalidStackTraceException {
 		try {
 			return new StackSearch(URLEncoder.encode(content, "UTF-8"));

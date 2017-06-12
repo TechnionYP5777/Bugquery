@@ -46,7 +46,6 @@ public class PostRepositoryTest {
 			posts.add(new Post(new StackTrace("", exception, null)));
 
 		repository.save(posts);
-		List<String> returnedExceptions = repository.findDistinctExceptions();
-		assertThat(new HashSet<>(returnedExceptions), is(new HashSet<>(exceptions)));
+		assertThat(new HashSet<>(repository.findDistinctExceptions()), is(new HashSet<>(exceptions)));
 	}
 }

@@ -24,9 +24,8 @@ public class Application {
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	private static ConfigurableApplicationContext context;
 	public static void main(String[] args) {
-		if (args.length > 0 && "--createExamples".equals(args[0])){
+		if (args.length > 0 && "--createExamples".equals(args[0]))
 			ExamplesXMLCreator.activate();
-		}
 		context = SpringApplication.run(Application.class,args);
 	}
 	
@@ -37,15 +36,11 @@ public class Application {
 		return args -> {
 			
 			if (args.length > 0) {
-				if ("--createDB".equals(args[0])) {
-					// TODO: create db
+				if ("--createDB".equals(args[0]))
 					log.info("Created DB");
-				}
 				
-				if ("--updateDB".equals(args[0])) {
-					// TODO: update db
+				if ("--updateDB".equals(args[0]))
 					log.info("Updated DB");
-				}
 			}
 		};
 	}
