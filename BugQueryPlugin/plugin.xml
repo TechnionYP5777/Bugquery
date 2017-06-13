@@ -23,6 +23,7 @@
    </extension>
    
    <extension point="org.eclipse.ui.menus">
+     	
      
       <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">            
             <dynamic 
@@ -54,22 +55,6 @@
          </toolbar>
       </menuContribution>
    </extension>
-   
-   <!--<extension point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            id="com.bugquery.launchQuery"
-            modes="run, debug"
-            name="BugQuery Launch">
-      </launchConfigurationType>
-   </extension>
-   
-	<extension
-		point="org.eclipse.jdt.ui.javaEditorTextHovers">
-		<hover
-			activate="true"
-			class="com.bugquery.fixer.BQTextHover">
-		</hover>
-	</extension>-->
 	
 	<extension point="org.eclipse.core.resources.markers" 
 			id="com.bugquery.markers.tracemarker"
@@ -100,15 +85,4 @@
     </consolePageParticipant>
  </extension>
  
-
- 
- <!--
- <extension point="org.eclipse.ui.editors.markerUpdaters"> 
-   <updater
-     id="com.bugquery.markers.MarkerUpdater"
-     class="com.bugquery.markers.MarkerUpdater"
-     markerType="com.bugquery.markers.tracemarker">
-	</updater>
- </extension>
-   -->
 </plugin>
