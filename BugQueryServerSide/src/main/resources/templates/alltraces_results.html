@@ -1,0 +1,11 @@
+<div th:fragment="content">
+	<h3>
+		<span th:text="'Stack traces in our db from the following type '"></span>
+		<b th:text="${exceptiontype}"></b>
+	</h3>
+	<ul class="list-group" th:each="result, iterStat : ${results}">
+		<li class="list-group-item">
+			<p th:text="${result.getStackTrace().getContent()}"></p>
+		</li>
+	</ul>
+</div>

@@ -24,9 +24,6 @@ public class TemplateController {
 	private static final String HOME = "home";
 	private static final String ROOT = "/";
 	private static final String SUBMIT = "submit";
-	private static final String EXAMPLES = "examples";
-	private static final String ALLTRACES = "alltraces";
-	private static final String EXTYPELIST = "extypelist";
 	public static final String DESCRIPTION = "description";
 	public static final String VIEW = "view";
 	public static final String LAYOUT = "layout";
@@ -56,30 +53,6 @@ public class TemplateController {
 		¢.addAttribute(TITLE, "Submit to BugQuery");
 		¢.addAttribute(DESCRIPTION, "Submit your stack trace to BugQuery and get quick solution " + 
 		"for your bugs.");
-		return LAYOUT;
-	}
-	
-	@RequestMapping(value = ("/" + "examples"), method = RequestMethod.GET)
-	public static String getExamples(Model ¢) {
-		¢.addAttribute(VIEW, EXAMPLES);
-		¢.addAttribute(TITLE, "Examples");
-		¢.addAttribute(EXTYPELIST, new ExamplesParser().getExceptionTypes());
-		¢.addAttribute(DESCRIPTION, "Examples page with stacktraces for " +
-				"the most common Java exception types: java.lang.NullPointerException," +
-				 " java.lang.NumberFormatException, " +
-				"java.lang.IllegalArgumentException, java.lang.RuntimeException, java.lang.IllegalStateException");
-		return LAYOUT;
-	}
-	
-	@RequestMapping(value = ("/" + "alltraces"), method = RequestMethod.GET)
-	public static String getAllTraces(Model ¢) {
-		¢.addAttribute(VIEW, ALLTRACES);
-		¢.addAttribute(TITLE, "Available Exception Types");
-		¢.addAttribute(DESCRIPTION, "All Java stack traces from all exception types in our database");
-		List<String> l = new ArrayList<>();
-		l.add("java.lang.NullPointerException");
-		l.add("java.lang.NumberFormatException");
-		¢.addAttribute(EXTYPELIST, l);
 		return LAYOUT;
 	}
 }

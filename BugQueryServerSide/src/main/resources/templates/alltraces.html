@@ -2,7 +2,7 @@
 <h2>All Exception types in our database:</h2>
 <ul class="list-group" th:each="extype: ${extypelist}">
 		<li class="list-group-item">
-		<a th:href="'/alltraces/' + ${extype}"><p th:text="${extype}"></p></a>
+		<a th:href="'/alltraces/' + ${extype.replaceAll('[.]','-')}"><p th:text="${extype}"></p></a>
 		</li>
 	</ul>
 </div>
