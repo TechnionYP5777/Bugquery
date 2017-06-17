@@ -42,7 +42,7 @@
 		<div class="panel panel-info" th:each="result, iterStat : ${results}">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a th:text="${result.getTitle()}">Result</a>
+					<a th:text="${iterStat.count}+') '+${result.getTitle()}">Result</a>
 				</h4>
 			</div>
 			<div class="panel-body">
