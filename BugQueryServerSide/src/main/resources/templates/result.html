@@ -37,27 +37,45 @@
 	<div class="container" role="main">
 		<h3
 			th:text="'BugQuery has found ' + ${#lists.size(results)} + ' results:'"></h3>
-		<div class="code-wrapper">
-			<code th:text="${trace}"></code>
-		</div>
-		<div class="bugquery-result" th:each="result, iterStat : ${results}">
-			<a class="bugquery-result-label"
-				href="http://stackoverflow.com/questions/3988788/what-is-a-stack-trace-and-how-can-i-use-it-to-debug-my-application-errors">Result</a>
-			<div class="code-wrapper">
-				<code th:text="${result.getStackTrace().getContent()}"></code>
+		<pre style="margin-bottom:20px;"><code th:utext="${trace}"></code></pre>
+
+		<div class="panel panel-info" th:each="result, iterStat : ${results}">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a th:text="${result.getTitle()}">Result</a>
+				</h4>
 			</div>
-			<div class="panel-group">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse"
-								th:href="'#question-' + ${iterStat.count}">Original Question</a>
-						</h4>
+			<div class="panel-body">
+				<pre><code th:utext="${result.getStackTrace().getContent()}"></code></pre>
+				<div class="panel-group" th:id="'accordion-' + ${iterStat.count}">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse"
+									th:attr="data-parent='#accordion-' + ${iterStat.count}"
+									th:href="'#question-' + ${iterStat.count}">Original
+									Question</a>
+							</h4>
+						</div>
+						<div th:id="'question-' + ${iterStat.count}"
+							class="panel-collapse collapse">
+							<div class="panel-body" th:utext="${result.question}">Panel
+								Body</div>
+						</div>
 					</div>
-					<div th:id="'question-' + ${iterStat.count}"
-						class="panel-collapse collapse">
-						<div class="panel-body" th:utext="${result.question}">Panel
-							Body</div>
+					<div th:if="${result.getAnswerId()}" class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse"
+									th:attr="data-parent='#accordion-' + ${iterStat.count}"
+									th:href="'#answer-' + ${iterStat.count}">Accepted Answer</a>
+							</h4>
+						</div>
+						<div th:id="'answer-' + ${iterStat.count}"
+							class="panel-collapse collapse">
+							<div class="panel-body" th:utext="${result.getAnswerId()}">Panel
+								Body</div>
+						</div>
 					</div>
 				</div>
 			</div>
