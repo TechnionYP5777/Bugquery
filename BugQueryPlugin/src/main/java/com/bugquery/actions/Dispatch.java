@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.dialogs.MessageDialog;
 // import org.eclipse.core.resources.IFile;
 // import org.eclipse.core.resources.IMarker;
 import org.eclipse.swt.program.Program;
@@ -14,6 +15,9 @@ import org.osgi.service.prefs.Preferences;
 
 import com.bugquery.markers.*;
 import com.bugquery.stacktrace.Extract;
+
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Handles an input of stack trace: Performs stack extraction and starts a
@@ -87,7 +91,13 @@ public interface Dispatch {
 		MarkerFactory m = MarkerFactory.instance();
 		Preferences prefs = InstanceScope.INSTANCE
 				.getNode("com.bugquery.preferences");
-		m.deleteMarkerFrom(ResourcesUtils.getProject(prefs.get("projectname", "default")));
+		String projectName = prefs.get("projectname", "default");
+		if (projectName == "default") {
+			MessageDialog.openError(Display.getCurrent().getActiveShell(),
+					"BugQuery Error", "BugQuery could not generate markers since there is no selected project.");
+			return;
+		}
+		m.deleteMarkerFrom(ResourcesUtils.getProject(projectName));
 		m.addMarkers(trace);
 	}
 }
