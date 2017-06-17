@@ -29,6 +29,9 @@ import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 @Controller
 public class SearchController {
 
+	private static final String TRACE_KEY = "trace=";
+	private static final String SKIP_LOADING_KEY = "skiploading=";
+
 	public static final String REQUEST_FORMAT = "/stacks/{id}";
 	@Autowired
 	private StackSearchRepository repository;
@@ -52,9 +55,19 @@ public class SearchController {
 
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
 	public String addStackSearch(@RequestBody String input, Model m) throws InvalidStackTraceException {
-		String trace = input.substring("trace=".length());
-		m.addAttribute("stackId", repository.save(new StackSearch(trace)).getId());
+		String trace = input.substring(input.indexOf(TRACE_KEY) + TRACE_KEY.length());
+		Long stackId = repository.save(new StackSearch(trace)).getId();
+		if (shouldSkipLoading(input))
+			return "redirect:stacks/" + stackId;
+
+		m.addAttribute("stackId", stackId);
 		return "loading";
+	}
+
+	private static boolean shouldSkipLoading(String input) {
+		int skipLoadingIdx = input.indexOf(SKIP_LOADING_KEY);
+		return skipLoadingIdx != -1 && skipLoadingIdx < input.indexOf(TRACE_KEY)
+				&& input.substring(skipLoadingIdx + SKIP_LOADING_KEY.length()).startsWith("true");
 	}
 
 	public List<Post> getResults(StackSearch s) {

@@ -54,8 +54,8 @@ public interface Dispatch {
 
 		byte[] post_bytes;
 		try {
-			trace = "trace=" + trace;
-			post_bytes = trace.getBytes("UTF-8");
+			String content = "skiploading=true&trace=" + trace;
+			post_bytes = content.getBytes("UTF-8");
 		} catch (final UnsupportedEncodingException e1) {
 			return;
 		}
