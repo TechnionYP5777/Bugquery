@@ -90,9 +90,9 @@ public class StackTrace {
 			for (Matcher ¢ = StackTrace.causedByPattern.matcher(stackTrace); ¢.find();)
 				$ = ¢.group(0); 
 			$ = $.trim();
-		} else if (!stackTrace.contains("Exception in")) 
-			$ = stackTrace.split("\n")[0];
-		else {
+		} else if (!stackTrace.contains("Exception in")) {
+			$ = stackTrace.split("[\\r\\n]+")[0];
+		} else {
 			Matcher m = StackTrace.exceptionPattern.matcher(stackTrace);
 			if (!m.find())
 				return StackTrace.noExceptionFound;
