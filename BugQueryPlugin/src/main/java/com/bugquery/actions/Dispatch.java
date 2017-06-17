@@ -5,9 +5,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-//import org.eclipse.core.resources.IFile;
+
+import org.eclipse.core.runtime.preferences.InstanceScope;
+// import org.eclipse.core.resources.IFile;
 // import org.eclipse.core.resources.IMarker;
 import org.eclipse.swt.program.Program;
+import org.osgi.service.prefs.Preferences;
 
 import com.bugquery.markers.*;
 import com.bugquery.stacktrace.Extract;
@@ -18,7 +21,6 @@ import com.bugquery.stacktrace.Extract;
  *
  * @author Yosef
  * @since Dec 7, 2016
- *
  */
 public interface Dispatch {
 	/**
@@ -64,24 +66,28 @@ public interface Dispatch {
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			conn.setRequestProperty("Content-Length", String.valueOf(post_bytes.length));
+			conn.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Length",
+					String.valueOf(post_bytes.length));
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.getOutputStream().write(post_bytes);
 		} catch (final IOException e) {
 			return;
 		}
-		
+
 		Program.launch(conn.getHeaderField("location"));
 	}
-	
+
 	/**
 	 * 
 	 */
 	public static void markersInit(String trace) {
 		MarkerFactory m = MarkerFactory.instance();
-		m.deleteAllKnownMarkers();
+		Preferences prefs = InstanceScope.INSTANCE
+				.getNode("com.bugquery.preferences");
+		m.deleteMarkerFrom(ResourcesUtils.getProject(prefs.get("projectname", "default")));
 		m.addMarkers(trace);
 	}
 }
