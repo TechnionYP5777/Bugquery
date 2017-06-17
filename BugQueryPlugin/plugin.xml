@@ -23,9 +23,41 @@
    </extension>
    
    <extension point="org.eclipse.ui.menus">
-     	
+      <menuContribution
+		locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+		 <menu
+		       label="BugQuery"
+		       mnemonic="B"
+		       id="Window.menus.bugQuery">
+		    <command
+		    	  icon="icons/bugquery_console.gif"
+		          commandId="com.bugquery.commands.fromconsole"
+		          mnemonic="S"
+		          id="Window.menus.bugQuery">
+		    </command>
+		    <command
+		    	  icon="icons/bugquery_clipboard.gif"
+		          commandId="com.bugquery.commands.fromclipboard"
+		          mnemonic="S"
+		          id="Window.menus.bugQuery">
+		    </command>
+		    <command
+		    	  icon="icons/bugquery_dialog.gif"
+		          commandId="com.bugquery.commands.frominputdialog"
+		          mnemonic="S"
+		          id="Window.menus.bugQuery">
+		    </command>
+		    <menu
+		    	label="Choose project...">
+			    <dynamic 
+	            	class="com.bugquery.actions.DynamicItem"
+	                id="com.bugquery.commands.dynamicitem" >                
+	            </dynamic>
+            </menu> 	 
+		 </menu>
+        </menuContribution>
      
-      <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">            
+   <!--   <menuContribution locationURI="menu:com.bugquery.commands.dropdownmenu">            
             <dynamic 
             	class="com.bugquery.actions.DynamicItem"
                 id="com.bugquery.commands.dynamicitem" >                
@@ -54,8 +86,9 @@
 				  style="push" />
          </toolbar>
       </menuContribution>
+      	-->
    </extension>
-	
+
 	<extension point="org.eclipse.core.resources.markers" 
 			id="com.bugquery.markers.tracemarker"
 	  		name="Trace Marker">
@@ -71,8 +104,7 @@
             id="com.bugquery.markers.MarkerImageProvider">
       </imageprovider>
    </extension>	
-	
-	
+
  <extension
        point="org.eclipse.ui.console.consolePageParticipants">
     <consolePageParticipant
