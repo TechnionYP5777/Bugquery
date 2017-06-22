@@ -26,6 +26,8 @@ public class StackTrace {
 	public static final String noExceptionFound = "NO_EXCEPTION_FOUND";
 	private static final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
 	private static final String exceptionRegex = "([ \t\n\f\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
+	private static final String exceptionIn = "Exception in";
+	private static final String causedBy = "Caused by:";
 	private static final int indexOfExceptionNameInCausedBy = 1;
 	private static final Pattern causedByPattern = Pattern.compile(StackTrace.causedByRegex);
 	private static final Pattern exceptionPattern = Pattern.compile(StackTrace.exceptionRegex);
@@ -78,7 +80,7 @@ public class StackTrace {
 	}
 	
 	private static String getExceptionNameFromExceptionLine(String exceptionLine) {
-		if(exceptionLine.contains("Caused by:"))
+		if(exceptionLine.contains(StackTrace.causedBy))
 			return exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
 		String $ = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
 		return $.substring($.lastIndexOf(" ") + 1);
@@ -86,19 +88,19 @@ public class StackTrace {
 	
 	private static String getException(String stackTrace) {
 		String $ = "";
-		if(stackTrace.contains("Caused by:")) {
+		if (stackTrace.contains(StackTrace.causedBy)) {
 			for (Matcher ¢ = StackTrace.causedByPattern.matcher(stackTrace); ¢.find();)
-				$ = ¢.group(0); 
+				$ = ¢.group(0);
 			$ = $.trim();
-		} else if (!stackTrace.contains("Exception in")) {
+		} else if (!stackTrace.contains(StackTrace.exceptionIn))
 			$ = stackTrace.split("[\\r\\n]+")[0];
-		} else {
+		else {
 			Matcher m = StackTrace.exceptionPattern.matcher(stackTrace);
 			if (!m.find())
 				return StackTrace.noExceptionFound;
 			$ = m.group(0).trim();
 		}
-		return getExceptionNameFromExceptionLine($);
+		return "".equals($) || $ == null ? StackTrace.noExceptionFound : getExceptionNameFromExceptionLine($);
 	}
 	
 	private static List<String> getStackOfCalls(String stackTrace) {
