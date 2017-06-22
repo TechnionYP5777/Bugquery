@@ -1,7 +1,7 @@
 <div th:fragment="content">
 <h2>All Exception types in our database:</h2>
 <ul class="list-group" th:each="extype: ${extypelist}">
-		<li class="list-group-item">
+		<li class="list-group-item" th:if="${!''.equals(extype)}">
 		<a th:href="'/alltraces/' + ${extype.replaceAll('[.]','-')}"><p th:text="${extype}"></p></a>
 		</li>
 	</ul>
