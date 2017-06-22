@@ -17,7 +17,8 @@ import com.bugquery.serverside.stacktrace.distance.JaccardSTDistancer;
 import com.bugquery.serverside.stacktrace.distance.StackTraceDistancer;
 
 /**
- * Utility class for getting relevant stack traces from the database
+ * This class is used for getting relevant posts from the database (relevant
+ * to a given stack trace)
  * 
  * @author rodedzats
  * @since 11.12.2016
