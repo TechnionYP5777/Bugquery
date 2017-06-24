@@ -30,6 +30,8 @@ public class Application implements CommandLineRunner {
 		SpringApplication.run(Application.class, args);
 	}
 
+	// TODO: Remove suppressed warning after updatePosts has been implemented!
+	@SuppressWarnings("static-access")
 	@Override
 	public void run(String... args) {
 		if (args.length > 0) {
