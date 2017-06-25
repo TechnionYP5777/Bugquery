@@ -52,10 +52,11 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 	 * was extracted to a in memory list.
 	 */
 	private static List<Post> getMostRelevantStackTraces(List<Post> allPosts, final StackTrace t, StackTraceDistancer d,
-			int numOfPosts) {
-		numOfPosts = Math.min(numOfPosts,allPosts.size());
-		if (allPosts == null || d == null || numOfPosts <= 0 || t == null) // lazy
+			int postsLimit) {
+		if (allPosts == null || d == null || postsLimit <= 0 || t == null) // lazy
 			throw new IllegalArgumentException();
+		
+		int numOfPosts = Math.min(postsLimit, allPosts.size());
 
 		// Can't use lambda function since we need the value to be int!
 		// Rounding down is not correct in this case.

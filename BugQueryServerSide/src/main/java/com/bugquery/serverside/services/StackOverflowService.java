@@ -50,12 +50,12 @@ public class StackOverflowService {
 		}
 	}
 
-	private static String getAnswerFromAnswerId(Connection conn, String answerId) {
+	private static String getAnswerFromAnswerId(Connection c, String answerId) {
 
 		String answer = null;
 		if ("0".equals(answerId))
 			return null;
-		try (ResultSet rs = conn.createStatement()
+		try (ResultSet rs = c.createStatement()
 				.executeQuery("SELECT * FROM so_posts USE INDEX(Id) WHERE Id = " + answerId)) {
 			for (ResultSet i_rs = rs; i_rs.next();)
 				answer = i_rs.getString("Body");
