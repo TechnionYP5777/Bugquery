@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.bugquery.serverside.stacktrace.StackTraceExtractor;
+
 /**
  * 
  * @author rodedzats
@@ -324,5 +326,43 @@ public class StackTraceTest {
 						+ "at com.example.myproject.Book.getTitle(Book.java:16)\r\n"
 						+ "at com.example.myproject.Author.getBookTitles(Author.java:25)\r\n"
 						+ "at com.example.myproject.Bootstrap.main(Bootstrap.java:14)").getException());
+	}
+	
+	@Test
+	public void correctExceptionForStackTrace1() {
+		assertEquals("java.lang.NullPointerException",
+				new StackTrace(
+						("java.lang.NullPointerException\r\n" + 
+								"at org.eclipse.oomph.setup.ui.SetupUIPlugin.performStartup(SetupUIPlugin.java:443)\r\n" + 
+								"at org.eclipse.oomph.setup.ui.SetupUIPlugin.access$5(SetupUIPlugin.java:414)\r\n" + 
+								"at org.eclipse.oomph.setup.ui.SetupUIPlugin$1$1.run(SetupUIPlugin.java:253)\r\n" + 
+								"at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)")).getException());
+	}
+	
+	@Test
+	public void correctExceptionForStackTrace2() {
+		assertEquals("java.lang.IllegalArgumentException",
+				new StackTrace(
+						("Exception in thread \"main\" java.lang.IllegalArgumentException: **Width (-1) and height (-1) cannot be <= 0**\n" + 
+								"        at java.awt.image.DirectColorModel.createCompatibleWritableRaster(DirectColorModel.java:999)\n" + 
+								"        at java.awt.image.BufferedImage.<init>(BufferedImage.java:312)\n" + 
+								"        at ImageUtil.resize(ImageUtil.java:38)\n" + 
+								"        at ImageUtil.main(ImageUtil.java:72)")).getException());
+	}
+	
+	@Test
+	public void noExceptionIsReturnedForTrickyAlmostStackTraces() {
+		StackTrace st = new StackTrace("Caused by:\n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Caused by:");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception\r\n\r\n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception in \"\":\r\n\r\n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception in: \n\n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
+		st = new StackTrace("Exception in\nat \n");
+		assertEquals(StackTrace.noExceptionFound,st.getException());
 	}
 }

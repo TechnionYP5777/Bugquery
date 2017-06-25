@@ -14,7 +14,7 @@ import com.bugquery.serverside.entities.StackTrace;
  * @since 22.6.2017
  */
 public class StackTraceUtility {
-	private static final String causedByRegex = "Caused by:.*[: ((\\r)*\\n)]";
+	private static final String causedByRegex = "Caused by:.+[((\\r)*\\n)]";
 	private static final String exceptionRegex = "([ \t\n\f\r])*(Exception(.)*\"(.)*\"[: ](.)*[: ((\\r)*\\n)])";
 	private static final String exceptionIn = "Exception in";
 	private static final String causedBy = "Caused by:";
@@ -23,11 +23,16 @@ public class StackTraceUtility {
 	private static final Pattern exceptionPattern = Pattern.compile(StackTraceUtility.exceptionRegex);
 	
 	private static String getExceptionNameFromExceptionLine(String exceptionLine) {
-		if(exceptionLine.contains(StackTraceUtility.causedBy))
-			return "".equals(exceptionLine.split(":")[indexOfExceptionNameInCausedBy]) ? StackTrace.noExceptionFound
-					: exceptionLine.split(":")[indexOfExceptionNameInCausedBy].trim();
+		if (exceptionLine.contains(StackTraceUtility.causedBy)) {
+			String[] lines = exceptionLine.split(":");
+			String exceptionName = lines.length <= indexOfExceptionNameInCausedBy ? ""
+					: exceptionLine.split(":")[indexOfExceptionNameInCausedBy];
+			return !"".equals(exceptionName) && exceptionName != null ? exceptionName.trim()
+					: StackTrace.noExceptionFound;
+		}
 		String $ = !exceptionLine.contains(":") ? exceptionLine : exceptionLine.split(":")[0].trim();
-		return $.substring($.lastIndexOf(" ") + 1);
+		int lastSpace = $.lastIndexOf(" ");
+		return lastSpace > $.length() - 1 ? StackTrace.noExceptionFound : $.substring(lastSpace + 1);
 	}
 	
 	public static String getException(String stackTrace) {
@@ -36,7 +41,7 @@ public class StackTraceUtility {
 			for (Matcher ¢ = StackTraceUtility.causedByPattern.matcher(stackTrace); ¢.find();)
 				$ = ¢.group(0);
 			$ = $.trim();
-		} else if (!stackTrace.contains(StackTraceUtility.exceptionIn))
+		} else if (!stackTrace.contains(StackTraceUtility.exceptionIn)) 
 			$ = stackTrace.split("[\\r\\n]+")[0];
 		else {
 			Matcher m = StackTraceUtility.exceptionPattern.matcher(stackTrace);
@@ -44,7 +49,7 @@ public class StackTraceUtility {
 				return StackTrace.noExceptionFound;
 			$ = m.group(0).trim();
 		}
-		return "".equals($) ? StackTrace.noExceptionFound : getExceptionNameFromExceptionLine($);
+		return "".equals($) || $ == null ? StackTrace.noExceptionFound : getExceptionNameFromExceptionLine($.trim());
 	}
 	
 	public static List<String> getStackOfCalls(String stackTrace) {
