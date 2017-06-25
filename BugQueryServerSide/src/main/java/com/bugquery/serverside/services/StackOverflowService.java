@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Service;
 
 import com.bugquery.serverside.entities.Post;
@@ -24,6 +25,12 @@ public class StackOverflowService {
 
 	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_ADDRESS = "localhost:4499";
+	
+	@Autowired
+	public StackOverflowService(ApplicationArguments args) {
+		if (args.containsOption("updateDB"))
+			updatePosts();
+	}
 
 	public static void updatePosts() {
 		throw new UnsupportedOperationException("Updating is not yet implemented");

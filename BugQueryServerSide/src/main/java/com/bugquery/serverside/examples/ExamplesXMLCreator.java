@@ -3,10 +3,8 @@ package com.bugquery.serverside.examples;
 import java.io.File;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -14,7 +12,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,20 +27,18 @@ import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 
-@Component
-public class ExamplesXMLCreator {	
-	private static StackTraceRetriever retriever;
-	private static boolean run = false;
-	
-	public static void activate(){
-		run = true;
-	}
+@Service
+public class ExamplesXMLCreator {
+	@Autowired
+	private StackTraceRetriever retriever;
 	
 	@Autowired
-	public void createExamplesXML(StackTraceRetriever r){	
-		if (!run)
-			return;
-		retriever = r;
+	ExamplesXMLCreator(ApplicationArguments args) {
+		if (args.containsOption("createExamples"))
+			createExamplesXML();
+	}
+	
+	public void createExamplesXML(){	
 		for (String exceptionType : new ExamplesParser().getExceptionTypes())
 			createXML(exceptionType);
 	}
@@ -57,14 +54,11 @@ public class ExamplesXMLCreator {
 		createAndSaveXMLFile(exceptionType,$);
 	}
 	
-	private void createAndSaveXMLFile(String exceptionType, List<Post> $) {
+	private static void createAndSaveXMLFile(String exceptionType, List<Post> $) {
 		  try {
 
-				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
 				// root element
-				Document doc = docBuilder.newDocument();
+				Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 				Element rootElement = doc.createElement("posts");
 				doc.appendChild(rootElement);
 				
