@@ -10,7 +10,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -32,8 +31,7 @@ public class ExamplesParser {
 	private static final String exceptionTypesFile = "examples/ExceptionTypes.xml";
 	public static final String postsPath = "examples/posts/";
 	private Document getDocFromXmlFile(String xmlName) {
-		ClassLoader classLoader = getClass().getClassLoader();		
-		URL xmlURL = classLoader.getResource(xmlName);
+		URL xmlURL = getClass().getClassLoader().getResource(xmlName);
 		if(xmlURL == null)
 			return null;
 		File fXmlFile = new File(xmlURL.getFile());
@@ -69,8 +67,7 @@ public class ExamplesParser {
 		Document doc = getDocFromXmlFile(exceptionTypesFile);
 		if (doc == null)
 			throw new IllegalArgumentException();
-		XPathFactory xpathFactory = XPathFactory.newInstance();
-		XPath xpath = xpathFactory.newXPath();
+		XPath xpath = XPathFactory.newInstance().newXPath();
 		String stackTrace = "";
 		try {
 			stackTrace = (String) xpath.compile("//type[@id=\"" + exceptionType + "\"]").evaluate(doc, XPathConstants.STRING);
@@ -99,8 +96,7 @@ public class ExamplesParser {
 	}
 	
 	public String getLocation(String exceptionType){
-		ClassLoader classLoader = getClass().getClassLoader();
-		URL xmlURL = classLoader.getResource(ExamplesParser.postsPath + exceptionType + ".xml");
+		URL xmlURL = getClass().getClassLoader().getResource(ExamplesParser.postsPath + exceptionType + ".xml");
 		return xmlURL == null ? null : xmlURL.getFile();
 	}
 }

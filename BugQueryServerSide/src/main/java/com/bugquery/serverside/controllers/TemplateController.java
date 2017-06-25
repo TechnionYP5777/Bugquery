@@ -1,13 +1,9 @@
 package com.bugquery.serverside.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.bugquery.serverside.examples.ExamplesParser;
 
 /**
  * Hooks to handle miscellaneous requests

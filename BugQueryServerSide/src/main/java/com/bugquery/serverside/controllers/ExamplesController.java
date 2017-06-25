@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.examples.ExamplesParser;
-import com.bugquery.serverside.exceptions.GeneralDBException;
 import com.bugquery.serverside.repositories.PostRepository;
-import com.bugquery.serverside.repositories.StackSearchRepository;
-import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 /**
  * This controller is used for the examples pages and for the "all traces" pages.
@@ -78,8 +75,7 @@ public class ExamplesController {
 		¢.addAttribute(TemplateController.VIEW, ALLTRACES);
 		¢.addAttribute(TemplateController.TITLE, "Available Exception Types");
 		¢.addAttribute(TemplateController.DESCRIPTION, "All Java stack traces from all exception types in our database");
-		List<String> l = repository.findDistinctExceptions();
-		¢.addAttribute(EXTYPELIST, l);
+		¢.addAttribute(EXTYPELIST, repository.findDistinctExceptions());
 		return TemplateController.LAYOUT;
 	}
 }

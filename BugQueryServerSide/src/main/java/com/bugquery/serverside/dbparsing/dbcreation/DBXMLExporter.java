@@ -27,29 +27,27 @@ public class DBXMLExporter {
 	}
 	
 	public void export() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
-		Connection con = connect();
-		Statement st = con.createStatement();
-		createDB(st);
-		createTable(st);
-		st.close();
-		con.close();
+		try (Connection con = connect(); Statement st = con.createStatement()){
+			createDB(st);
+			createTable(st);
+		}
 	}
 
-	private void createDB(Statement st) throws SQLException {
+	private static void createDB(Statement s) throws SQLException {
 		try {
-  			st.executeUpdate("CREATE DATABASE bugquery");
+  			s.executeUpdate("CREATE DATABASE bugquery");
   		} catch (SQLException ¢) {
   			System.out.println("db already exists " + ¢.getMessage());
   		}
   		
-  		st.executeQuery("USE bugquery");
+  		s.executeQuery("USE bugquery");
 	}
 	
-	private  void createTable(Statement st) {
+	private  void createTable(Statement s) {
 		try {
   			
-  			st.executeUpdate("CREATE TABLE so_posts(Id int, PostTypeId int, ParentId int,AcceptedAnswerId int, Score int, Body Text,Title Text, Tags varchar(500), AnswerCount int)");
-  			st.executeUpdate("LOAD XML INFILE "+xmlLocation+" INTO TABLE so_posts(Id, PostTypeId,ParentId,AcceptedAnswerId,Score,Body,Title,Tags,AnswerCount)");
+  			s.executeUpdate("CREATE TABLE so_posts(Id int, PostTypeId int, ParentId int,AcceptedAnswerId int, Score int, Body Text,Title Text, Tags varchar(500), AnswerCount int)");
+  			s.executeUpdate("LOAD XML INFILE "+xmlLocation+" INTO TABLE so_posts(Id, PostTypeId,ParentId,AcceptedAnswerId,Score,Body,Title,Tags,AnswerCount)");
   			
   		} catch (SQLException ¢) {
   			System.out.println("Table already exists " + ¢.getMessage());

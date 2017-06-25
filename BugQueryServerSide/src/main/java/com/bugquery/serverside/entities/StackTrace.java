@@ -1,11 +1,6 @@
 package com.bugquery.serverside.entities;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;

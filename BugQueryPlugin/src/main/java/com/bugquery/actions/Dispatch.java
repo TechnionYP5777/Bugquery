@@ -36,9 +36,12 @@ public interface Dispatch {
 	 * @param trace
 	 */
 	public static void query(final String trace) {
-		markersInit(trace);
+		String url = "http://ssdlbugquery.cs.technion.ac.il";
 		if (trace != null && !trace.isEmpty())
-			sendBugQuery(Extract.trace(trace));
+			url = sendBugQuery(Extract.trace(trace));
+		
+		markersInit(trace, url);
+		Program.launch(url);
 	}
 
 	/**
@@ -49,13 +52,13 @@ public interface Dispatch {
 	 * @param trace
 	 *            - an extracted trace
 	 */
-	public static void sendBugQuery(String trace) {
+	public static String sendBugQuery(String trace) {
 		final String urlStr = "http://ssdlbugquery.cs.technion.ac.il/stacks";
 		URL url;
 		try {
 			url = new URL(urlStr);
 		} catch (final MalformedURLException e) {
-			return; // shouldn't happen
+			return "http://ssdlbugquery.cs.technion.ac.il"; // shouldn't happen
 		}
 
 		byte[] post_bytes;
@@ -63,7 +66,7 @@ public interface Dispatch {
 			String content = "skiploading=true&trace=" + trace;
 			post_bytes = content.getBytes("UTF-8");
 		} catch (final UnsupportedEncodingException e1) {
-			return;
+			return "http://ssdlbugquery.cs.technion.ac.il";
 		}
 
 		HttpURLConnection conn;
@@ -78,16 +81,13 @@ public interface Dispatch {
 			conn.setInstanceFollowRedirects(false);
 			conn.getOutputStream().write(post_bytes);
 		} catch (final IOException e) {
-			return;
+			return "http://ssdlbugquery.cs.technion.ac.il";
 		}
 
-		Program.launch(conn.getHeaderField("location"));
+		return conn.getHeaderField("location");
 	}
 
-	/**
-	 * 
-	 */
-	public static void markersInit(String trace) {
+	public static void markersInit(String trace, String url) {
 		MarkerFactory m = MarkerFactory.instance();
 		Preferences prefs = InstanceScope.INSTANCE
 				.getNode("com.bugquery.preferences");
@@ -98,6 +98,6 @@ public interface Dispatch {
 			return;
 		}
 		m.deleteMarkerFrom(ResourcesUtils.getProject(projectName));
-		m.addMarkers(trace);
+		m.addMarkers(trace, url);
 	}
 }
