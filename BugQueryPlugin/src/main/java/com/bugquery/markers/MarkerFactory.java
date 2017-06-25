@@ -82,15 +82,18 @@ public class MarkerFactory {
 	/**
 	 * convenient method for marking file associated with this builder
 	 * 
+	 * @param url
 	 * @param file
 	 * @param message
 	 * @param lineNumber
 	 * @param severity
 	 * @return
 	 */
-	public IMarker addMarker(final IResource res, int line, final String msg) {
+	public IMarker addMarker(final IResource res, int line, final String msg,
+			String url) {
 		try {
 			IMarker m = createMarker(res, line, msg);
+			m.setAttribute("currentURL", url);
 			markers.add(m);
 			return m;
 		} catch (final CoreException e) {
@@ -98,39 +101,35 @@ public class MarkerFactory {
 		}
 	}
 
-	public void addMarkers(String trace) {
+	public void addMarkers(String trace, String url) {
 		String exception = StackTrace.of(trace).getException();
-		ArrayList<MarkerInformation> markerInfo = Extract
-				.markersInfo(trace);
-		Preferences prefs = InstanceScope.INSTANCE.getNode(
-				"com.bugquery.preferences");
+		ArrayList<MarkerInformation> markerInfo = Extract.markersInfo(trace);
+		Preferences prefs = InstanceScope.INSTANCE
+				.getNode("com.bugquery.preferences");
 		String projectName = prefs.get("projectname", "default");
 		String src = "src/";
-		IJavaProject p = JavaCore.create(ResourcesUtils.getProject(projectName));
+		IJavaProject p = JavaCore
+				.create(ResourcesUtils.getProject(projectName));
 		try {
 			IPackageFragmentRoot[] ipfr = p.getAllPackageFragmentRoots();
 			for (IPackageFragmentRoot i : ipfr) {
-				if ( i.getKind() == IPackageFragmentRoot.K_SOURCE ) {
+				if (i.getKind() == IPackageFragmentRoot.K_SOURCE) {
 					src = i.getPath().toString();
-					src = src.substring(src.indexOf("/")+1);
-					src = src.substring(src.indexOf("/")+1);
+					src = src.substring(src.indexOf("/") + 1);
+					src = src.substring(src.indexOf("/") + 1);
 					break;
 				}
 			}
 		} catch (JavaModelException e) {
-			
+
 		}
 		for (MarkerInformation t : markerInfo) {
-			String folder =  src+"/"+t.getPackageName();
-//			folder = folder.replace("/", "\\");
-			final IFile file = ResourcesUtils.getFile(projectName, folder, t.getFileName());
-			addMarker(file, t.getLineNumber(), "This line causes " + exception);
+			String folder = src + "/" + t.getPackageName();
+			final IFile file = ResourcesUtils.getFile(projectName, folder,
+					t.getFileName());
+			addMarker(file, t.getLineNumber(), "This line causes " + exception,
+					url);
 		}
-	}
-
-	public IMarker addMarker(final IResource res, final String trace) {
-		return addMarker(res, StackTrace.of(trace).getLine(),
-				"Fix: " + StackTrace.of(trace).getException());
 	}
 
 	public void deleteMarkerFrom(final IResource i) {
