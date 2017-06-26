@@ -13,8 +13,9 @@ import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.repositories.PostRepository;
 
 /**
+ * Specific services for stack overflow.
  * 
- * @author amit
+ * @author amit, tony
  * @since June 26, 2017
  */
 @Service
@@ -25,7 +26,7 @@ public class StackOverflowService {
 
 	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_ADDRESS = "localhost:4499";
-	
+
 	@Autowired
 	public StackOverflowService(ApplicationArguments args) {
 		if (args.containsOption("updateDB"))

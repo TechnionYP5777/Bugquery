@@ -39,6 +39,14 @@ public class SearchController {
 	@Autowired
 	private StackTraceRetriever retriever;
 
+	/**
+	 * Return search results. If searched before - use cached results, otherwise
+	 * calculate from scratch.
+	 * 
+	 * @param id Search id
+	 * @param m Model
+	 * @return Result page
+	 */
 	@RequestMapping(value = REQUEST_FORMAT, method = RequestMethod.GET)
 	public String getSearchResults(@PathVariable Long id, Model m) throws InvalidStackTraceException {
 		StackSearch ss = repository.findOne(id);
@@ -53,6 +61,14 @@ public class SearchController {
 		return "result";
 	}
 
+	/**
+	 * Post a new stack search. 
+	 * Redirects to a loading page unless "skip loading" flag is set.
+	 *  
+	 * @param input POST method input
+	 * @param m Model
+	 * @return Loading page or redirect to stack search page
+	 */
 	@RequestMapping(value = "/stacks", method = RequestMethod.POST)
 	public String addStackSearch(@RequestBody String input, Model m) throws InvalidStackTraceException {
 		String trace = input.substring(input.indexOf(TRACE_KEY) + TRACE_KEY.length());
@@ -64,6 +80,12 @@ public class SearchController {
 		return "loading";
 	}
 
+	/**
+	 * Check if skip loading flag is set.
+	 * 
+	 * @param input POST method input
+	 * @return Is skip loading flag set
+	 */
 	private static boolean shouldSkipLoading(String input) {
 		int skipLoadingIdx = input.indexOf(SKIP_LOADING_KEY);
 		return skipLoadingIdx != -1 && skipLoadingIdx < input.indexOf(TRACE_KEY)

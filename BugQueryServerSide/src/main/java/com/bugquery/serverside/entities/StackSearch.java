@@ -37,7 +37,10 @@ public class StackSearch {
 
 	@Column(columnDefinition = "Text")
 	private String trace;
+
+	// Used to check if has been searched before and save time.
 	public Status status;
+
 	@ElementCollection
 	private List<Long> relatedPostsIds;
 
@@ -75,6 +78,10 @@ public class StackSearch {
 		this.id = id;
 	}
 
+	/**
+	 * Find most relevant posts and set the status to READY (called on first
+	 * search).
+	 */
 	public void getReady(StackTraceRetriever r) throws InvalidStackTraceException {
 		List<Post> $;
 		try {
