@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -12,7 +14,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.bugquery.serverside.entities.Post;
+import com.bugquery.serverside.entities.StackTrace;
 import com.bugquery.serverside.repositories.PostRepository;
+import com.bugquery.serverside.stacktrace.StackTraceExtractor;
 
 /**
  * Specific services for stack overflow.
@@ -39,8 +43,32 @@ public class StackOverflowService {
 
 	public void updatePosts(String xmlLocation){
 		importStackOverflowDB(xmlLocation);
+		addToPosts();
 
 		throw new UnsupportedOperationException("Updating is not yet implemented");
+	}
+
+	private void addToPosts() {
+		jdbcTemplate.query("SELECT * FROM so_posts", (rs, rowNum) -> 
+		{
+			List<Post> results = new ArrayList<>();
+			if (isJavaPost(rs.getString("Tags"))) {
+				String body = rs.getString("Body");
+				for (StackTrace stackTrace : StackTraceExtractor.extract(body)) {
+					Post p = new Post(stackTrace);
+					//TODO: add answer
+					p.setQuestion(body);
+					p.setTitle(rs.getString("Title"));
+					results.add(p);
+				}
+			}
+			
+			return results;
+		}).forEach(posts -> repo.save(posts));
+	}
+
+	private static boolean isJavaPost(String tags) {
+		return tags != null && tags.toLowerCase().contains("java");
 	}
 
 	private void importStackOverflowDB(String xmlLocation) {
