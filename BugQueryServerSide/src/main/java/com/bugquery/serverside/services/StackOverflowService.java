@@ -56,7 +56,10 @@ public class StackOverflowService {
 				String body = rs.getString("Body");
 				for (StackTrace stackTrace : StackTraceExtractor.extract(body)) {
 					Post p = new Post(stackTrace);
-					//TODO: add answer
+					//TODO: check if answerAdding is working
+					int acceptedAnswerId = rs.getInt("AcceptedAnswerId");
+					String answer = jdbcTemplate.queryForObject("SELECT Body FROM so_posts USE INDEX(Id) WHERE Id = ?", String.class,acceptedAnswerId);
+					p.setAnswer(answer);
 					p.setQuestion(body);
 					p.setTitle(rs.getString("Title"));
 					results.add(p);
