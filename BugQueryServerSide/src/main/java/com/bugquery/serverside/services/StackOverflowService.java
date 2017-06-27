@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.bugquery.serverside.entities.Post;
@@ -21,20 +23,32 @@ import com.bugquery.serverside.repositories.PostRepository;
 @Service
 public class StackOverflowService {
 
-	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	private PostRepository repo;
 
 	private static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_ADDRESS = "localhost:4499";
 
 	@Autowired
-	public StackOverflowService(ApplicationArguments args) {
+	public StackOverflowService(ApplicationArguments args, PostRepository repo, JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.repo = repo;
 		if (args.containsOption("updateDB"))
-			updatePosts();
+			updatePosts(args.getNonOptionArgs().get(0));
 	}
 
-	public static void updatePosts() {
+	public void updatePosts(String xmlLocation){
+		importStackOverflowDB(xmlLocation);
+
 		throw new UnsupportedOperationException("Updating is not yet implemented");
+	}
+
+	private void importStackOverflowDB(String xmlLocation) {
+		jdbcTemplate.execute("DROP TABLE so_posts IF EXISTS");
+		jdbcTemplate.execute(
+				"CREATE TABLE so_posts(Id int, AcceptedAnswerId int, Body Text, Title Text, Tags varchar(500))");
+		jdbcTemplate.execute(
+				"LOAD XML INFILE " + xmlLocation + " INTO TABLE so_posts(Id, AcceptedAnswerId, Body, Title, Tags)");		
 	}
 
 	public void importAnswersFromStackOverflow() throws Exception {
