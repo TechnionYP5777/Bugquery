@@ -8,9 +8,9 @@
 
 	<parent>
 		<groupId>com.bugquery</groupId>
-		<artifactId>BugQueryParent</artifactId>
+		<artifactId>BugQuery</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../BugQueryParent</relativePath>
+		<relativePath>..</relativePath>
 	</parent>
 
 	<dependencyManagement>
