@@ -13,8 +13,7 @@ before_install:
 before_script:
   - cd BugQueryServerSide/
 script:
-  - mvn test
-  - mvn cobertura:cobertura
+  - mvn test -P serverside
 
 after_success:
 #  - codecov
