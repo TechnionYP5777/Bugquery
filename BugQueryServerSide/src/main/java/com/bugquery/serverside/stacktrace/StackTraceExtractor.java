@@ -9,7 +9,9 @@ import com.bugquery.serverside.entities.StackTrace;
 
 /**
  * This class should be used for finding and extracting stack traces from stackoverflow
- * questions. It is based on the ExtractTrace class of yosefraisman
+ * posts. It is based on the ExtractTrace class of yosefraisman
+ * The main purpose of this class is to get a string represnting a stackoverflow
+ * post and returning the stacktrace in it.
  * @author rodedzats
  * @since 7.12.2016
  */
@@ -22,6 +24,11 @@ public class StackTraceExtractor {
 	private static final Pattern stackTraceRegexPattern = Pattern.compile(stackTraceRegularExpression);
 	private static final Pattern semiStackTraceRegexPattern = Pattern.compile(semiStackTraceRegularExpression);
 	
+	/**
+	 * This function finds all stack traces in a post 
+	 * @param ¢ the string representing the post
+	 * @return list of all stack traces in the posts
+	 */
 	public static List<StackTrace> extract(String ¢) {
 		List<StackTrace> $ = new ArrayList<>();
 		if(¢ == null)
@@ -32,6 +39,11 @@ public class StackTraceExtractor {
 		return $;
 	}
 	
+	/**
+	 * This functions determines wether an input string represents a stacktrace
+	 * @param ¢ the input string 
+	 * @return is the string a stacktrace
+	 */
 	public static boolean isStackTrace(String ¢) {
 		return ¢ != null && (StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.stackTraceRegexPattern, ¢)
 				|| StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.semiStackTraceRegexPattern, ¢));

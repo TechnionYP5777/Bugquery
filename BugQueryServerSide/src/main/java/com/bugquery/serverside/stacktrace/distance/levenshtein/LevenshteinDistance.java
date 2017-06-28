@@ -3,7 +3,9 @@ package com.bugquery.serverside.stacktrace.distance.levenshtein;
 import com.bugquery.serverside.entities.StackTrace;
 
 /**
- * Calculate Levenshtein distance between 2 lists of stack of calls in StackTrace.
+ * This class implements the logic of the levenshtein distance calculation
+ * between 2 stack traces. This class is used by LevenshteinSTDistancer.
+ * The calculated distance is between the list of stack of calls in the StackTrace.
  * @author rodedzats
  * @since 29.4.2017
  */

@@ -5,7 +5,7 @@ import com.bugquery.serverside.entities.StackTrace;
 /**
  * An interface which defines the cost for each operation in the levenshtein algorithm.
  * The allowed operations are: insertion, deletion and substitution.
- * The cost is based on the index of the line in the stack trace (the top lines are more 
+ * Possible case: The cost may be based on the index of the line in the stack trace (the top lines are more 
  * important)
  * @author rodedzats
  * @since 28.4.2017

@@ -22,7 +22,10 @@ import org.xml.sax.SAXException;
 import com.bugquery.serverside.entities.Post;
 import com.bugquery.serverside.entities.StackTrace;
 /**
- * 
+ * This class is used for parsing the xml files which contain the content that
+ * should be displayed in the Examples page in the website.
+ * The examples are stored in xml files because the examples shoudln't be changed
+ * often so there's no need for database access to get them.
  * @author rodedzats & ZivIzhar
  * @since 24.5.2017
  *

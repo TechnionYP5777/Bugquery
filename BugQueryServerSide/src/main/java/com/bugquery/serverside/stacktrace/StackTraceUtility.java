@@ -35,6 +35,13 @@ public class StackTraceUtility {
 		return lastSpace > $.length() - 1 ? StackTrace.noExceptionFound : $.substring(lastSpace + 1);
 	}
 	
+	/**
+	 * This function finds and returns the exception type of a given stacktrace.
+	 * If the given stacktrace is not in the right format or in fact
+	 * not a stacktrace then StackTrace.noExceptionFound is returned
+	 * @param stackTrace the stacktrace whose type needs to be found
+	 * @return the type of the given stacktrace or StackTrace.noExceptionFound on error
+	 */
 	public static String getException(String stackTrace) {
 		String $ = "";
 		if (stackTrace.contains(StackTraceUtility.causedBy)) {
@@ -52,6 +59,10 @@ public class StackTraceUtility {
 		return "".equals($) || $ == null ? StackTrace.noExceptionFound : getExceptionNameFromExceptionLine($.trim());
 	}
 	
+	/**
+	 * @param stackTrace
+	 * @return list of all lines in a given stacktrace
+	 */
 	public static List<String> getStackOfCalls(String stackTrace) {
 		String[] calls = stackTrace.split("(\\t )*(\n)+");
 		List<String> $ = new ArrayList<>();

@@ -19,7 +19,7 @@ import com.bugquery.serverside.stacktrace.distance.StackTraceDistancer;
 /**
  * This class is used for getting relevant posts from the database (relevant
  * to a given stack trace)
- * 
+ * It is a pipeline between the website and the database.
  * @author rodedzats
  * @since 11.12.2016
  */
