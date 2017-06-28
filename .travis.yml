@@ -7,11 +7,14 @@ addons:
     packages:
       - oracle-java8-installer
 
+before_install:
+  - pip install --user codecov
+  
 before_script:
   - cd BugQueryServerSide/
 script:
-  - mvn test
-  - mvn cobertura:cobertura
+  - mvn test -P serverside
 
 after_success:
+#  - codecov
   - bash <(curl -s https://codecov.io/bash)

@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>BugQueryPlugin</artifactId>
+	<artifactId>BugQueryFeature</artifactId>
 	<build>
 		<pluginManagement>
 			<plugins>
