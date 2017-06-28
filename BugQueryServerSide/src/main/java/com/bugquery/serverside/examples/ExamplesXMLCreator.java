@@ -29,11 +29,11 @@ import com.bugquery.serverside.stacktrace.StackTraceRetriever;
 
 @Service
 public class ExamplesXMLCreator {
-	@Autowired
 	private StackTraceRetriever retriever;
 	
 	@Autowired
-	ExamplesXMLCreator(ApplicationArguments args) {
+	ExamplesXMLCreator(ApplicationArguments args, StackTraceRetriever retriever) {
+		this.retriever = retriever;
 		if (args.containsOption("createExamples"))
 			createExamplesXML();
 	}

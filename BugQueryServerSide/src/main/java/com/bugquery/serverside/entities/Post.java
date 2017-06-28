@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * @author zivizhar
+ * This is the entity which stores a post.
+ * 
+ * @author zivizhar, amit, tony
  */
 @Entity
 public class Post extends AbstractPersistable<Long> {
@@ -20,8 +22,8 @@ public class Post extends AbstractPersistable<Long> {
 	@Column(columnDefinition = "Text")
 	private String question;
 	@Column(columnDefinition = "Text")
-	private String answer; 
-	
+	private String answer;
+
 	public String getTitle() {
 		return title;
 	}
@@ -30,33 +32,33 @@ public class Post extends AbstractPersistable<Long> {
 		this.title = title;
 	}
 
-	public Post() { 
+	public Post() {
 		this.setId(null);
 	}
-	
+
 	public Post(StackTrace stackTrace) {
 		this();
 		this.stackTrace = stackTrace;
 	}
-		
+
 	public Post(String stackContent) {
 		this();
 		this.stackTrace = new StackTrace(stackContent);
 	}
-	
+
 	public Post(Long id) {
 		setId(id);
-	}	
+	}
 
 	@Override
 	public String toString() {
 		return super.toString() + "\nStack Trace:" + stackTrace.getContent();
 	}
-	
+
 	public void setStackTrace(StackTrace ¢) {
 		this.stackTrace = ¢;
 	}
-	
+
 	public StackTrace getStackTrace() {
 		return stackTrace;
 	}
@@ -75,5 +77,5 @@ public class Post extends AbstractPersistable<Long> {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
-	}	
+	}
 }
