@@ -58,7 +58,7 @@ public class StackOverflowService {
 					Post p = new Post(stackTrace);
 					//TODO: check if answerAdding is working
 					int acceptedAnswerId = rs.getInt("AcceptedAnswerId");
-					String answer = jdbcTemplate.queryForObject("SELECT Body FROM so_posts USE INDEX(Id) WHERE Id = ?", String.class,acceptedAnswerId);
+					String answer = jdbcTemplate.queryForObject("SELECT Body FROM so_posts WHERE Id = ?", String.class, acceptedAnswerId);
 					p.setAnswer(answer);
 					p.setQuestion(body);
 					p.setTitle(rs.getString("Title"));
@@ -75,11 +75,11 @@ public class StackOverflowService {
 	}
 
 	private void importStackOverflowDB(String xmlLocation) {
-		jdbcTemplate.execute("DROP TABLE so_posts IF EXISTS");
+		jdbcTemplate.execute("DROP TABLE IF EXISTS so_posts");
 		jdbcTemplate.execute(
-				"CREATE TABLE so_posts(Id int, AcceptedAnswerId int, Body Text, Title Text, Tags varchar(500))");
+				"CREATE TABLE so_posts(Id int, AcceptedAnswerId int, Body Text, Title Text, Tags varchar(500)) ENGINE = MYISAM");
 		jdbcTemplate.execute(
-				"LOAD XML INFILE " + xmlLocation + " INTO TABLE so_posts(Id, AcceptedAnswerId, Body, Title, Tags)");		
+				"LOAD XML INFILE \"" + xmlLocation + "\" INTO TABLE so_posts(Id, AcceptedAnswerId, Body, Title, Tags)");		
 	}
 
 	public void importAnswersFromStackOverflow() throws Exception {
