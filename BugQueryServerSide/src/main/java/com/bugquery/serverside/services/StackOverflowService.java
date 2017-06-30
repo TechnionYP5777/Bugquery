@@ -2,6 +2,7 @@ package com.bugquery.serverside.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Service;
 
 import com.bugquery.serverside.entities.Post;
@@ -42,14 +44,14 @@ public class StackOverflowService {
 	}
 
 	public void updatePosts(String xmlLocation){
-		importStackOverflowDB(xmlLocation);
+		//importStackOverflowDB(xmlLocation);
 		addToPosts();
 
 		throw new UnsupportedOperationException("Updating is not yet implemented");
 	}
 
 	private void addToPosts() {
-		jdbcTemplate.query("SELECT * FROM so_posts", (rs, rowNum) -> 
+		jdbcTemplate.query(new StreamingStatementCreator("SELECT * FROM so_posts"), (rs, rowNum) -> 
 		{
 			List<Post> results = new ArrayList<>();
 			if (isJavaPost(rs.getString("Tags"))) {
@@ -58,16 +60,28 @@ public class StackOverflowService {
 					Post p = new Post(stackTrace);
 					//TODO: check if answerAdding is working
 					int acceptedAnswerId = rs.getInt("AcceptedAnswerId");
-					String answer = jdbcTemplate.queryForObject("SELECT Body FROM so_posts WHERE Id = ?", String.class, acceptedAnswerId);
-					p.setAnswer(answer);
+					if (rs.wasNull()){
+						p.setAnswer(null);
+					} else{
+						p.setAnswer(""+acceptedAnswerId);
+					}
+					//String answer = jdbcTemplate.queryForObject("SELECT Body FROM so_posts WHERE Id = ?", String.class, acceptedAnswerId);
+					p.setAnswer(""+acceptedAnswerId);
 					p.setQuestion(body);
 					p.setTitle(rs.getString("Title"));
 					results.add(p);
 				}
 			}
 			
-			return results;
-		}).forEach(posts -> repo.save(posts));
+			repo.save(results);
+			return null;
+		});
+		for (Post p : repo.findAll()){
+			if  (p.getAnswerId() != null){
+				String answer = jdbcTemplate.queryForObject("SELECT Body FROM so_posts WHERE Id = ?", String.class, p.getAnswerId());
+				p.setAnswer(answer);
+			}
+		}
 	}
 
 	private static boolean isJavaPost(String tags) {
@@ -109,5 +123,20 @@ public class StackOverflowService {
 			e.printStackTrace();
 		}
 		return answer;
+	}
+	
+	class StreamingStatementCreator implements PreparedStatementCreator {
+	    private final String sql;
+
+	    public StreamingStatementCreator(String sql) {
+	        this.sql = sql;
+	    }
+
+	    @Override
+	    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+	        final PreparedStatement statement = connection.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+	        statement.setFetchSize(Integer.MIN_VALUE);
+	        return statement;
+	    }
 	}
 }
