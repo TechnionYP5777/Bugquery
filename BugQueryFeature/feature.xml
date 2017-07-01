@@ -2,7 +2,7 @@
 <feature
       id="com.bugquery.feature"
       label="BugQuery"
-      version="0.2.1"
+      version="0.5.0"
       provider-name="BugQuery">
 
    <description url="http://ssdlbugquery.cs.technion.ac.il/">

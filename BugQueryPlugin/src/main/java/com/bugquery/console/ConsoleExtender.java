@@ -16,7 +16,10 @@ public class ConsoleExtender implements IConsolePageParticipant {
 	public <T> T getAdapter(Class<T> adapter) {
 		return null;
 	}
-
+	
+	/**
+	 * initializing the ConsoleExtender and adding the button to the tool bar 
+	 */
 	@Override
 	public void init(IPageBookViewPage p, IConsole c) {
 		TextConsole textConsole = (TextConsole) c;

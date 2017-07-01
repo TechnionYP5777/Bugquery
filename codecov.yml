@@ -3,4 +3,5 @@ coverage:
   round: nearest
   range: "40...60"
   ignore: 
-    - "src/main/java/com/bugquery/serverside/entities/"
+    - "BugQueryServerSide/src/main/java/com/bugquery/serverside/entities/"
+    - "BugQueryPlugin/src/*"

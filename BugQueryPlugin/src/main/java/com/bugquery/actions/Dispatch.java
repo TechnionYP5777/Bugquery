@@ -14,10 +14,7 @@ import org.eclipse.swt.program.Program;
 import org.osgi.service.prefs.Preferences;
 
 import com.bugquery.markers.*;
-import com.bugquery.stacktrace.Extract;
-
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
 /**
  * Handles an input of stack trace: Performs stack extraction and starts a
@@ -38,11 +35,11 @@ public interface Dispatch {
 	 */
 	static void query(final String trace) {
 		String url = "http://ssdlbugquery.cs.technion.ac.il";
-		if (trace != null && !trace.isEmpty())
-			url = sendBugQuery(Extract.trace(trace));
-		
-		markersInit(trace, url);
-		Program.launch(url);
+		if (trace != null && !trace.isEmpty()) {
+			url = sendBugQuery(trace);
+			markersInit(trace, url);
+			Program.launch(url);
+		}
 	}
 
 	/**
@@ -74,10 +71,8 @@ public interface Dispatch {
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type",
-					"application/x-www-form-urlencoded");
-			conn.setRequestProperty("Content-Length",
-					String.valueOf(post_bytes.length));
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Length", String.valueOf(post_bytes.length));
 			conn.setDoOutput(true);
 			conn.setInstanceFollowRedirects(false);
 			conn.getOutputStream().write(post_bytes);
@@ -89,19 +84,19 @@ public interface Dispatch {
 	}
 
 	/**
-	 * Get a trace and a url, set all relevant (of this project) markers to link this url
-	 * sets default project etc.
+	 * Get a trace and a url, set all relevant (of this project) markers to link
+	 * this url sets default project etc.
+	 * 
 	 * @param trace
 	 * @param url
 	 */
 	static void markersInit(String trace, String url) {
 		MarkerFactory m = MarkerFactory.instance();
-		Preferences prefs = InstanceScope.INSTANCE
-				.getNode("com.bugquery.preferences");
+		Preferences prefs = InstanceScope.INSTANCE.getNode("com.bugquery.preferences");
 		String projectName = prefs.get("projectname", "default");
 		if (projectName == "default") {
-			MessageDialog.openError(Display.getCurrent().getActiveShell(),
-					"BugQuery Error", "BugQuery could not generate markers since there is no selected project.");
+			MessageDialog.openError(Display.getCurrent().getActiveShell(), "BugQuery Error",
+					"BugQuery could not generate markers since there is no selected project.");
 			return;
 		}
 		m.deleteMarkerFrom(ResourcesUtils.getProject(projectName));

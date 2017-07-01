@@ -9,6 +9,7 @@ import org.eclipse.ui.internal.ide.IMarkerImageProvider;
  * @since 24 05 2017
  */
 
+@SuppressWarnings("restriction")
 public class MarkerImageProvider implements IMarkerImageProvider {
 
 	@Override

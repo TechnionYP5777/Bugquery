@@ -12,15 +12,17 @@ import org.osgi.framework.Bundle;
 import com.bugquery.actions.Dispatch;
 
 /**
- * sends @console's contents to Dispatch
+ * A button action, sends @console's contents to Dispatch
  * 
  * @author Yosef
  * @since May 10, 2017
  */
+@SuppressWarnings("restriction")
 public class ConsoleQuery extends Action {
 	TextConsole console;
 	static ImageDescriptor icon;
 	static {
+		// initializing icon
 		Bundle bundle = Platform.getBundle("com.bugquery.plugin");
 		URL imageURL = BundleUtility.find(bundle, "icons/bugquery_main.gif");
 		icon = ImageDescriptor.createFromURL(imageURL);
@@ -31,6 +33,9 @@ public class ConsoleQuery extends Action {
 		this.console = console;
 	}
 
+	/**
+	 * on click: call Dispatch.query() with the contents of the button's console console 
+	 */
 	@Override
 	public void run() {
 		if (console == null)
