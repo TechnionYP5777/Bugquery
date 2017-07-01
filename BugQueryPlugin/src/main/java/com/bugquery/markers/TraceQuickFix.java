@@ -11,6 +11,7 @@ import com.bugquery.actions.Dispatch;
 import com.bugquery.actions.FromConsole;
 
 /**
+ * Single quickfix for our Trace Marker
  * @author Doron
  * @since 25 06 2017
  */
@@ -23,9 +24,8 @@ public class TraceQuickFix implements IMarkerResolution {
     public String getLabel() {
        return label;
     }
-    public void run(IMarker marker) {
-		Preferences prefs = InstanceScope.INSTANCE
-				.getNode("com.bugquery.preferences");
-		Program.launch(marker.getAttribute("currentURL", "http://ssdlbugquery.cs.technion.ac.il"));
+    public void run(IMarker m) {
+		InstanceScope.INSTANCE.getNode("com.bugquery.preferences");
+		Program.launch(m.getAttribute("currentURL", "http://ssdlbugquery.cs.technion.ac.il"));
     }
  }

@@ -18,10 +18,10 @@ public class ConsoleExtender implements IConsolePageParticipant {
 	}
 
 	@Override
-	public void init(IPageBookViewPage page, IConsole console) {
-		TextConsole textConsole = (TextConsole) console;
+	public void init(IPageBookViewPage p, IConsole c) {
+		TextConsole textConsole = (TextConsole) c;
 		Action action = new ConsoleQuery(textConsole);
-		IToolBarManager toolBarManager = page.getSite().getActionBars()
+		IToolBarManager toolBarManager = p.getSite().getActionBars()
 				.getToolBarManager();
 		toolBarManager.appendToGroup(IConsoleConstants.OUTPUT_GROUP,
 				new Separator());

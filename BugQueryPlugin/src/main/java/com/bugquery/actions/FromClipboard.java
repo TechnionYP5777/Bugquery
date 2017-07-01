@@ -50,13 +50,7 @@ public class FromClipboard extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent ¢) {
 		String trace = null;
-		if(isLinux){
-			// if OS is Linux open dialog
-			trace = fromClipboardDialog();
-		} else {
-			// otherwise, use default clipboard
-			trace = fromClipboard();
-		}
+		trace = !isLinux ? fromClipboard() : fromClipboardDialog();
 		Dispatch.query(trace);
 		return trace;
 	}

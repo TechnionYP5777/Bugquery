@@ -1,6 +1,7 @@
 package com.bugquery.markers;
 
 /**
+ * A class for handling marker information gathered from different parts of the code
  * @author Doron
  * @since 24 05 2017
  */
@@ -10,10 +11,10 @@ public class MarkerInformation {
 	private String fileName;
 	private Integer lineNumber;
 
-	public MarkerInformation(String pn, String fn, Integer ln) {
-		this.packageName = pn;
-		this.fileName = fn;
-		this.lineNumber = ln;
+	public MarkerInformation(String packageName, String fileName, Integer lineNumber) {
+		this.packageName = packageName;
+		this.fileName = fileName;
+		this.lineNumber = lineNumber;
 	}
 
 	public String getPackageName() {

@@ -33,10 +33,10 @@ public class ConsoleQuery extends Action {
 
 	@Override
 	public void run() {
-		if (console != null) {
-			String input = console.getDocument().get();
-			Dispatch.query(input);
-		}
+		if (console == null)
+			return;
+		String input = console.getDocument().get();
+		Dispatch.query(input);
 	}
 
 }

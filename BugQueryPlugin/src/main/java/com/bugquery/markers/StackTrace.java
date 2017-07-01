@@ -76,8 +76,8 @@ public class StackTrace {
 		String $ = "";
 		if (stackTrace.contains("Caused by:")) {
 			final Pattern p = Pattern.compile(causedByRegex);
-			for (final Matcher Â¢ = p.matcher(stackTrace); Â¢.find();)
-				$ = Â¢.group(0);
+			for (final Matcher ¢ = p.matcher(stackTrace); ¢.find();)
+				$ = ¢.group(0);
 			$ = $.trim();
 		} else if (!stackTrace.contains("Exception in"))
 			$ = stackTrace.split("\n")[0];
@@ -94,8 +94,8 @@ public class StackTrace {
 	private static List<String> getStackOfCalls(final String stackTrace) {
 		final String[] calls = stackTrace.split("(\\t )*(\n)+");
 		final List<String> $ = new ArrayList<>();
-		for (final String Â¢ : calls)
-			$.add(Â¢.trim());
+		for (final String ¢ : calls)
+			$.add(¢.trim());
 		return $;
 	}
 
@@ -107,9 +107,7 @@ public class StackTrace {
 	private int getLine(final String stackTrace) {
 		final Matcher m = Pattern.compile(atRegex).matcher(stackTrace);
 		final boolean f = m.find();
-		if (!f)
-			return -1;
-		return getLineNumberFromExceptionLine(m.group(0));
+		return !f ? -1 : getLineNumberFromExceptionLine(m.group(0));
 	}
 
 	private int getLineNumberFromExceptionLine(final String exceptionLine) {
@@ -121,9 +119,9 @@ public class StackTrace {
 	}
 
 	@Override
-	public boolean equals(final Object Â¢) {
-		return Â¢ instanceof StackTrace && (Â¢ == this
-				|| getString().equals(((StackTrace) Â¢).getString()));
+	public boolean equals(final Object ¢) {
+		return ¢ instanceof StackTrace && (¢ == this
+				|| getString().equals(((StackTrace) ¢).getString()));
 	}
 
 	@Override

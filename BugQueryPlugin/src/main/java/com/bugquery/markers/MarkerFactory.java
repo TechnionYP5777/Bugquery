@@ -19,7 +19,6 @@ import com.bugquery.stacktrace.Extract;
 
 /**
  * Singleton for managing our IMarker's
- * 
  * @author Doron
  * @since 03-Apr-17
  */
@@ -42,7 +41,7 @@ public class MarkerFactory {
 	/**
 	 * Method for creating new marker of our new type
 	 * 
-	 * @param res
+	 * @param r
 	 *            resource the marker will be on
 	 * @param line
 	 *            line number in the resource
@@ -51,12 +50,12 @@ public class MarkerFactory {
 	 * @return the new marker
 	 * @throws CoreException
 	 */
-	public static IMarker createMarker(IResource res, int line, String msg)
+	public static IMarker createMarker(IResource r, int line, String msg)
 			throws CoreException {
 		IMarker marker = null;
 		if (line == -1)
 			return marker;
-		marker = res.createMarker(MARKER);
+		marker = r.createMarker(MARKER);
 		marker.setAttribute(IMarker.MESSAGE, msg);
 		marker.setAttribute("description", "this is one of my markers");
 		marker.setAttribute(IMarker.LINE_NUMBER, line);
@@ -64,15 +63,14 @@ public class MarkerFactory {
 		return marker;
 	}
 
-	public static IMarker createMarker(IResource res, Position position,
+	public static IMarker createMarker(IResource r, Position p,
 			String msg) throws CoreException {
 		IMarker marker = null;
-		if (position.isDeleted)
+		if (p.isDeleted)
 			return null;
-		marker = res.createMarker(MARKER);
+		marker = r.createMarker(MARKER);
 		marker.setAttribute(IMarker.MESSAGE, msg);
-		int start = position.getOffset();
-		int end = position.getOffset() + position.getLength();
+		int start = p.getOffset(), end = p.getOffset() + p.getLength();
 		marker.setAttribute(IMarker.CHAR_START, start);
 		marker.setAttribute(IMarker.CHAR_END, end);
 		marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
@@ -89,10 +87,10 @@ public class MarkerFactory {
 	 * @param severity
 	 * @return
 	 */
-	public IMarker addMarker(final IResource res, int line, final String msg,
+	public IMarker addMarker(final IResource r, int line, final String msg,
 			String url) {
 		try {
-			IMarker m = createMarker(res, line, msg);
+			IMarker m = createMarker(r, line, msg);
 			m.setAttribute("currentURL", url);
 			markers.add(m);
 			return m;
@@ -101,25 +99,28 @@ public class MarkerFactory {
 		}
 	}
 
+	/**
+	 * Get a trace and a url, set markers of this project to link this url
+	 * @param trace
+	 * @param url
+	 */
 	public void addMarkers(String trace, String url) {
-		String exception = StackTrace.of(trace).getException();
+		String exception = StackTrace.of(trace).getException(); 
 		ArrayList<MarkerInformation> markerInfo = Extract.markersInfo(trace);
 		Preferences prefs = InstanceScope.INSTANCE
 				.getNode("com.bugquery.preferences");
-		String projectName = prefs.get("projectname", "default");
-		String src = "src/";
+		String projectName = prefs.get("projectname", "default"), src = "src/";
 		IJavaProject p = JavaCore
 				.create(ResourcesUtils.getProject(projectName));
 		try {
 			IPackageFragmentRoot[] ipfr = p.getAllPackageFragmentRoots();
-			for (IPackageFragmentRoot i : ipfr) {
+			for (IPackageFragmentRoot i : ipfr)
 				if (i.getKind() == IPackageFragmentRoot.K_SOURCE) {
-					src = i.getPath().toString();
+					src = i.getPath() + "";
 					src = src.substring(src.indexOf("/") + 1);
 					src = src.substring(src.indexOf("/") + 1);
 					break;
 				}
-			}
 		} catch (JavaModelException e) {
 
 		}
@@ -132,14 +133,21 @@ public class MarkerFactory {
 		}
 	}
 
-	public void deleteMarkerFrom(final IResource i) {
+	/**
+	 * Delete marker from IResource...
+	 * @param r 
+	 */
+	public void deleteMarkerFrom(final IResource r) {
 		try {
-			i.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
+			r.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Delete all markers from all files and project
+	 */
 	public void deleteAllKnownMarkers() {
 		for (final IMarker m : markers)
 			try {
@@ -150,27 +158,27 @@ public class MarkerFactory {
 	}
 
 	/**
-	 * @param res
+	 * @param r
 	 * @return a list of a resources markers
 	 */
-	public static List<IMarker> findMarkers(IResource res) {
+	public static List<IMarker> findMarkers(IResource r) {
 		try {
 			return Arrays.asList(
-					res.findMarkers(MARKER, true, IResource.DEPTH_ZERO));
+					r.findMarkers(MARKER, true, IResource.DEPTH_ZERO));
 		} catch (CoreException e) {
 			return new ArrayList<IMarker>();
 		}
 	}
 
 	/**
-	 * @param res
+	 * @param r
 	 * @return a list of markers that are linked to the resource or any sub
 	 *         resource of the resource
 	 */
-	public static List<IMarker> findAllMarkers(IResource res) {
+	public static List<IMarker> findAllMarkers(IResource r) {
 		try {
 			return Arrays.asList(
-					res.findMarkers(MARKER, true, IResource.DEPTH_INFINITE));
+					r.findMarkers(MARKER, true, IResource.DEPTH_INFINITE));
 		} catch (CoreException e) {
 			return new ArrayList<IMarker>();
 		}
@@ -180,13 +188,9 @@ public class MarkerFactory {
 	 * @return the selection of the package explorer
 	 */
 	public static TreeSelection getTreeSelection() {
-
 		ISelection selection = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getSelectionService()
 				.getSelection();
-		if (selection instanceof TreeSelection) {
-			return (TreeSelection) selection;
-		}
-		return null;
+		return !(selection instanceof TreeSelection) ? null : (TreeSelection) selection;
 	}
 }

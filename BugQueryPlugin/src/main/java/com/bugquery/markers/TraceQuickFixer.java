@@ -6,6 +6,7 @@ import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator;
 
 /**
+ * Class for applying a quickfix - the quickfixer
  * @author Doron
  * @since 25 06 2017
  */

@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Shell;
  * search in the BugQuery server (opens results in Browser)
  *
  * @author Yosef
+ * @author Doron
  * @since Dec 7, 2016
  */
 public interface Dispatch {
@@ -35,7 +36,7 @@ public interface Dispatch {
 	 *
 	 * @param trace
 	 */
-	public static void query(final String trace) {
+	static void query(final String trace) {
 		String url = "http://ssdlbugquery.cs.technion.ac.il";
 		if (trace != null && !trace.isEmpty())
 			url = sendBugQuery(Extract.trace(trace));
@@ -52,7 +53,7 @@ public interface Dispatch {
 	 * @param trace
 	 *            - an extracted trace
 	 */
-	public static String sendBugQuery(String trace) {
+	static String sendBugQuery(String trace) {
 		final String urlStr = "http://ssdlbugquery.cs.technion.ac.il/stacks";
 		URL url;
 		try {
@@ -87,7 +88,13 @@ public interface Dispatch {
 		return conn.getHeaderField("location");
 	}
 
-	public static void markersInit(String trace, String url) {
+	/**
+	 * Get a trace and a url, set all relevant (of this project) markers to link this url
+	 * sets default project etc.
+	 * @param trace
+	 * @param url
+	 */
+	static void markersInit(String trace, String url) {
 		MarkerFactory m = MarkerFactory.instance();
 		Preferences prefs = InstanceScope.INSTANCE
 				.getNode("com.bugquery.preferences");

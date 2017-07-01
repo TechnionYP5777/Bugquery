@@ -20,32 +20,32 @@ public class StackTraceExtractor {
 	private static final Pattern stackTraceRegexPattern = Pattern.compile(stackTraceRegularExpression);
 	private static final Pattern semiStackTraceRegexPattern = Pattern.compile(semiStackTraceRegularExpression);
 
-	public static List<StackTrace> extract(final String Â¢) {
+	public static List<StackTrace> extract(final String ¢) {
 		final List<StackTrace> $ = new ArrayList<>();
-		if (Â¢ == null)
+		if (¢ == null)
 			return $;
-		StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.stackTraceRegexPattern, Â¢);
+		StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.stackTraceRegexPattern, ¢);
 		if ($.isEmpty())
-			StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.semiStackTraceRegexPattern, Â¢);
+			StackTraceExtractor.addToListAllMatchingRegex($, StackTraceExtractor.semiStackTraceRegexPattern, ¢);
 		return $;
 	}
 
-	public static boolean isStackTrace(final String Â¢) {
-		return Â¢ != null && (StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.stackTraceRegexPattern, Â¢)
-				|| StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.semiStackTraceRegexPattern, Â¢));
+	public static boolean isStackTrace(final String ¢) {
+		return ¢ != null && (StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.stackTraceRegexPattern, ¢)
+				|| StackTraceExtractor.doesExistMatchingRegex(StackTraceExtractor.semiStackTraceRegexPattern, ¢));
 	}
 
 	private static void addToListAllMatchingRegex(final List<StackTrace> $, final Pattern p, final String s) {
-		for (final Matcher Â¢ = p.matcher(StackTraceExtractor.removeHtmlTags(s)); Â¢.find();)
-			$.add(new StackTrace(Â¢.group(0).trim()));
+		for (final Matcher ¢ = p.matcher(StackTraceExtractor.removeHtmlTags(s)); ¢.find();)
+			$.add(new StackTrace(¢.group(0).trim()));
 	}
 
 	private static boolean doesExistMatchingRegex(final Pattern p, final String s) {
 		return s != null && p != null && p.matcher(StackTraceExtractor.removeHtmlTags(s)).find();
 	}
 
-	public static String removeHtmlTags(final String Â¢) {
-		return Â¢.replaceAll("<[a-zA-Z0-9/]*>&#xA;&#xA;<[a-zA-Z0-9/]*>", "\n").replaceAll("<[a-zA-Z0-9/]*>", "")
+	public static String removeHtmlTags(final String ¢) {
+		return ¢.replaceAll("<[a-zA-Z0-9/]*>&#xA;&#xA;<[a-zA-Z0-9/]*>", "\n").replaceAll("<[a-zA-Z0-9/]*>", "")
 				.replaceAll("&#xA;", "\n");
 	}
 }
