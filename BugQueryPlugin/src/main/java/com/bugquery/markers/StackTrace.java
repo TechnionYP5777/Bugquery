@@ -107,9 +107,7 @@ public class StackTrace {
 	private int getLine(final String stackTrace) {
 		final Matcher m = Pattern.compile(atRegex).matcher(stackTrace);
 		final boolean f = m.find();
-		if (!f)
-			return -1;
-		return getLineNumberFromExceptionLine(m.group(0));
+		return !f ? -1 : getLineNumberFromExceptionLine(m.group(0));
 	}
 
 	private int getLineNumberFromExceptionLine(final String exceptionLine) {

@@ -35,11 +35,11 @@ public interface Dispatch {
 	 */
 	static void query(final String trace) {
 		String url = "http://ssdlbugquery.cs.technion.ac.il";
-		if (trace != null && !trace.isEmpty()) {
-			url = sendBugQuery(trace);
-			markersInit(trace, url);
-			Program.launch(url);
-		}
+		if (trace == null || trace.isEmpty())
+			return;
+		url = sendBugQuery(trace);
+		markersInit(trace, url);
+		Program.launch(url);
 	}
 
 	/**
