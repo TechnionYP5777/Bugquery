@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.bugquery.serverside.stacktrace.StackTraceExtractor;
-
 /**
  * 
  * @author rodedzats

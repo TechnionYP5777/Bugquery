@@ -2,13 +2,8 @@ package com.bugquery.markers;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.program.Program;
 import org.eclipse.ui.IMarkerResolution;
-import org.osgi.service.prefs.Preferences;
-
-import com.bugquery.actions.Dispatch;
-import com.bugquery.actions.FromConsole;
 
 /**
  * Single quickfix for our Trace Marker
