@@ -12,7 +12,7 @@ before_install:
   - pip install --user codecov
   
 script:
-  - mvn test -P serverside
+  - mvn test
 
 after_success:
   - codecov
