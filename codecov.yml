@@ -4,3 +4,4 @@ coverage:
   range: "40...60"
   ignore: 
     - "BugQueryServerSide/src/main/java/com/bugquery/serverside/entities/"
+    - "BugQueryPlugin/src/*"
