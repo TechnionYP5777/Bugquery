@@ -5,3 +5,4 @@ coverage:
   ignore: 
     - "BugQueryServerSide/src/main/java/com/bugquery/serverside/entities/"
     - "BugQueryPlugin/src/*"
+    - "Bugquery/BugQueryServerSide/src/main/java/com/bugquery/serverside/examples/*"

@@ -1,51 +1,48 @@
 <div th:fragment="content">
-	<h1>BugQuery Essentials</h1>
+	<h1>Overview</h1>
 	<p>This guide provides the essential information you can use to
 		debug your code with BugQuery. It describes in detail the services
 		BugQuery offers online and as a plug-in for Eclipse.</p>
-	<h2>Eclipse Plug-in</h2>
-	<p>
-		<img src="./img/guide/bugquery_window.png" class="img-responsive"></img>
-	</p>
-	<p>BugQuery's Eclipse plug-in collects your program's stack trace,
-		and helps you debug by automatically finding a relevant solution
-		online, using BugQuery's index.</p>
-	<p>This section will help you install the plug-in, and teach you
-		how to use it.</p>
-	<h3>Set Up</h3>
+	<h2>Eclipse Plugin</h2>
+	<p>BugQuery's Eclipse plugin collects your program's stack trace,
+		and helps you debug by automatically finding relevant solutions to
+		your bugs online, using BugQuery's database. Additionally, the plugin
+		marks lines in your code for quick access.</p>
+	<p>This section will help you install the plugin, and teach you how
+		to use it.</p>
+	<h3>Plugin installation</h3>
 	<p>
 		To use this plug-in you must have Eclipse installed on your machine.
 		The plug-in is supported in Eclipse Neon (which you can download from
-		the <a href="http://www.eclipse.org/downloads/">Eclipse Foundation
-			website</a>). To install the latest version of the BugQuery plug-in
-		please follow the directions in our <a class="internal present"
-			href="https://github.com/TechnionYP5777/Bugquery/wiki/Client-Game-Plug-in-Installation">Client
-			Game Plug in Installation</a> wiki. In the future, the plug-in will be
-		available in the Eclipse marketplace.
-	</p>
-	<h3>Quickly Solve Bugs</h3>
-	<p>
-		<img src="./img/guide/bugquery_window_select.png"
-			class="img-responsive"></img>
+		the <a href="http://www.eclipse.org/downloads/">Eclipse Foundation</a>,
+		we recommend <a
+			href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon3">Eclipse
+			IDE for Java Developers</a>).
 	</p>
 	<p>
-		First, locate BugQuery's toolbar in the Eclipse toolbar. Click the
-		arrow next to the main icon (<img src="./img/guide/bugquery_main.gif"></img>)
-		to select the project you want BugQuery to debug from the drop-down
-		menu.
+		To install the latest version of the BugQuery plugin, available in the
+		Eclipse Marketplace, please follow the directions in <a
+			href="https://github.com/TechnionYP5777/Bugquery/wiki/User-Guide%3A-Plugin-Installation">User
+			Guide: Plugin Installation</a>.
 	</p>
+	<h3>Quickly solve bugs</h3>
+	<p>First, locate BugQuery's menu in the Eclipse menubar. Click the
+		arrow next to the main icon to select the project you want BugQuery to
+		debug from the drop-down menu. This is necessary for marking lines in
+		the correct project.</p>
 	<p>
-		<img src="./img/guide/bugquery_dropdown.png" class="img-responsive"></img>
+		<img src="./img/guide/plugin_menu.png" class="img-responsive"></img>
 	</p>
+	<h3>Send your output to BugQuery</h3>
 	<p>There are several methods you can use to debug with BugQuery.
-		The plug-in will use the method you choose to retrieve the stack trace
-		(which includes details about your execution), and then will display
-		search results from our database in your default browser. BugQuery
-		Markers will be added to the relevant lines in your code.</p>
+		The plug-in will use whichever method you choose to retrieve the stack
+		trace (which includes details about your execution), and then will
+		display search results from our database in your default browser.
+		BugQuery Markers will be added to the relevant lines in your code.</p>
 	<p>With the BugQuery plug-in installed, you can choose from this
 		selection of stack extraction methods:</p>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<p>
 				<img src="./img/guide/bugquery_in_console.png"
 					class="img-responsive"></img>
@@ -55,15 +52,15 @@
 				execution in Eclipse, the BugQuery plug-in can automatically isolate
 				your program's stack trace from the console output. You can either
 				press the BugQuery button shown above your console, or select the
-				command's icon (<img src="./img/guide/bugquery_console.gif"></img>)
-				in the toolbar. You can also use the keyboard shortcut
+				command's icon (<img src="./img/guide/bugquery_console.gif" alt=""></img>)
+				in the menu. You can also use the keyboard shortcut
 				<code>ctrl+6</code>
 				(or
 				<code>⌘+6</code>
 				in macOS).
 			</p>
 		</div>
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<p>
 				<img src="./img/guide/bugquery_in_dialog.png" class="img-responsive"></img>
 			</p>
@@ -77,23 +74,72 @@
 				(<img src="./img/guide/bugquery_clipboard.gif"></img>) from the
 				BugQuery toolbar. Alternatively, pick
 				<code>Trace from User Dialog</code>
-				(<img src="./img/guide/bugquery_dialog.gif"></img>) , and insert
-				your query in the window that opens up. Click OK and you are set.
-				You don't have to worry about formatting or adding unnecessary
+				(<img src="./img/guide/bugquery_dialog.gif"></img>), and insert your
+				query in the window that opens up. Click OK and you are set. You
+				don't have to worry about formatting or adding unnecessary
 				information - the plug-in faithfully extracts the important parts of
 				your input.
 			</p>
 		</div>
 	</div>
-
-	<h2>Website</h2>
+	<h3>After sending the output</h3>
+	<p>Your browser will display the result page from the BugQuery
+		website.</p>
+	<p>
+		<img src="./img/guide/bugquery_website_results.png"
+			class="img-responsive"></img>
+	</p>
+	<p>Lines in your code in which the error occurred will be marked,
+		like so:</p>
+	<p>
+		<img src="./img/guide/plugin_markers.png" class="img-responsive"></img>
+	</p>
+	<p>
+		To see all the markers and navigate easily up and down the stack trace
+		lines, go to
+		<code>Window</code>
+		,
+		<code>Show View</code>
+		,
+		<code>Other...</code>
+	</p>
+	<p>
+		<img src="./img/guide/plugin_show_view.png" class="img-responsive"></img>
+	</p>
+	<p>
+		Select the
+		<code>Markers</code>
+		view from the list and click
+		<code>OK</code>
+		. The BugQuery markers appear under
+		<code>Trace Marker</code>
+		in this window.
+	</p>
+	<p>
+		<img src="./img/guide/plugin_markers_trace.png" class="img-responsive"></img>
+	</p>
+	<h2>
+		<a id="user-content-website" class="anchor" href="#website"
+			aria-hidden="true"></a>Website
+	</h2>
 	<p>
 		<img src="./img/guide/bugquery_website.png" class="img-responsive"></img>
 	</p>
 	<p>
-		Available at <a href="http://ssdlbugquery.cs.technion.ac.il">http://ssdlbugquery.cs.technion.ac.il</a>,
+		Available at <a href="http://ssdlbugquery.cs.technion.ac.il/">ssdlbugquery.cs.technion.ac.il</a>,
 		the website lets you interact with BugQuery online. Most notably, you
-		can query the database with traces in our <a href="/submit">Submit</a>
-		page.
+		can query the database with traces in our <a
+			href="/submit">Submit</a> page.
+	</p>
+	<p>
+		<img src="./img/guide/bugquery_website_submit.png"
+			class="img-responsive"></img>
+	</p>
+	<p>
+		Additionally, you can find <a
+			href="/examples">search
+			results for common trace types</a> in the website, and a list of <a
+			href="/alltraces">all the
+			trace types in BugQuery</a>.
 	</p>
 </div>
