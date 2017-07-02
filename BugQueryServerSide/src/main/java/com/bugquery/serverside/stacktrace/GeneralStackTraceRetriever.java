@@ -55,6 +55,8 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 			int postsLimit) {
 		if (allPosts == null || d == null || postsLimit <= 0 || t == null) // lazy
 			throw new IllegalArgumentException();
+		if(allPosts.size() <= 1) 
+			throw new IllegalArgumentException("Not Results");
 		
 		int numOfPosts = Math.min(postsLimit, allPosts.size());
 
