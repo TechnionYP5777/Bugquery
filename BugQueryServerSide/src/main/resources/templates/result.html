@@ -34,7 +34,7 @@
 </head>
 <body>
 	<div th:replace="fragments/header"></div>
-	<div th:if="${#lists.size(results) > 0}" class="container" role="main">
+	<div th:if="${results.size() > 0}" class="container" role="main">
 		<h3
 			th:text="'BugQuery has found ' + ${#lists.size(results)} + ' results:'"></h3>
 		<pre style="margin-bottom:20px;"><code th:utext="${trace}"></code></pre>
@@ -81,8 +81,8 @@
 			</div>
 		</div>
 	</div>
-	<div th:unless="${#lists.size(results) > 0}" class="container" role="main">
-		<h3>Bugquery has not found any results matching this stacktrace</h3>
+	<div th:unless="${results.size() > 0}" class="container" role="main">
+		<h3>Bugquery has not found any results matching this input</h3>
 		<pre style="margin-bottom:20px;"><code th:utext="${trace}"></code></pre>
 
 	</div>
