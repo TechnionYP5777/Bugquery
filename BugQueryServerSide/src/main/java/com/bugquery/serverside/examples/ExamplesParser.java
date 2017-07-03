@@ -92,7 +92,8 @@ public class ExamplesParser {
 				StackTrace s = new StackTrace(e.getAttribute("stacktrace"));
 				Post p = new Post(s);
 				p.setQuestion(e.getAttribute("question"));
-				p.setAnswer(e.getAttribute("answer"));
+				String answer = "".equals(e.getAttribute("answer")) ? null : e.getAttribute("answer");
+				p.setAnswer(answer);
 				posts.add(p);
 			}
 		return posts;

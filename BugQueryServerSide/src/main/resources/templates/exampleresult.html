@@ -60,16 +60,19 @@
 						<div class="panel-body" th:utext="${result.question}">Panel
 							Body</div>
 					</div>
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse"
-								th:href="'#answer-' + ${iterStat.count}">Best Answer</a>
-						</h4>
-					</div>
-					<div th:id="'answer-' + ${iterStat.count}"
-						class="panel-collapse collapse">
-						<div class="panel-body" th:utext="${result.getAnswerId()} == '' ? 'No matching answer in our db' : ${result.getAnswerId()}">Panel
-							Body</div>
+					<div th:if="${result.getAnswerId()}" class="panel panel-success">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse"
+									th:attr="data-parent='#accordion-' + ${iterStat.count}"
+									th:href="'#answer-' + ${iterStat.count}">Accepted Answer</a>
+							</h4>
+						</div>
+						<div th:id="'answer-' + ${iterStat.count}"
+							class="panel-collapse collapse">
+							<div class="panel-body" th:utext="${result.getAnswerId()}">Panel
+								Body</div>
+						</div>
 					</div>
 				</div>
 			</div>
