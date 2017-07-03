@@ -55,8 +55,9 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 			int postsLimit) {
 		if (allPosts == null || d == null || postsLimit <= 0 || t == null) // lazy
 			throw new IllegalArgumentException();
-		if(allPosts.size() <= 1) 
-			throw new IllegalArgumentException("Not Results");
+		List<Post> $ = new ArrayList<>();
+		if(allPosts.isEmpty()) 
+			return $;
 		
 		int numOfPosts = Math.min(postsLimit, allPosts.size());
 
@@ -72,7 +73,6 @@ public class GeneralStackTraceRetriever implements StackTraceRetriever {
 		
 		PriorityQueue<Post> pq = new PriorityQueue<>(allPosts.size(), comparator);
 		pq.addAll(allPosts); // build PQ with the same init size
-		List<Post> $ = new ArrayList<>();
 		for (int ¢ = 0; ¢ < numOfPosts; ++¢)
 			$.add(pq.poll());
 		return $;
